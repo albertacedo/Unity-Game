@@ -1,0 +1,46 @@
+site_name: Unity Game — Dev Log
+site_description: Diari de sessions i documentació del prototip de roguelike de cartes
+docs_dir: docs
+site_dir: site
+
+theme:
+  name: material
+  language: ca
+  palette:
+    - scheme: slate
+      primary: deep purple
+      accent: amber
+      toggle:
+        icon: material/weather-sunny
+        name: Canvia a clar
+    - scheme: default
+      primary: deep purple
+      accent: amber
+      toggle:
+        icon: material/weather-night
+        name: Canvia a fosc
+  features:
+    - navigation.sections
+    - navigation.top
+    - navigation.tracking
+    - content.code.copy
+
+markdown_extensions:
+  - tables
+  - admonition
+  - toc:
+      permalink: true
+
+exclude_docs: |
+  sessions/_plantilla.md
+
+nav:
+  - Inici: index.md
+  - Arquitectura: arquitectura.md
+  - Roadmap: roadmap.md
+  - Sessions:
+      - Índex de sessions: sessions/index.md
+      - 2026-10-21 · Vertical slice: sessions/2026-10-21-vertical-slice.md
+      - 2026-10-21 · GitHub i roadmap: sessions/2026-10-21-github-i-roadmap.md
+      - 2026-10-22 · Tanda 1: sessions/2026-10-22-tanda-1.md
+      - 2026-10-22 · Docs i flux de treball: sessions/2026-10-22-docs-i-flux.md

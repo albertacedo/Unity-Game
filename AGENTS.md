@@ -22,6 +22,37 @@ This file tells AI agents how to work in this repository. Read it before making 
 7. **Placeholder art is fine.** Use Unity primitives / solid-color sprites for the prototype; do not block on assets.
 8. **Commit small and often** once the Editor compiles cleanly.
 
+## Session workflow (agreed with the user)
+
+The user works in live-coding sessions. Follow this every time, without being asked.
+
+### First message of a session
+
+1. Run `git pull --ff-only`. If incoming changes touch `Assets/Scenes`, `Assets/Prefabs`
+   or other serialized assets, ask the user to close Unity first.
+2. Read the newest file in `docs/sessions/` (plus `docs/index.md` on a fresh clone).
+3. Reply with 3-5 lines on where the project stands and propose 2-3 concrete next steps
+   from `docs/roadmap.md`. Ask which one to take if it is not obvious.
+
+### When the user says the session is over
+
+Words like *"ja estic per avui"*, *"tanquem"*, *"fi de sessió"* mean: wrap up.
+
+1. Make sure the project compiles with zero errors (Unity console via MCP, or Unity's
+   `Editor.log`).
+2. Write `docs/sessions/AAAA-MM-DD-<slug>.md` from `docs/sessions/_plantilla.md`:
+   objective, what was done, files added / modified / deleted, verification, decisions,
+   pending items.
+3. Add the page to `nav` in `mkdocs.yml`, to the table in `docs/index.md` and to
+   `docs/sessions/index.md`.
+4. Run `python -m mkdocs build` and fix any broken link.
+5. Commit code and docs together and push to `origin/main`.
+
+### Documentation language
+
+The docs site (`docs/`) is written in **Catalan**, like the conversation. Code,
+comments and commit messages stay in **English**.
+
 ## Folder layout
 
 ```
