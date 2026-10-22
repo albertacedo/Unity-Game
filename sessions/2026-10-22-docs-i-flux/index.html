@@ -802,8 +802,12 @@ acaba</strong> una sessió, perquè no s'hagi de repetir a mà cada dia.</p>
 <li><strong>en començar</strong>: <code>git pull</code>, llegir l'última fitxa de sessió i proposar els
     següents passos</li>
 <li><strong>en acabar</strong>: crear la fitxa, afegir-la a la navegació, compilar el lloc,
-    comitejar i pujar</li>
+    publicar-lo, comitejar i pujar</li>
 <li><code>.gitignore</code>: exclosos <code>site/</code> (sortida del lloc) i <code>.cache/</code>.</li>
+<li><strong>Publicat a GitHub Pages</strong>: el repo era privat i Pages gratuït exigeix repo públic,
+  així que s'ha fet públic. El lloc viu a
+  <a href="https://albertacedo.github.io/Unity-Game/">https://albertacedo.github.io/Unity-Game/</a> i es desplega amb
+  <code>python -m mkdocs gh-deploy --force</code> (branca <code>gh-pages</code>).</li>
 </ul>
 <h2 id="fitxers">Fitxers<a class="headerlink" href="#fitxers" title="Permanent link">&para;</a></h2>
 <h3 id="afegits">Afegits<a class="headerlink" href="#afegits" title="Permanent link">&para;</a></h3>
@@ -821,23 +825,30 @@ acaba</strong> una sessió, perquè no s'hagi de repetir a mà cada dia.</p>
 </ul>
 <h3 id="modificats">Modificats<a class="headerlink" href="#modificats" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>AGENTS.md</code> — secció <em>Session workflow</em></li>
+<li><code>AGENTS.md</code> — secció <em>Session workflow</em>, inclòs el pas de publicació</li>
 <li><code>.gitignore</code> — <code>site/</code> i <code>.cache/</code></li>
 </ul>
 <h2 id="verificacio">Verificació<a class="headerlink" href="#verificacio" title="Permanent link">&para;</a></h2>
-<p><code>python -m mkdocs build</code> genera el lloc sense errors i <code>mkdocs serve</code> el mostra a
-<code>http://127.0.0.1:8000</code>.</p>
+<ul>
+<li><code>python -m mkdocs build</code> genera 8 pàgines sense avisos.</li>
+<li><code>mkdocs gh-deploy --force</code> publica la branca <code>gh-pages</code>.</li>
+<li><code>https://albertacedo.github.io/Unity-Game/</code> respon <strong>200</strong> al cap de ~50 s amb el
+  títol <em>Unity Game - Dev Log</em>.</li>
+</ul>
 <h2 id="decisions">Decisions<a class="headerlink" href="#decisions" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Material</strong> com a tema: navegació lateral, buscador i mode fosc sense feina extra.</li>
 <li>Les fitxes viuen a <code>docs/sessions/</code> i s'afegeixen a mà a la <code>nav</code> de <code>mkdocs.yml</code>
   (són poques i així l'ordre és explícit).</li>
 <li>La plantilla porta guió baix al davant i queda <strong>exclosa</strong> del lloc web.</li>
+<li><strong>Repo públic + branca <code>gh-pages</code></strong>: és la via gratuïta de Pages i no cal cap servei
+  extern. Alternativa descartada: repo de documentació separat, més manteniment.</li>
 </ul>
 <h2 id="pendents">Pendents<a class="headerlink" href="#pendents" title="Permanent link">&para;</a></h2>
 <ul>
-<li>[ ] <code>mkdocs gh-deploy</code> si es vol publicar el lloc a GitHub Pages</li>
 <li>[ ] Fer portable <code>opencode.json</code> (arrossegat de la sessió anterior)</li>
+<li>[ ] Playtest de la Tanda 1 (panell F1, vista del mas, feedback de combat)</li>
+<li>[ ] Tanda 2: multi-enemic amb selecció d'objectiu</li>
 </ul>
 
 
