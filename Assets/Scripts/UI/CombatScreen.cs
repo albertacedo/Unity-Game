@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Prototype.Combat;
 using Prototype.Data;
 using TMPro;
@@ -24,6 +25,10 @@ namespace Prototype.UI
         RectTransform hpFill;
         RectTransform enemyHpFill;
         RectTransform handRoot;
+        RectTransform playerPanel;
+        RectTransform enemyPanel;
+        Image playerFlash;
+        Image enemyFlash;
         Button endTurnButton;
 
         bool resultShown;
@@ -37,12 +42,17 @@ namespace Prototype.UI
             onFinished = finished;
             Build();
             session.Changed += Refresh;
+            session.DamageDealt += OnDamageDealt;
             Refresh();
         }
 
         void OnDestroy()
         {
-            if (session != null) session.Changed -= Refresh;
+            if (session != null)
+            {
+                session.Changed -= Refresh;
+                session.DamageDealt -= OnDamageDealt;
+            }
         }
 
         void Build()
@@ -50,7 +60,7 @@ namespace Prototype.UI
             var background = UIFactory.MakePanel(transform, "Background", UIFactory.Background);
 
             // --- Player panel -------------------------------------------------
-            var playerPanel = UIFactory.MakePanel(background, "PlayerPanel", UIFactory.PanelColor);
+            playerPanel = UIFactory.MakePanel(background, "PlayerPanel", UIFactory.PanelColor);
             UIFactory.Place(playerPanel, new Vector2(0f, 1f), new Vector2(0f, 1f),
                 new Vector2(28f, -24f), new Vector2(460f, 126f));
 
@@ -78,8 +88,10 @@ namespace Prototype.UI
             UIFactory.Place(energyLabel.rectTransform, new Vector2(1f, 1f), new Vector2(1f, 1f),
                 new Vector2(-16f, -44f), new Vector2(200f, 28f));
 
+            playerFlash = MakeFlash(playerPanel, "Flash");
+
             // --- Enemy panel --------------------------------------------------
-            var enemyPanel = UIFactory.MakePanel(background, "EnemyPanel", UIFactory.PanelColor);
+            enemyPanel = UIFactory.MakePanel(background, "EnemyPanel", UIFactory.PanelColor);
             UIFactory.Place(enemyPanel, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f),
                 new Vector2(0f, -150f), new Vector2(580f, 236f));
 
@@ -98,6 +110,8 @@ namespace Prototype.UI
             intentLabel = UIFactory.MakeLabel(enemyPanel, "Intent", "", 24f, UIFactory.Danger);
             UIFactory.Place(intentLabel.rectTransform, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f),
                 new Vector2(0f, 18f), new Vector2(520f, 40f));
+
+            enemyFlash = MakeFlash(enemyPanel, "Flash");
 
             // --- Log and piles ------------------------------------------------
             logLabel = UIFactory.MakeLabel(background, "Log", "", 22f, UIFactory.Muted);
@@ -127,11 +141,92 @@ namespace Prototype.UI
             UIFactory.Place((RectTransform)endTurnButton.transform, new Vector2(1f, 0f),
                 new Vector2(1f, 0f), new Vector2(-40f, 150f), new Vector2(220f, 72f));
             endTurnButton.onClick.AddListener(OnEndTurn);
+
+            var deckButton = UIFactory.MakeButton(background, "Deck", "VIEW DECK",
+                new Color(0.20f, 0.19f, 0.24f), 19f);
+            UIFactory.Place((RectTransform)deckButton.transform, new Vector2(1f, 0f),
+                new Vector2(1f, 0f), new Vector2(-40f, 240f), new Vector2(220f, 52f));
+            deckButton.onClick.AddListener(() =>
+            {
+                if (GameManager.Instance != null) GameManager.Instance.ShowDeck();
+            });
         }
 
         void OnEndTurn()
         {
             session.EndTurn();
+        }
+
+        static Image MakeFlash(RectTransform parent, string name)
+        {
+            var rt = UIFactory.MakePanel(parent, name, new Color(1f, 1f, 1f, 0f));
+            var image = rt.GetComponent<Image>();
+            image.raycastTarget = false;
+            return image;
+        }
+
+        void OnDamageDealt(int amount, bool hitPlayer)
+        {
+            if (hitPlayer)
+            {
+                if (amount > 0) SpawnPopup(playerPanel, "-" + amount, UIFactory.Danger);
+                if (playerFlash != null) StartCoroutine(FadeFlash(playerFlash, new Color(0.85f, 0.15f, 0.15f, 0.45f)));
+            }
+            else
+            {
+                if (amount > 0) SpawnPopup(enemyPanel, "-" + amount, UIFactory.Gold);
+                if (enemyFlash != null) StartCoroutine(FadeFlash(enemyFlash, new Color(1f, 1f, 1f, 0.30f)));
+            }
+        }
+
+        void SpawnPopup(RectTransform parent, string text, Color color)
+        {
+            if (parent == null) return;
+
+            var label = UIFactory.MakeLabel(parent, "Popup", text, 40f, color);
+            label.fontStyle = FontStyles.Bold;
+            UIFactory.Place(label.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
+                new Vector2(UnityEngine.Random.Range(-40f, 40f), 30f), new Vector2(240f, 64f));
+            StartCoroutine(AnimatePopup(label));
+        }
+
+        IEnumerator AnimatePopup(TextMeshProUGUI label)
+        {
+            const float duration = 0.9f;
+            float t = 0f;
+            Vector2 start = label.rectTransform.anchoredPosition;
+            Color color = label.color;
+
+            while (t < duration)
+            {
+                t += Time.deltaTime;
+                float k = Mathf.Clamp01(t / duration);
+                label.rectTransform.anchoredPosition = start + new Vector2(0f, k * 90f);
+                color.a = 1f - k;
+                label.color = color;
+                yield return null;
+            }
+
+            Destroy(label.gameObject);
+        }
+
+        IEnumerator FadeFlash(Image image, Color color)
+        {
+            const float duration = 0.35f;
+            float t = 0f;
+
+            while (t < duration)
+            {
+                t += Time.deltaTime;
+                Color current = color;
+                current.a = color.a * (1f - Mathf.Clamp01(t / duration));
+                image.color = current;
+                yield return null;
+            }
+
+            Color clear = color;
+            clear.a = 0f;
+            image.color = clear;
         }
 
         void Refresh()

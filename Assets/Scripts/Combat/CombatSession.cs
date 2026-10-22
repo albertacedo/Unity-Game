@@ -39,6 +39,12 @@ namespace Prototype.Combat
 
         public event Action Changed;
 
+        /// <summary>
+        /// Raised every time damage is resolved, even if it is fully blocked.
+        /// The flag is true when the player received the hit.
+        /// </summary>
+        public event Action<int, bool> DamageDealt;
+
         readonly System.Random rng;
 
         public CombatSession(RunState run, EnemyData enemy)
@@ -109,6 +115,31 @@ namespace Prototype.Combat
             if (EnemyVulnerable > 0) EnemyVulnerable--;
 
             StartPlayerTurn();
+        }
+
+        /// <summary>Forces the view to rebuild, e.g. after a debug action changed state.</summary>
+        public void NotifyChanged()
+        {
+            Changed?.Invoke();
+        }
+
+        /// <summary>Debug helper: grants energy without playing a card.</summary>
+        public void AddEnergy(int amount)
+        {
+            if (amount == 0 || IsOver) return;
+            Energy = Mathf.Max(0, Energy + amount);
+            NotifyChanged();
+        }
+
+        /// <summary>Debug helper: ends the fight as a victory without resolving damage.</summary>
+        public void ForceVictory()
+        {
+            if (IsOver) return;
+            EnemyHp = 0;
+            IsOver = true;
+            PlayerWon = true;
+            LastEvent = Enemy.Title + " is destroyed.";
+            NotifyChanged();
         }
 
         void StartPlayerTurn()
@@ -182,6 +213,7 @@ namespace Prototype.Combat
             int dealt = damage - blocked;
             EnemyHp = Mathf.Max(0, EnemyHp - dealt);
             LastEvent = "You deal " + dealt + " damage.";
+            DamageDealt?.Invoke(dealt, false);
         }
 
         void EnemyTurn()
@@ -208,6 +240,7 @@ namespace Prototype.Combat
             int dealt = damage - blocked;
             Run.Hp = Mathf.Max(0, Run.Hp - dealt);
             LastEvent = Enemy.Title + " hits you for " + dealt + ".";
+            DamageDealt?.Invoke(dealt, true);
         }
 
         void Shuffle(List<CardData> pile)

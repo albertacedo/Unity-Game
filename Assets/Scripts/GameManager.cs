@@ -21,6 +21,21 @@ namespace Prototype
         RunState run;
         CombatSession combat;
         System.Random rng;
+        DeckScreen deckScreen;
+        MapNode pendingNode;
+        ScreenKind screen;
+
+        /// <summary>Which screen currently owns the root, so debug actions know what to rebuild.</summary>
+        enum ScreenKind { Map, Combat, Reward, Rest, Placeholder, End }
+
+        /// <summary>Current run. Never null once StartNewRun has run.</summary>
+        public RunState Run { get { return run; } }
+
+        /// <summary>Active fight, or null when the run is between rooms.</summary>
+        public CombatSession Combat { get { return combat; } }
+
+        /// <summary>True while a fight is still being played (not once it has ended).</summary>
+        public bool InCombat { get { return combat != null && !combat.IsOver; } }
 
         void Awake()
         {
@@ -33,6 +48,10 @@ namespace Prototype
             Canvas canvas = UIFactory.MakeCanvas();
             root = UIFactory.MakeRect(canvas.transform, "Screens");
             UIFactory.Stretch(root);
+
+            var dev = UIFactory.MakeRect(canvas.transform, "DevPanel");
+            UIFactory.Stretch(dev);
+            dev.gameObject.AddComponent<DevPanel>();
 
             StartNewRun(System.Environment.TickCount);
         }
@@ -66,11 +85,13 @@ namespace Prototype
             run.Hp = run.MaxHp;
             rng = new System.Random(seed + 7919);
             combat = null;
+            pendingNode = null;
             ShowMap();
         }
 
         void Clear()
         {
+            deckScreen = null;
             for (int i = root.childCount - 1; i >= 0; i--)
                 Destroy(root.GetChild(i).gameObject);
         }
@@ -78,9 +99,21 @@ namespace Prototype
         void ShowMap()
         {
             Clear();
-            var screen = UIFactory.MakeRect(root, "MapScreen");
-            UIFactory.Stretch(screen);
-            screen.gameObject.AddComponent<MapScreen>().Init(run, OnNodeSelected);
+            screen = ScreenKind.Map;
+            var screenRoot = UIFactory.MakeRect(root, "MapScreen");
+            UIFactory.Stretch(screenRoot);
+            screenRoot.gameObject.AddComponent<MapScreen>().Init(run, OnNodeSelected);
+        }
+
+        /// <summary>Opens the deck overlay on top of whatever screen is showing.</summary>
+        public void ShowDeck()
+        {
+            if (deckScreen != null || run == null) return;
+
+            var overlay = UIFactory.MakeRect(root, "DeckScreen");
+            UIFactory.Stretch(overlay);
+            deckScreen = overlay.gameObject.AddComponent<DeckScreen>();
+            deckScreen.Init(run, () => deckScreen = null);
         }
 
         void OnNodeSelected(MapNode node)
@@ -110,9 +143,10 @@ namespace Prototype
             combat = new CombatSession(run, enemy);
 
             Clear();
-            var screen = UIFactory.MakeRect(root, "CombatScreen");
-            UIFactory.Stretch(screen);
-            screen.gameObject.AddComponent<CombatScreen>().Init(combat, () => OnCombatFinished(node));
+            screen = ScreenKind.Combat;
+            var screenRoot = UIFactory.MakeRect(root, "CombatScreen");
+            UIFactory.Stretch(screenRoot);
+            screenRoot.gameObject.AddComponent<CombatScreen>().Init(combat, () => OnCombatFinished(node));
         }
 
         void OnCombatFinished(MapNode node)
@@ -143,9 +177,11 @@ namespace Prototype
             }
 
             Clear();
-            var screen = UIFactory.MakeRect(root, "RewardScreen");
-            UIFactory.Stretch(screen);
-            screen.gameObject.AddComponent<RewardScreen>().Init(
+            screen = ScreenKind.Reward;
+            pendingNode = node;
+            var screenRoot = UIFactory.MakeRect(root, "RewardScreen");
+            UIFactory.Stretch(screenRoot);
+            screenRoot.gameObject.AddComponent<RewardScreen>().Init(
                 choices,
                 card =>
                 {
@@ -158,6 +194,8 @@ namespace Prototype
         void ShowRest(MapNode node)
         {
             Clear();
+            screen = ScreenKind.Rest;
+            pendingNode = node;
             SimpleScreens.Rest(root, run,
                 () =>
                 {
@@ -171,12 +209,16 @@ namespace Prototype
         void ShowPlaceholder(MapNode node)
         {
             Clear();
+            screen = ScreenKind.Placeholder;
+            pendingNode = node;
             SimpleScreens.Placeholder(root, node.Type, () => Advance(node));
         }
 
         void ShowEnd(bool victory)
         {
             Clear();
+            screen = ScreenKind.End;
+            pendingNode = null;
             SimpleScreens.End(root, victory, () => StartNewRun(rng.Next()));
         }
 
@@ -185,7 +227,68 @@ namespace Prototype
             run.Current = node;
             node.Visited = true;
             combat = null;
+            pendingNode = null;
             ShowMap();
+        }
+
+        // --- Playtest helpers (used by DevPanel, safe to call at any time) ----
+
+        public void DebugHeal()
+        {
+            if (run == null) return;
+            run.Hp = run.MaxHp;
+
+            if (screen == ScreenKind.Combat && combat != null) combat.NotifyChanged();
+            else if (screen == ScreenKind.Map) ShowMap();
+        }
+
+        public void DebugAddCard()
+        {
+            if (run == null) return;
+
+            var pool = CardLibrary.RewardPool();
+            run.Deck.Add(pool[rng.Next(pool.Count)]);
+
+            if (screen == ScreenKind.Map) ShowMap();
+        }
+
+        public void DebugWinCombat()
+        {
+            if (combat != null && !combat.IsOver) combat.ForceVictory();
+        }
+
+        public void DebugAddEnergy()
+        {
+            if (combat != null && !combat.IsOver) combat.AddEnergy(1);
+        }
+
+        public void DebugSkipRoom()
+        {
+            if (screen == ScreenKind.Combat)
+            {
+                if (combat != null && !combat.IsOver) combat.ForceVictory();
+                return;
+            }
+
+            if (screen == ScreenKind.Reward || screen == ScreenKind.Rest || screen == ScreenKind.Placeholder)
+            {
+                if (pendingNode != null) Advance(pendingNode);
+                return;
+            }
+
+            if (screen != ScreenKind.Map) return;
+
+            var options = new List<MapNode>();
+            if (run.Current == null) options.AddRange(run.Map.Floors[0]);
+            else options.AddRange(run.Current.Next);
+            if (options.Count == 0) return;
+
+            OnNodeSelected(options[rng.Next(options.Count)]);
+        }
+
+        public void DebugRestart(int seed)
+        {
+            StartNewRun(seed);
         }
     }
 }

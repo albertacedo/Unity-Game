@@ -40,6 +40,15 @@ namespace Prototype.UI
             UIFactory.Place(hint.rectTransform, new Vector2(1f, 1f), new Vector2(1f, 1f),
                 new Vector2(-38f, -28f), new Vector2(620f, 60f));
 
+            var deck = UIFactory.MakeButton(background, "Deck",
+                "VIEW DECK  " + run.Deck.Count, new Color(0.30f, 0.26f, 0.38f), 20f);
+            UIFactory.Place((RectTransform)deck.transform, new Vector2(1f, 0f), new Vector2(1f, 0f),
+                new Vector2(-38f, 30f), new Vector2(240f, 54f));
+            deck.onClick.AddListener(() =>
+            {
+                if (GameManager.Instance != null) GameManager.Instance.ShowDeck();
+            });
+
             var area = UIFactory.MakeRect(background, "MapArea");
             UIFactory.Place(area, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
                 new Vector2(0f, -26f), new Vector2(1400f, 730f));
