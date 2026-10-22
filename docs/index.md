@@ -5,6 +5,10 @@ Prototip de roguelike de cartes en 2D, estil *Slay the Spire*, fet a Unity 6.3 (
 Aquest lloc és el **diari de treball**: una pàgina per cada sessió de *live coding*, amb què
 s'ha fet, què s'ha après i quins fitxers han canviat.
 
+!!! tip "Lloc publicat"
+    El diari és en línia a **<https://albertacedo.github.io/Unity-Game/>** i s'actualitza
+    amb `python -m mkdocs gh-deploy` al final de cada sessió.
+
 ## Estat actual
 
 | Cosa | Estat |

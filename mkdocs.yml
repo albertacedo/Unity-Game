@@ -1,5 +1,6 @@
 site_name: Unity Game — Dev Log
 site_description: Diari de sessions i documentació del prototip de roguelike de cartes
+site_url: https://albertacedo.github.io/Unity-Game/
 docs_dir: docs
 site_dir: site
 

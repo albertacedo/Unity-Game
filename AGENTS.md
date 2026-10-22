@@ -47,6 +47,8 @@ Words like *"ja estic per avui"*, *"tanquem"*, *"fi de sessió"* mean: wrap up.
    `docs/sessions/index.md`.
 4. Run `python -m mkdocs build` and fix any broken link.
 5. Commit code and docs together and push to `origin/main`.
+6. Publish the site with `python -m mkdocs gh-deploy --force`
+   (live at <https://albertacedo.github.io/Unity-Game/>).
 
 ### Documentation language
 

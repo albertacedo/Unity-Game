@@ -17,8 +17,12 @@ acaba** una sessió, perquè no s'hagi de repetir a mà cada dia.
   - **en començar**: `git pull`, llegir l'última fitxa de sessió i proposar els
     següents passos
   - **en acabar**: crear la fitxa, afegir-la a la navegació, compilar el lloc,
-    comitejar i pujar
+    publicar-lo, comitejar i pujar
 - `.gitignore`: exclosos `site/` (sortida del lloc) i `.cache/`.
+- **Publicat a GitHub Pages**: el repo era privat i Pages gratuït exigeix repo públic,
+  així que s'ha fet públic. El lloc viu a
+  <https://albertacedo.github.io/Unity-Game/> i es desplega amb
+  `python -m mkdocs gh-deploy --force` (branca `gh-pages`).
 
 ## Fitxers
 
@@ -37,13 +41,15 @@ acaba** una sessió, perquè no s'hagi de repetir a mà cada dia.
 
 ### Modificats
 
-- `AGENTS.md` — secció *Session workflow*
+- `AGENTS.md` — secció *Session workflow*, inclòs el pas de publicació
 - `.gitignore` — `site/` i `.cache/`
 
 ## Verificació
 
-`python -m mkdocs build` genera el lloc sense errors i `mkdocs serve` el mostra a
-`http://127.0.0.1:8000`.
+- `python -m mkdocs build` genera 8 pàgines sense avisos.
+- `mkdocs gh-deploy --force` publica la branca `gh-pages`.
+- `https://albertacedo.github.io/Unity-Game/` respon **200** al cap de ~50 s amb el
+  títol *Unity Game - Dev Log*.
 
 ## Decisions
 
@@ -51,8 +57,11 @@ acaba** una sessió, perquè no s'hagi de repetir a mà cada dia.
 - Les fitxes viuen a `docs/sessions/` i s'afegeixen a mà a la `nav` de `mkdocs.yml`
   (són poques i així l'ordre és explícit).
 - La plantilla porta guió baix al davant i queda **exclosa** del lloc web.
+- **Repo públic + branca `gh-pages`**: és la via gratuïta de Pages i no cal cap servei
+  extern. Alternativa descartada: repo de documentació separat, més manteniment.
 
 ## Pendents
 
-- [ ] `mkdocs gh-deploy` si es vol publicar el lloc a GitHub Pages
 - [ ] Fer portable `opencode.json` (arrossegat de la sessió anterior)
+- [ ] Playtest de la Tanda 1 (panell F1, vista del mas, feedback de combat)
+- [ ] Tanda 2: multi-enemic amb selecció d'objectiu
