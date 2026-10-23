@@ -7,7 +7,8 @@ namespace Prototype.Combat
 {
     /// <summary>
     /// Turn based card combat: 3 energy, draw 5, block resets every turn,
-    /// Vulnerable multiplies incoming damage by 1.5.
+    /// Vulnerable multiplies incoming damage by 1.5. A fight can hold several
+    /// enemies; cards hit the selected target unless they say "all enemies".
     /// </summary>
     public class CombatSession
     {
@@ -16,18 +17,14 @@ namespace Prototype.Combat
         public const int MaxHandSize = 10;
 
         public readonly RunState Run;
-        public readonly EnemyData Enemy;
+        public readonly List<EnemyInstance> Enemies = new List<EnemyInstance>();
 
-        public int EnemyMaxHp;
-        public int EnemyHp;
-        public int EnemyBlock;
-        public int EnemyVulnerable;
+        /// <summary>Enemy that single target cards hit. Null once every enemy is dead.</summary>
+        public EnemyInstance Target { get; private set; }
 
         public int Energy;
         public int PlayerBlock;
         public int PlayerVulnerable;
-
-        public int IntentIndex;
 
         public readonly List<CardData> DrawPile = new List<CardData>();
         public readonly List<CardData> Hand = new List<CardData>();
@@ -41,34 +38,46 @@ namespace Prototype.Combat
 
         /// <summary>
         /// Raised every time damage is resolved, even if it is fully blocked.
-        /// The flag is true when the player received the hit.
+        /// The enemy is null when the player received the hit.
         /// </summary>
-        public event Action<int, bool> DamageDealt;
+        public event Action<int, EnemyInstance> DamageDealt;
 
         readonly System.Random rng;
 
-        public CombatSession(RunState run, EnemyData enemy)
+        public CombatSession(RunState run, IList<EnemyData> enemies)
         {
             Run = run;
-            Enemy = enemy;
-            EnemyMaxHp = enemy.MaxHp;
-            EnemyHp = enemy.MaxHp;
             rng = new System.Random(run.Seed * 397 + run.Hp);
 
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                EnemyData data = enemies[i];
+                Enemies.Add(new EnemyInstance(data, data.MaxHp, UniqueTitle(enemies, i)));
+            }
+
+            Target = FirstAlive();
             DrawPile.AddRange(run.Deck);
             Shuffle(DrawPile);
             PlayerBlock = 0;
             StartPlayerTurn();
         }
 
-        public EnemyIntent CurrentIntent
+        /// <summary>Changes the card target. Dead enemies and no-ops are ignored.</summary>
+        public void SelectTarget(EnemyInstance enemy)
         {
-            get
-            {
-                if (Enemy.Intents == null || Enemy.Intents.Length == 0) return null;
-                return Enemy.Intents[IntentIndex % Enemy.Intents.Length];
-            }
+            if (enemy == null || !enemy.IsAlive || enemy == Target) return;
+            Target = enemy;
+            NotifyChanged();
         }
+
+        public EnemyInstance FirstAlive()
+        {
+            foreach (EnemyInstance enemy in Enemies)
+                if (enemy.IsAlive) return enemy;
+            return null;
+        }
+
+        public bool AllEnemiesDead { get { return FirstAlive() == null; } }
 
         public bool CanPlay(CardData card)
         {
@@ -79,18 +88,16 @@ namespace Prototype.Combat
         {
             if (!CanPlay(card)) return;
 
+            if (card.Kind == CardKind.Attack && (Target == null || !Target.IsAlive))
+                Target = FirstAlive();
+
             Energy -= card.Cost;
             Hand.Remove(card);
             DiscardPile.Add(card);
 
+            LastEvent = "";
             ApplyEffects(card);
-
-            if (EnemyHp <= 0)
-            {
-                EnemyHp = 0;
-                IsOver = true;
-                PlayerWon = true;
-            }
+            CheckCombatEnd();
 
             Changed?.Invoke();
         }
@@ -99,6 +106,7 @@ namespace Prototype.Combat
         {
             if (IsOver) return;
 
+            LastEvent = "";
             EnemyTurn();
 
             if (Run.Hp <= 0)
@@ -110,9 +118,12 @@ namespace Prototype.Combat
                 return;
             }
 
-            if (Enemy.Intents != null && Enemy.Intents.Length > 0)
-                IntentIndex = (IntentIndex + 1) % Enemy.Intents.Length;
-            if (EnemyVulnerable > 0) EnemyVulnerable--;
+            foreach (EnemyInstance enemy in Enemies)
+            {
+                if (!enemy.IsAlive) continue;
+                enemy.AdvanceIntent();
+                if (enemy.Vulnerable > 0) enemy.Vulnerable--;
+            }
 
             StartPlayerTurn();
         }
@@ -135,10 +146,34 @@ namespace Prototype.Combat
         public void ForceVictory()
         {
             if (IsOver) return;
-            EnemyHp = 0;
+
+            foreach (EnemyInstance enemy in Enemies)
+            {
+                enemy.Hp = 0;
+                enemy.Block = 0;
+            }
+
+            Target = null;
             IsOver = true;
             PlayerWon = true;
-            LastEvent = Enemy.Title + " is destroyed.";
+            LastEvent = "Victory (debug).";
+            NotifyChanged();
+        }
+
+        /// <summary>Debug helper: destroys the selected enemy so the next one can be tested.</summary>
+        public void DebugKillTarget()
+        {
+            if (IsOver || Target == null) return;
+
+            EnemyInstance victim = Target;
+            victim.Hp = 0;
+            victim.Block = 0;
+            victim.Vulnerable = 0;
+            Log(victim.Title + " is destroyed (debug).");
+
+            DamageDealt?.Invoke(0, victim);
+            Target = FirstAlive();
+            CheckCombatEnd();
             NotifyChanged();
         }
 
@@ -187,7 +222,11 @@ namespace Prototype.Combat
                 switch (effect.Kind)
                 {
                     case EffectKind.Damage:
-                        DealDamageToEnemy(effect.Value);
+                        DealDamageToEnemy(Target, effect.Value);
+                        break;
+                    case EffectKind.DamageAll:
+                        foreach (EnemyInstance enemy in Enemies)
+                            DealDamageToEnemy(enemy, effect.Value);
                         break;
                     case EffectKind.Block:
                         PlayerBlock += effect.Value;
@@ -199,48 +238,89 @@ namespace Prototype.Combat
                         Energy += effect.Value;
                         break;
                     case EffectKind.Vulnerable:
-                        EnemyVulnerable += effect.Value;
+                        if (Target != null) Target.Vulnerable += effect.Value;
                         break;
                 }
             }
         }
 
-        void DealDamageToEnemy(int amount)
+        void DealDamageToEnemy(EnemyInstance enemy, int amount)
         {
-            int damage = EnemyVulnerable > 0 ? amount * 3 / 2 : amount;
-            int blocked = Mathf.Min(EnemyBlock, damage);
-            EnemyBlock -= blocked;
+            if (enemy == null || !enemy.IsAlive) return;
+
+            int damage = enemy.Vulnerable > 0 ? amount * 3 / 2 : amount;
+            int blocked = Mathf.Min(enemy.Block, damage);
+            enemy.Block -= blocked;
             int dealt = damage - blocked;
-            EnemyHp = Mathf.Max(0, EnemyHp - dealt);
-            LastEvent = "You deal " + dealt + " damage.";
-            DamageDealt?.Invoke(dealt, false);
+            enemy.Hp = Mathf.Max(0, enemy.Hp - dealt);
+
+            Log("You hit " + enemy.Title + " for " + dealt + ".");
+            if (!enemy.IsAlive) Log(enemy.Title + " falls.");
+
+            DamageDealt?.Invoke(dealt, enemy);
+
+            if (!enemy.IsAlive && Target == enemy) Target = FirstAlive();
         }
 
         void EnemyTurn()
         {
-            EnemyBlock = 0;
-
-            EnemyIntent intent = CurrentIntent;
-            if (intent == null)
+            foreach (EnemyInstance enemy in Enemies)
             {
-                LastEvent = Enemy.Title + " hesitates.";
+                if (!enemy.IsAlive) continue;
+
+                enemy.Block = 0;
+
+                EnemyIntent intent = enemy.Intent;
+                if (intent == null)
+                {
+                    Log(enemy.Title + " hesitates.");
+                    continue;
+                }
+
+                if (intent.Kind == IntentKind.Block)
+                {
+                    enemy.Block += intent.Value;
+                    Log(enemy.Title + " gains " + intent.Value + " block.");
+                    continue;
+                }
+
+                int damage = PlayerVulnerable > 0 ? intent.Value * 3 / 2 : intent.Value;
+                int blocked = Mathf.Min(PlayerBlock, damage);
+                PlayerBlock -= blocked;
+                int dealt = damage - blocked;
+
+                Run.Hp = Mathf.Max(0, Run.Hp - dealt);
+                Log(enemy.Title + " hits you for " + dealt + ".");
+                DamageDealt?.Invoke(dealt, null);
+
+                if (Run.Hp <= 0) return;
+            }
+        }
+
+        void CheckCombatEnd()
+        {
+            if (IsOver) return;
+
+            if (AllEnemiesDead)
+            {
+                Target = null;
+                IsOver = true;
+                PlayerWon = true;
+                Log("Victory.");
                 return;
             }
 
-            if (intent.Kind == IntentKind.Block)
+            if (Run.Hp <= 0)
             {
-                EnemyBlock += intent.Value;
-                LastEvent = Enemy.Title + " gains " + intent.Value + " block.";
-                return;
+                Run.Hp = 0;
+                IsOver = true;
+                PlayerWon = false;
             }
+        }
 
-            int damage = PlayerVulnerable > 0 ? intent.Value * 3 / 2 : intent.Value;
-            int blocked = Mathf.Min(PlayerBlock, damage);
-            PlayerBlock -= blocked;
-            int dealt = damage - blocked;
-            Run.Hp = Mathf.Max(0, Run.Hp - dealt);
-            LastEvent = Enemy.Title + " hits you for " + dealt + ".";
-            DamageDealt?.Invoke(dealt, true);
+        void Log(string line)
+        {
+            LastEvent = string.IsNullOrEmpty(LastEvent) ? line : LastEvent + "\n" + line;
         }
 
         void Shuffle(List<CardData> pile)
@@ -252,6 +332,23 @@ namespace Prototype.Combat
                 pile[i] = pile[j];
                 pile[j] = tmp;
             }
+        }
+
+        /// <summary>Adds "A"/"B" suffixes when the same enemy appears twice in one fight.</summary>
+        static string UniqueTitle(IList<EnemyData> enemies, int index)
+        {
+            EnemyData data = enemies[index];
+            int count = 0;
+            int rank = 0;
+
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                if (enemies[i].Title != data.Title) continue;
+                if (i < index) rank++;
+                count++;
+            }
+
+            return count > 1 ? data.Title + " " + (char)('A' + rank) : data.Title;
         }
     }
 }

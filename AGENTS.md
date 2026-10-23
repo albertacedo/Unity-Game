@@ -31,7 +31,9 @@ The user works in live-coding sessions. Follow this every time, without being as
 1. Run `git pull --ff-only`. If incoming changes touch `Assets/Scenes`, `Assets/Prefabs`
    or other serialized assets, ask the user to close Unity first.
 2. Read the newest file in `docs/sessions/` (plus `docs/index.md` on a fresh clone).
-3. Reply with 3-5 lines on where the project stands and propose 2-3 concrete next steps
+3. Check `.opencode/skills/` and load the skills relevant to today's work with the
+   `skill` tool before planning (see *Skills* below).
+4. Reply with 3-5 lines on where the project stands and propose 2-3 concrete next steps
    from `docs/roadmap.md`. Ask which one to take if it is not obvious.
 
 ### When the user says the session is over
@@ -49,6 +51,33 @@ Words like *"ja estic per avui"*, *"tanquem"*, *"fi de sessió"* mean: wrap up.
 5. Commit code and docs together and push to `origin/main`.
 6. Publish the site with `python -m mkdocs gh-deploy --force`
    (live at <https://albertacedo.github.io/Unity-Game/>).
+7. **Prepare the skills for the next session** (see below) and list them in the
+   session note under *Skills per a la propera sessió*.
+
+### Skills (`.opencode/skills/`)
+
+A skill is a directory with a `SKILL.md` (id = directory name) that the agent loads
+on demand with the `skill` tool. They hold the knowledge that is expensive to
+re-derive every session: engine quirks, balance numbers, verification recipes.
+
+| Skill | Use it when |
+|---|---|
+| `unity-ugui-code` | building or debugging UI that is built from C# |
+| `deckbuilder-balance` | designing cards, enemies, encounters, rewards |
+| `unity-verify` | proving a change compiles and works (compile check, MCP play mode) |
+| `gameplay-architecture` | adding a subsystem or a new screen |
+
+Rules:
+
+- **At the end of every session**, look at the next 1-2 roadmap items and decide
+  what the next session will need. Create a skill if that knowledge does not exist,
+  or update an existing one if the session changed how things work (new helpers,
+  new pitfalls, balance shifts). Keep them short and concrete: stale advice is worse
+  than none.
+- `description` decides when the model finds the skill, so write it as *when to use
+  this*, not what it is.
+- Skills are written in English, like code. The session note mentions them in Catalan.
+- Do not duplicate `AGENTS.md`; point at the files the skill documents.
 
 ### Documentation language
 

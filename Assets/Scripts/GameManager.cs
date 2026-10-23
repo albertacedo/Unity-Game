@@ -136,11 +136,11 @@ namespace Prototype
 
         void StartCombat(MapNode node)
         {
-            EnemyData enemy = node.Type == NodeType.Boss
-                ? EnemyLibrary.Boss()
+            List<EnemyData> enemies = node.Type == NodeType.Boss
+                ? new List<EnemyData> { EnemyLibrary.Boss() }
                 : EnemyLibrary.RandomEncounter(rng);
 
-            combat = new CombatSession(run, enemy);
+            combat = new CombatSession(run, enemies);
 
             Clear();
             screen = ScreenKind.Combat;
@@ -260,6 +260,11 @@ namespace Prototype
         public void DebugAddEnergy()
         {
             if (combat != null && !combat.IsOver) combat.AddEnergy(1);
+        }
+
+        public void DebugKillTarget()
+        {
+            if (combat != null && !combat.IsOver) combat.DebugKillTarget();
         }
 
         public void DebugSkipRoom()

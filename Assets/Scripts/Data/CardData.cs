@@ -5,7 +5,7 @@ namespace Prototype.Data
 {
     public enum CardKind { Attack, Skill, Power }
 
-    public enum EffectKind { Damage, Block, Draw, GainEnergy, Vulnerable }
+    public enum EffectKind { Damage, Block, Draw, GainEnergy, Vulnerable, DamageAll }
 
     [Serializable]
     public class CardEffect

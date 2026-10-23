@@ -3,8 +3,10 @@
 ## Els buits actuals
 
 1. **L'or no serveix per a res** — es mostra i no es pot gastar (botiga pendent).
-2. **Només hi ha 1 enemic per combat** i no es pot triar objectiu.
-3. **El combat és "números que canvien"** sense feedback (resolt a la Tanda 1).
+2. **Només hi ha un efecte** (Vulnerable) i 10 cartes: el combat encara no té prou
+   decisions per carta.
+3. **El multi-enemic s'ha de jugar amb mans humanes** — hi és des de la Tanda 2, però
+   falta el playtest que digui si els packs estan ben ajustats.
 
 ## Prioritats
 
@@ -15,7 +17,7 @@ Ordenades per relació valor / esforç:
 | 1 | Panell de desenvolupament (F1) | Fa que tota la resta sigui testeable en segons | Baix ✅ |
 | 2 | Vista del mas + detall de carta | Sense això no es poden avaluar les decisions | Baix ✅ |
 | 3 | Feedback de combat | Números flotants i flaixos: canvia la sensació | Baix-mig ✅ |
-| 4 | Multi-enemic + selecció d'objectiu | El salt de profunditat més gran | Mig-alt |
+| 4 | Multi-enemic + selecció d'objectiu | El salt de profunditat més gran | Mig-alt ✅ |
 | 5 | 8 efectes nous + 15-20 cartes | Debilitat, Força, Destresa, multi-cop, àrea… | Mig |
 | 6 | Botiga | Dona utilitat a l'or | Mig |
 | 7 | Relíquies | Identitat de cada run | Mig |
@@ -33,7 +35,7 @@ veure i provar el que ja hi ha.
 
 ### Tanda 2 — fer el combat interessant
 
-Multi-enemic amb selecció d'objectiu + el paquet d'efectes nous + 15 cartes.
+Multi-enemic amb selecció d'objectiu ✅ + el paquet d'efectes nous + 15 cartes.
 Aquí el joc comença a tenir decisions de veritat.
 
 ### Tanda 3 — fer la run interessant

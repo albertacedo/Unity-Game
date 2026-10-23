@@ -18,6 +18,7 @@ namespace Prototype
         RectTransform panel;
         TextMeshProUGUI status;
         Button winButton;
+        Button killButton;
         Button energyButton;
         Button skipButton;
         float nextY;
@@ -45,7 +46,7 @@ namespace Prototype
         {
             panel = UIFactory.MakePanel(transform, "Panel", new Color(0.09f, 0.08f, 0.11f, 0.97f));
             UIFactory.Place(panel, new Vector2(0f, 0f), new Vector2(0f, 0f),
-                new Vector2(24f, 24f), new Vector2(PanelWidth, 452f));
+                new Vector2(24f, 24f), new Vector2(PanelWidth, 476f));
 
             var title = UIFactory.MakeLabel(panel, "Title", "DEV PANEL  ·  F1", 19f, UIFactory.Gold,
                 TextAlignmentOptions.Left);
@@ -56,6 +57,7 @@ namespace Prototype
             Add("HEAL TO FULL", new Color(0.24f, 0.42f, 0.30f), () => GameManager.Instance.DebugHeal());
             Add("ADD RANDOM CARD", new Color(0.30f, 0.26f, 0.38f), () => GameManager.Instance.DebugAddCard());
             winButton = Add("WIN COMBAT", new Color(0.46f, 0.24f, 0.24f), () => GameManager.Instance.DebugWinCombat());
+            killButton = Add("KILL TARGET", new Color(0.42f, 0.22f, 0.30f), () => GameManager.Instance.DebugKillTarget());
             energyButton = Add("+1 ENERGY", new Color(0.36f, 0.32f, 0.18f), () => GameManager.Instance.DebugAddEnergy());
             skipButton = Add("SKIP ROOM", new Color(0.24f, 0.32f, 0.46f), () => GameManager.Instance.DebugSkipRoom());
             Add("RESTART (SAME SEED)", new Color(0.20f, 0.19f, 0.24f),
@@ -97,12 +99,17 @@ namespace Prototype
             bool inCombat = game.InCombat;
 
             winButton.interactable = inCombat;
+            killButton.interactable = inCombat;
             energyButton.interactable = inCombat;
             skipButton.interactable = true;
 
             string line = "Seed " + run.Seed + "   ·   HP " + run.Hp + " / " + run.MaxHp;
             string extra = "\nDeck " + run.Deck.Count + "   ·   Gold " + run.Gold;
-            if (inCombat) extra += "   ·   Energy " + game.Combat.Energy;
+            if (inCombat)
+            {
+                extra += "   ·   Energy " + game.Combat.Energy;
+                if (game.Combat.Target != null) extra += "\nTarget " + game.Combat.Target.Title;
+            }
 
             status.text = line + extra;
         }

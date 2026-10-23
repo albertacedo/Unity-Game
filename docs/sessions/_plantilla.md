@@ -37,3 +37,9 @@ Com s'ha comprovat que funciona (Play mode, consola, compilació…).
 ## Pendents
 
 - [ ] Cosa que queda per fer
+
+## Skills per a la propera sessió
+
+| Skill | Per què |
+|---|---|
+| `nom-del-skill` | Què de la propera sessió necessita aquest coneixement |

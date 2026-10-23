@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Prototype.Combat;
 using Prototype.Data;
 using TMPro;
@@ -16,20 +17,17 @@ namespace Prototype.UI
         TextMeshProUGUI hpLabel;
         TextMeshProUGUI blockLabel;
         TextMeshProUGUI energyLabel;
-        TextMeshProUGUI enemyNameLabel;
-        TextMeshProUGUI enemyHpLabel;
-        TextMeshProUGUI intentLabel;
         TextMeshProUGUI pilesLabel;
         TextMeshProUGUI logLabel;
+        TextMeshProUGUI targetLabel;
 
         RectTransform hpFill;
-        RectTransform enemyHpFill;
         RectTransform handRoot;
         RectTransform playerPanel;
-        RectTransform enemyPanel;
         Image playerFlash;
-        Image enemyFlash;
         Button endTurnButton;
+
+        readonly List<EnemyWidget> enemyWidgets = new List<EnemyWidget>();
 
         bool resultShown;
 
@@ -90,33 +88,36 @@ namespace Prototype.UI
 
             playerFlash = MakeFlash(playerPanel, "Flash");
 
-            // --- Enemy panel --------------------------------------------------
-            enemyPanel = UIFactory.MakePanel(background, "EnemyPanel", UIFactory.PanelColor);
-            UIFactory.Place(enemyPanel, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f),
-                new Vector2(0f, -150f), new Vector2(580f, 236f));
+            // --- Enemies ------------------------------------------------------
+            RectTransform enemyRow = UIFactory.MakeRect(background, "Enemies");
+            UIFactory.Place(enemyRow, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f),
+                new Vector2(0f, -158f), new Vector2(1160f, 214f));
 
-            enemyNameLabel = UIFactory.MakeLabel(enemyPanel, "Name", "", 32f, UIFactory.Gold);
-            UIFactory.Place(enemyNameLabel.rectTransform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f),
-                new Vector2(0f, -14f), new Vector2(520f, 44f));
+            var layout = enemyRow.gameObject.AddComponent<HorizontalLayoutGroup>();
+            layout.spacing = 28f;
+            layout.childAlignment = TextAnchor.MiddleCenter;
+            layout.childControlWidth = false;
+            layout.childControlHeight = false;
+            layout.childForceExpandWidth = false;
+            layout.childForceExpandHeight = false;
 
-            enemyHpLabel = UIFactory.MakeLabel(enemyPanel, "Hp", "", 20f, UIFactory.Ink);
-            UIFactory.Place(enemyHpLabel.rectTransform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f),
-                new Vector2(0f, -60f), new Vector2(520f, 28f));
+            float width = session.Enemies.Count <= 1 ? 380f
+                : session.Enemies.Count == 2 ? 330f
+                : 260f;
 
-            RectTransform enemyBar = UIFactory.MakeBar(enemyPanel, "HpBar", UIFactory.Danger, out enemyHpFill);
-            UIFactory.Place(enemyBar, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f),
-                new Vector2(0f, -96f), new Vector2(500f, 20f));
+            foreach (EnemyInstance enemy in session.Enemies)
+            {
+                enemyWidgets.Add(new EnemyWidget(enemyRow, enemy, width, session.SelectTarget));
+            }
 
-            intentLabel = UIFactory.MakeLabel(enemyPanel, "Intent", "", 24f, UIFactory.Danger);
-            UIFactory.Place(intentLabel.rectTransform, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f),
-                new Vector2(0f, 18f), new Vector2(520f, 40f));
-
-            enemyFlash = MakeFlash(enemyPanel, "Flash");
+            targetLabel = UIFactory.MakeLabel(background, "TargetHint", "", 18f, UIFactory.Gold);
+            UIFactory.Place(targetLabel.rectTransform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f),
+                new Vector2(0f, -396f), new Vector2(1100f, 26f));
 
             // --- Log and piles ------------------------------------------------
-            logLabel = UIFactory.MakeLabel(background, "Log", "", 22f, UIFactory.Muted);
+            logLabel = UIFactory.MakeLabel(background, "Log", "", 21f, UIFactory.Muted);
             UIFactory.Place(logLabel.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
-                new Vector2(0f, -30f), new Vector2(1000f, 40f));
+                new Vector2(0f, -40f), new Vector2(1000f, 104f));
 
             pilesLabel = UIFactory.MakeLabel(background, "Piles", "", 19f, UIFactory.Muted,
                 TextAlignmentOptions.Left);
@@ -128,13 +129,13 @@ namespace Prototype.UI
             UIFactory.Place(handRoot, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f),
                 new Vector2(0f, 104f), new Vector2(1300f, 220f));
 
-            var layout = handRoot.gameObject.AddComponent<HorizontalLayoutGroup>();
-            layout.spacing = 14f;
-            layout.childAlignment = TextAnchor.MiddleCenter;
-            layout.childControlWidth = false;
-            layout.childControlHeight = false;
-            layout.childForceExpandWidth = false;
-            layout.childForceExpandHeight = false;
+            var handLayout = handRoot.gameObject.AddComponent<HorizontalLayoutGroup>();
+            handLayout.spacing = 14f;
+            handLayout.childAlignment = TextAnchor.MiddleCenter;
+            handLayout.childControlWidth = false;
+            handLayout.childControlHeight = false;
+            handLayout.childForceExpandWidth = false;
+            handLayout.childForceExpandHeight = false;
 
             endTurnButton = UIFactory.MakeButton(background, "EndTurn", "END TURN",
                 new Color(0.30f, 0.26f, 0.38f), 24f);
@@ -165,18 +166,27 @@ namespace Prototype.UI
             return image;
         }
 
-        void OnDamageDealt(int amount, bool hitPlayer)
+        void OnDamageDealt(int amount, EnemyInstance enemy)
         {
-            if (hitPlayer)
+            if (enemy == null)
             {
                 if (amount > 0) SpawnPopup(playerPanel, "-" + amount, UIFactory.Danger);
                 if (playerFlash != null) StartCoroutine(FadeFlash(playerFlash, new Color(0.85f, 0.15f, 0.15f, 0.45f)));
+                return;
             }
-            else
-            {
-                if (amount > 0) SpawnPopup(enemyPanel, "-" + amount, UIFactory.Gold);
-                if (enemyFlash != null) StartCoroutine(FadeFlash(enemyFlash, new Color(1f, 1f, 1f, 0.30f)));
-            }
+
+            EnemyWidget widget = FindWidget(enemy);
+            if (widget == null) return;
+
+            if (amount > 0) SpawnPopup(widget.Panel, "-" + amount, UIFactory.Gold);
+            if (widget.Flash != null) StartCoroutine(FadeFlash(widget.Flash, new Color(1f, 1f, 1f, 0.30f)));
+        }
+
+        EnemyWidget FindWidget(EnemyInstance enemy)
+        {
+            foreach (EnemyWidget widget in enemyWidgets)
+                if (widget.Enemy == enemy) return widget;
+            return null;
         }
 
         void SpawnPopup(RectTransform parent, string text, Color color)
@@ -237,16 +247,12 @@ namespace Prototype.UI
             blockLabel.text = session.PlayerBlock > 0 ? "Block " + session.PlayerBlock : "";
             energyLabel.text = "Energy  " + session.Energy + " / " + CombatSession.EnergyPerTurn;
 
-            enemyNameLabel.text = session.Enemy.Title;
-            enemyHpLabel.text = session.EnemyHp + " / " + session.EnemyMaxHp +
-                                (session.EnemyBlock > 0 ? "    (Block " + session.EnemyBlock + ")" : "");
-            UIFactory.SetBarValue(enemyHpFill,
-                session.EnemyMaxHp == 0 ? 0f : session.EnemyHp / (float)session.EnemyMaxHp);
+            foreach (EnemyWidget widget in enemyWidgets)
+                widget.Refresh(session.Target);
 
-            EnemyIntent intent = session.CurrentIntent;
-            intentLabel.text = intent == null
+            targetLabel.text = session.Target == null
                 ? ""
-                : (intent.Kind == IntentKind.Attack ? "ATTACK  " + intent.Value : "DEFEND  " + intent.Value);
+                : "Click an enemy to target it   ·   Target: " + session.Target.Title;
 
             pilesLabel.text = "Draw " + session.DrawPile.Count + "   ·   Discard " + session.DiscardPile.Count;
             logLabel.text = session.LastEvent;
@@ -288,7 +294,11 @@ namespace Prototype.UI
                 new Vector2(0f, 90f), new Vector2(900f, 90f));
 
             var subtitle = UIFactory.MakeLabel(overlay, "Subtitle",
-                session.PlayerWon ? "The enemy falls. The path continues." : "You have fallen.",
+                session.PlayerWon
+                    ? (session.Enemies.Count > 1
+                        ? "The enemies fall. The path continues."
+                        : "The enemy falls. The path continues.")
+                    : "You have fallen.",
                 24f, UIFactory.Ink);
             UIFactory.Place(subtitle.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
                 new Vector2(0f, 20f), new Vector2(900f, 50f));
@@ -301,6 +311,98 @@ namespace Prototype.UI
             {
                 if (onFinished != null) onFinished();
             });
+        }
+
+        /// <summary>One clickable enemy card in the fight. Clicking it makes it the target.</summary>
+        sealed class EnemyWidget
+        {
+            public readonly EnemyInstance Enemy;
+            public readonly RectTransform Panel;
+            public readonly Image Flash;
+
+            readonly Image background;
+            readonly Outline outline;
+            readonly CanvasGroup group;
+            readonly Button button;
+            readonly TextMeshProUGUI nameLabel;
+            readonly TextMeshProUGUI hpLabel;
+            readonly TextMeshProUGUI intentLabel;
+            readonly RectTransform hpFill;
+
+            readonly Color idleColor = UIFactory.PanelColor;
+            readonly Color selectedColor = new Color(0.21f, 0.18f, 0.26f);
+
+            public EnemyWidget(RectTransform parent, EnemyInstance enemy, float width,
+                Action<EnemyInstance> onClick)
+            {
+                Enemy = enemy;
+
+                Panel = UIFactory.MakeRect(parent, "Enemy_" + enemy.Title);
+                Panel.sizeDelta = new Vector2(width, 210f);
+
+                background = Panel.gameObject.AddComponent<Image>();
+                background.color = idleColor;
+
+                button = Panel.gameObject.AddComponent<Button>();
+                button.targetGraphic = background;
+                button.onClick.AddListener(() => onClick(Enemy));
+
+                outline = Panel.gameObject.AddComponent<Outline>();
+                outline.effectColor = UIFactory.Gold;
+                outline.effectDistance = new Vector2(3f, 3f);
+                outline.useGraphicAlpha = false;
+                outline.enabled = false;
+
+                nameLabel = UIFactory.MakeLabel(Panel, "Name", enemy.Title, 24f, UIFactory.Gold);
+                UIFactory.Place(nameLabel.rectTransform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f),
+                    new Vector2(0f, -10f), new Vector2(width - 24f, 34f));
+
+                hpLabel = UIFactory.MakeLabel(Panel, "Hp", "", 18f, UIFactory.Ink);
+                UIFactory.Place(hpLabel.rectTransform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f),
+                    new Vector2(0f, -46f), new Vector2(width - 24f, 26f));
+
+                RectTransform bar = UIFactory.MakeBar(Panel, "HpBar", UIFactory.Danger, out hpFill);
+                UIFactory.Place(bar, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f),
+                    new Vector2(0f, -76f), new Vector2(width - 36f, 18f));
+
+                intentLabel = UIFactory.MakeLabel(Panel, "Intent", "", 22f, UIFactory.Danger);
+                UIFactory.Place(intentLabel.rectTransform, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f),
+                    new Vector2(0f, 16f), new Vector2(width - 24f, 36f));
+
+                group = Panel.gameObject.AddComponent<CanvasGroup>();
+
+                Flash = MakeFlash(Panel, "Flash");
+            }
+
+            public void Refresh(EnemyInstance target)
+            {
+                bool alive = Enemy.IsAlive;
+                bool selected = alive && Enemy == target;
+
+                background.color = selected ? selectedColor : idleColor;
+                outline.enabled = selected;
+                group.alpha = alive ? 1f : 0.45f;
+                button.interactable = alive;
+
+                nameLabel.text = Enemy.Title;
+                nameLabel.color = alive ? UIFactory.Gold : UIFactory.Muted;
+
+                hpLabel.text = alive
+                    ? Enemy.Hp + " / " + Enemy.MaxHp +
+                      (Enemy.Block > 0 ? "   ·   Block " + Enemy.Block : "")
+                    : "DEFEATED";
+                UIFactory.SetBarValue(hpFill, Enemy.MaxHp == 0 ? 0f : Enemy.Hp / (float)Enemy.MaxHp);
+
+                EnemyIntent intent = Enemy.Intent;
+                intentLabel.text = !alive || intent == null
+                    ? ""
+                    : intent.Kind == IntentKind.Attack
+                        ? "ATTACK  " + intent.Value
+                        : "DEFEND  " + intent.Value;
+                intentLabel.color = intent == null || intent.Kind == IntentKind.Attack
+                    ? UIFactory.Danger
+                    : new Color(0.55f, 0.70f, 0.90f);
+            }
         }
     }
 }

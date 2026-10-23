@@ -64,8 +64,8 @@ namespace Prototype.Content
 
         static CardData Cleave()
         {
-            return Make("cleave", "Cleave", "Deal 8 damage.", 1, CardKind.Attack,
-                new CardEffect(EffectKind.Damage, 8));
+            return Make("cleave", "Cleave", "Deal 8 damage to ALL enemies.", 1, CardKind.Attack,
+                new CardEffect(EffectKind.DamageAll, 8));
         }
 
         static CardData PommelStrike()
@@ -122,14 +122,36 @@ namespace Prototype.Content
             return enemy;
         }
 
-        public static EnemyData RandomEncounter(System.Random rng)
+        /// <summary>
+        /// Normal fight: roughly half the time a single regular enemy, otherwise a pack of
+        /// two weaker ones. Pack members are separate definitions so their damage stays fair.
+        /// </summary>
+        public static List<EnemyData> RandomEncounter(System.Random rng)
         {
-            var pool = new List<EnemyData>
+            if (rng.Next(100) < 55)
             {
-                JawWorm(),
-                Cultist()
-            };
-            return pool[rng.Next(pool.Count)];
+                return new List<EnemyData> { rng.Next(2) == 0 ? JawWorm() : Cultist() };
+            }
+
+            var pack = new List<EnemyData>();
+            int composition = rng.Next(3);
+            if (composition == 0)
+            {
+                pack.Add(JawWormPack());
+                pack.Add(JawWormPack());
+            }
+            else if (composition == 1)
+            {
+                pack.Add(CultistPack());
+                pack.Add(CultistPack());
+            }
+            else
+            {
+                pack.Add(JawWormPack());
+                pack.Add(CultistPack());
+            }
+
+            return pack;
         }
 
         public static EnemyData Boss()
@@ -153,6 +175,21 @@ namespace Prototype.Content
             return Make("cultist", "Cultist", 50,
                 new EnemyIntent(IntentKind.Attack, 6),
                 new EnemyIntent(IntentKind.Attack, 9));
+        }
+
+        static EnemyData JawWormPack()
+        {
+            return Make("jaw_worm_pack", "Jaw Worm", 22,
+                new EnemyIntent(IntentKind.Attack, 4),
+                new EnemyIntent(IntentKind.Block, 4),
+                new EnemyIntent(IntentKind.Attack, 5));
+        }
+
+        static EnemyData CultistPack()
+        {
+            return Make("cultist_pack", "Cultist", 24,
+                new EnemyIntent(IntentKind.Attack, 3),
+                new EnemyIntent(IntentKind.Attack, 6));
         }
     }
 }

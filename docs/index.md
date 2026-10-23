@@ -14,9 +14,9 @@ s'ha fet, què s'ha après i quins fitxers han canviat.
 | Cosa | Estat |
 |---|---|
 | Bucle jugable | ✅ mapa → combat → recompensa → mapa |
-| Combat | ✅ torns, energia, bloqueig, Vulnerable |
-| Contingut | 10 cartes · 3 enemics (1 cap) |
-| Eines de test | ✅ panell F1, vista del mas, feedback de combat |
+| Combat | ✅ torns, energia, bloqueig, Vulnerable, multi-enemic amb objectiu |
+| Contingut | 10 cartes · 3 enemics (1 cap) + packs de 2 |
+| Eines de test | ✅ panell F1, vista del mas, feedback de combat, `tools/compile-check.ps1` |
 | Or | ⚠️ es mostra però no es pot gastar (botiga pendent) |
 | Àudio / art | ❌ placeholder |
 
@@ -44,3 +44,4 @@ Consulta l'[índex de sessions](sessions/index.md) o el [roadmap](roadmap.md).
 | 2026-10-21 | [GitHub i roadmap](sessions/2026-10-21-github-i-roadmap.md) | Repo remot, build scene i pla de 3 tandes |
 | 2026-10-22 | [Tanda 1](sessions/2026-10-22-tanda-1.md) | Panell F1, vista del mas, feedback de combat |
 | 2026-10-22 | [Docs i flux de treball](sessions/2026-10-22-docs-i-flux.md) | Aquest lloc i la rutina d'inici/final de sessió |
+| 2026-10-23 | [Tanda 2: multi-enemic](sessions/2026-10-23-tanda-2-multi-enemic.md) | Diversos enemics, selecció d'objectiu i skills |

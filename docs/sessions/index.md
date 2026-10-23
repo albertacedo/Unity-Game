@@ -9,6 +9,7 @@ canviat i què queda pendent.
 | 2026-10-21 | [GitHub i roadmap](2026-10-21-github-i-roadmap.md) | `98bd00a` | Repo remot, escena de build i pla de 3 tandes |
 | 2026-10-22 | [Tanda 1](2026-10-22-tanda-1.md) | `4a352c0` | Panell F1, vista del mas, feedback de combat |
 | 2026-10-22 | [Docs i flux de treball](2026-10-22-docs-i-flux.md) | — | Aquest lloc i la rutina d'inici/final de sessió |
+| 2026-10-23 | [Tanda 2: multi-enemic](2026-10-23-tanda-2-multi-enemic.md) | aquest commit | Enemics múltiples, selecció d'objectiu, eina de compilació i skills |
 
 ## Convenció de noms
 
