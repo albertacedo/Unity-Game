@@ -367,6 +367,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#eines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Eines
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#convencions" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -604,6 +615,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sessions/2026-10-23-tanda-2-multi-enemic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-10-23 · Tanda 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -682,6 +721,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#eines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Eines
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#convencions" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -748,7 +798,11 @@ següent. Les capes que han de sobreviure (el <code>DevPanel</code>) pengen del 
 </tr>
 <tr>
 <td><code>Scripts/Combat/CombatSession.cs</code></td>
-<td>Regles del combat (torns, energia, dany, bloqueig)</td>
+<td>Regles del combat (torns, energia, dany, bloqueig, objectiu)</td>
+</tr>
+<tr>
+<td><code>Scripts/Combat/EnemyInstance.cs</code></td>
+<td>Estat d'un enemic dins d'un combat (HP, bloqueig, Vulnerable, intent)</td>
 </tr>
 <tr>
 <td><code>Scripts/Content/CardLibrary.cs</code></td>
@@ -796,7 +850,12 @@ següent. Les capes que han de sobreviure (el <code>DevPanel</code>) pengen del 
 <ul>
 <li><strong>Mapa</strong>: 6 pisos (5 + cap), 7 columnes, 4 camins, arestes que no es creuen.</li>
 <li><strong>Combat</strong>: 3 energia per torn, robes 5, el bloqueig es reinicia cada torn.</li>
-<li><strong>Vulnerable</strong>: multiplica el dany d'entrada per 1,5.</li>
+<li><strong>Multi-enemic</strong>: 1 enemic normal o un pack de 2 variants febles. Cada enemic té
+  la seva HP, bloqueig, Vulnerable i cua d'intents; el combat acaba quan cauen tots.</li>
+<li><strong>Objectiu</strong>: les cartes d'atac van a <code>Target</code>; en morir passa al següent viu.
+  <code>DamageAll</code> (Cleave) colpeja tots els enemics vius.</li>
+<li><strong>Vulnerable</strong>: multiplica el dany d'entrada per 1,5, un contador per enemic
+  (i un per al jugador) que baixa 1 al final de la ronda.</li>
 <li><strong>Run</strong>: 72 HP, 99 d'or (encara sense ús).</li>
 </ul>
 <h2 id="punts-dextensio">Punts d'extensió<a class="headerlink" href="#punts-dextensio" title="Permanent link">&para;</a></h2>
@@ -818,7 +877,7 @@ següent. Les capes que han de sobreviure (el <code>DevPanel</code>) pengen del 
 </tr>
 <tr>
 <td>Afegir un efecte</td>
-<td><code>EffectKind</code> (a <code>CardData</code>) + el <code>switch</code> de <code>CombatSession.ApplyEffects</code></td>
+<td><code>EffectKind</code> (a <code>CardData</code>) + el <code>switch</code> de <code>CombatSession.ApplyEffects</code> + un camp a <code>EnemyInstance</code> si és un estat</td>
 </tr>
 <tr>
 <td>Afegir una pantalla</td>
@@ -830,6 +889,14 @@ següent. Les capes que han de sobreviure (el <code>DevPanel</code>) pengen del 
 </tr>
 </tbody>
 </table>
+<h2 id="eines">Eines<a class="headerlink" href="#eines" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>tools/compile-check.ps1</code> compila <code>Assets/Scripts</code> contra les DLLs de <code>Library/</code>
+  amb el SDK de .NET, sense obrir Unity. És el primer esglaó de verificació;
+  després cal comprovar la consola i provar en Play mode.</li>
+<li><code>.opencode/skills/</code> guarda les instruccions reutilitzables de l'agent (UI des de
+  codi, balanceig, verificació, efectes). Es preparen al final de cada sessió.</li>
+</ul>
 <h2 id="convencions">Convencions<a class="headerlink" href="#convencions" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Namespace <code>Prototype</code>, subnamespaces per subsistema (<code>Prototype.UI</code>, <code>Prototype.Combat</code>…).</li>
