@@ -45,6 +45,9 @@ següent. Les capes que han de sobreviure (el `DevPanel`) pengen del Canvas, no 
 
 - **Mapa**: radial i determinista per seed. Un node `Start` al centre, 7 anells
   (5 de sales + 1 de caps) i 4-7 caps a l'anell exterior.
+- **Tipus de sala**: l'anell 1 és sempre de combat; als anells 2-5 es tira 50% combat,
+  15% descans, 10% botiga i 25% esdeveniment. Els caps són sempre caps, i `Elite` encara
+  no es genera.
 - **Connexions**: entre dos anells veïns, cada sala enllaça amb la sala (o cap) més
   propera en angle. El mapa queda partit en falques centrades en l'anell petit, així
   que dues carreteres de falques diferents no es creuen mai. Les sales del mateix

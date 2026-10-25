@@ -108,48 +108,48 @@
 <text x='926.4' y='440.4' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
 <rect x='971.2' y='504.1' width='70' height='30' rx='4' fill='#993f3d'/>
 <text x='1006.2' y='519.1' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
-<rect x='938.7' y='631.9' width='70' height='30' rx='4' fill='#993f3d'/>
-<text x='973.7' y='646.9' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='938.7' y='631.9' width='70' height='30' rx='4' fill='#3d8557'/>
+<text x='973.7' y='646.9' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Rest</text>
 <rect x='750.8' y='692.7' width='70' height='30' rx='4' fill='#993f3d'/>
 <text x='785.8' y='707.7' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
-<rect x='599.5' y='639.2' width='70' height='30' rx='4' fill='#a88a38'/>
-<text x='634.5' y='654.2' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Shop</text>
-<rect x='559.6' y='502.1' width='70' height='30' rx='4' fill='#993f3d'/>
-<text x='594.6' y='517.1' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='599.5' y='639.2' width='70' height='30' rx='4' fill='#3d6ba8'/>
+<text x='634.5' y='654.2' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Event</text>
+<rect x='559.6' y='502.1' width='70' height='30' rx='4' fill='#3d8557'/>
+<text x='594.6' y='517.1' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Rest</text>
 <rect x='656.2' y='417.4' width='70' height='30' rx='4' fill='#993f3d'/>
 <text x='691.2' y='432.4' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
-<rect x='861.4' y='347.9' width='70' height='30' rx='4' fill='#993f3d'/>
-<text x='896.4' y='362.9' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='861.4' y='347.9' width='70' height='30' rx='4' fill='#3d8557'/>
+<text x='896.4' y='362.9' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Rest</text>
 <rect x='984.1' y='402.1' width='70' height='30' rx='4' fill='#993f3d'/>
 <text x='1019.1' y='417.1' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
 <rect x='1063' y='577.2' width='70' height='30' rx='4' fill='#993f3d'/>
 <text x='1098' y='592.2' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
 <rect x='954.3' y='706.9' width='70' height='30' rx='4' fill='#993f3d'/>
 <text x='989.3' y='721.9' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
-<rect x='788.2' y='752.4' width='70' height='30' rx='4' fill='#993f3d'/>
-<text x='823.2' y='767.4' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
-<rect x='634.3' y='732.5' width='70' height='30' rx='4' fill='#a88a38'/>
-<text x='669.3' y='747.5' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Shop</text>
+<rect x='788.2' y='752.4' width='70' height='30' rx='4' fill='#3d8557'/>
+<text x='823.2' y='767.4' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Rest</text>
+<rect x='634.3' y='732.5' width='70' height='30' rx='4' fill='#3d6ba8'/>
+<text x='669.3' y='747.5' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Event</text>
 <rect x='468.9' y='584.6' width='70' height='30' rx='4' fill='#993f3d'/>
 <text x='503.9' y='599.6' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
-<rect x='477.7' y='481.6' width='70' height='30' rx='4' fill='#993f3d'/>
-<text x='512.7' y='496.6' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
-<rect x='676.4' y='346.2' width='70' height='30' rx='4' fill='#a88a38'/>
-<text x='711.4' y='361.2' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Shop</text>
+<rect x='477.7' y='481.6' width='70' height='30' rx='4' fill='#3d8557'/>
+<text x='512.7' y='496.6' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Rest</text>
+<rect x='676.4' y='346.2' width='70' height='30' rx='4' fill='#3d6ba8'/>
+<text x='711.4' y='361.2' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Event</text>
 <rect x='876.1' y='288.2' width='70' height='30' rx='4' fill='#993f3d'/>
 <text x='911.1' y='303.2' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
 <rect x='1105.8' y='416.3' width='70' height='30' rx='4' fill='#993f3d'/>
 <text x='1140.8' y='431.3' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
-<rect x='1153.5' y='551.9' width='70' height='30' rx='4' fill='#993f3d'/>
-<text x='1188.5' y='566.9' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
-<rect x='1114.7' y='661.8' width='70' height='30' rx='4' fill='#993f3d'/>
-<text x='1149.7' y='676.8' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='1153.5' y='551.9' width='70' height='30' rx='4' fill='#3d8557'/>
+<text x='1188.5' y='566.9' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Rest</text>
+<rect x='1114.7' y='661.8' width='70' height='30' rx='4' fill='#3d8557'/>
+<text x='1149.7' y='676.8' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Rest</text>
 <rect x='954.7' y='778.9' width='70' height='30' rx='4' fill='#993f3d'/>
 <text x='989.7' y='793.9' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
 <rect x='683.9' y='807.1' width='70' height='30' rx='4' fill='#993f3d'/>
 <text x='718.9' y='822.1' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
-<rect x='531.8' y='759.4' width='70' height='30' rx='4' fill='#3d8557'/>
-<text x='566.8' y='774.4' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Rest</text>
+<rect x='531.8' y='759.4' width='70' height='30' rx='4' fill='#a88a38'/>
+<text x='566.8' y='774.4' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Shop</text>
 <rect x='388.8' y='612.2' width='70' height='30' rx='4' fill='#3d8557'/>
 <text x='423.8' y='627.2' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Rest</text>
 <rect x='387.8' y='480.7' width='70' height='30' rx='4' fill='#993f3d'/>
@@ -160,8 +160,8 @@
 <text x='689.5' y='303.1' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
 <rect x='910' y='232.6' width='70' height='30' rx='4' fill='#993f3d'/>
 <text x='945' y='247.6' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
-<rect x='1032' y='273.6' width='70' height='30' rx='4' fill='#3d8557'/>
-<text x='1067' y='288.6' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Rest</text>
+<rect x='1032' y='273.6' width='70' height='30' rx='4' fill='#a88a38'/>
+<text x='1067' y='288.6' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Shop</text>
 <rect x='1183.8' y='389.5' width='70' height='30' rx='4' fill='#993f3d'/>
 <text x='1218.8' y='404.5' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
 <rect x='1240.6' y='546.7' width='70' height='30' rx='4' fill='#3d6ba8'/>
@@ -172,8 +172,8 @@
 <text x='1067.9' y='831' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
 <rect x='774.5' y='872.9' width='70' height='30' rx='4' fill='#993f3d'/>
 <text x='809.5' y='887.9' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
-<rect x='600.1' y='852.6' width='70' height='30' rx='4' fill='#993f3d'/>
-<text x='635.1' y='867.6' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='600.1' y='852.6' width='70' height='30' rx='4' fill='#3d8557'/>
+<text x='635.1' y='867.6' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Rest</text>
 <rect x='357.9' y='714.6' width='70' height='30' rx='4' fill='#993f3d'/>
 <text x='392.9' y='729.6' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
 <rect x='294.5' y='593' width='70' height='30' rx='4' fill='#993f3d'/>
@@ -182,8 +182,8 @@
 <text x='354' y='446.1' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
 <rect x='445.6' y='302' width='70' height='30' rx='4' fill='#993f3d'/>
 <text x='480.6' y='317' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
-<rect x='592.3' y='239.4' width='70' height='30' rx='4' fill='#3d8557'/>
-<text x='627.3' y='254.4' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Rest</text>
+<rect x='592.3' y='239.4' width='70' height='30' rx='4' fill='#3d6ba8'/>
+<text x='627.3' y='254.4' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Event</text>
 <rect x='1011.2' y='196.1' width='70' height='30' rx='4' fill='#7a42a3'/>
 <text x='1046.2' y='211.1' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>BOSS</text>
 <rect x='1310.9' y='451.2' width='70' height='30' rx='4' fill='#7a42a3'/>

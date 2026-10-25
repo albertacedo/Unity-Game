@@ -324,9 +324,9 @@ namespace Prototype.Mapgen
         static NodeType PickType(Random rng)
         {
             double roll = rng.NextDouble();
-            if (roll < 0.62) return NodeType.Combat;
-            if (roll < 0.80) return NodeType.Rest;
-            if (roll < 0.90) return NodeType.Shop;
+            if (roll < 0.50) return NodeType.Combat;
+            if (roll < 0.65) return NodeType.Rest;
+            if (roll < 0.75) return NodeType.Shop;
             return NodeType.Event;
         }
     }

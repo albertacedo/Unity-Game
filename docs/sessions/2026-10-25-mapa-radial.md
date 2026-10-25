@@ -46,6 +46,15 @@ teranyina.
   dret o central i `RESET VIEW`. El mapa es retalla dins la seva àrea perquè no
   trepitgi el HUD.
 
+### Repartiment de sales (aquest commit)
+
+- **50% combat, 15% descans, 10% botiga i 25% esdeveniment** (abans 62/18/10/10).
+  L'anell 1 continua sent sempre de combat.
+- Amb 40 sales sortejades (anells 2-5) surten unes **10 sales d'esdeveniment** i 4 de
+  botiga per mapa; els combats baixen de 29,8 a 25,1 per mapa.
+- Botiga i esdeveniment encara són pantalles *placeholder*: de moment el 35% de les
+  sales sortejades no té contingut real. El repartiment va pensat per quan en tinguin.
+
 ## Simulació dels tres mapes
 
 Mateix banc de proves per als tres algoritmes: **300 seeds × 40 excursions = 12.000
