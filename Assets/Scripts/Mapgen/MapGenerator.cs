@@ -42,9 +42,12 @@ namespace Prototype.Mapgen
 
     /// <summary>
     /// Radial map: one start room in the middle, rings of rooms growing outwards and
-    /// several bosses on the outer ring. Consecutive rings are linked through nearby
-    /// angles and every edge is walkable in both directions, so the player explores
-    /// freely as long as rooms are unvisited. Same seed always produces the same map.
+    /// 4-7 bosses on the outer ring. Consecutive rings are joined by angular wedges: each
+    /// room of the bigger ring hangs from the room (or boss) of the smaller ring that is
+    /// closest in angle, so roads never lean past each other and the map stays readable.
+    /// Rooms of the same ring are joined by arcs that follow the ring, and the last room
+    /// ring is a full ring road, which connects every branch without cutting a road.
+    /// Same seed always produces the same map.
     /// </summary>
     public static class MapGenerator
     {
@@ -52,8 +55,11 @@ namespace Prototype.Mapgen
 
         const int FirstRingRooms = 5;
         const int MaxRoomsPerRing = 15;
-        const int MinBosses = 3;
-        const int MaxBosses = 6;
+        const int MinBosses = 4;
+        const int MaxBosses = 7;
+
+        /// <summary>Chance that two neighbouring rooms of the same ring are joined.</summary>
+        const float LateralChance = 0.5f;
 
         public static RunMap Generate(int seed, int ringCount = DefaultRingCount)
         {
@@ -85,107 +91,196 @@ namespace Prototype.Mapgen
             foreach (MapNode node in map.Rings[1])
                 Connect(start, node);
 
-            for (int ring = 1; ring < bossRing - 1; ring++)
-                LinkRings(map.Rings[ring], map.Rings[ring + 1], rng);
+            for (int ring = 1; ring < bossRing; ring++)
+                LinkRings(map.Rings[ring], map.Rings[ring + 1]);
 
-            LinkBosses(map.Rings[bossRing - 1], map.Rings[bossRing], rng);
+            // The room ring in front of the bosses is a complete ring road: from any branch
+            // you can walk around the edge and pick a different boss.
+            for (int ring = 1; ring < bossRing; ring++)
+                LinkLateral(map.Rings[ring], rng, ring == bossRing - 1);
 
             return map;
         }
 
         /// <summary>
-        /// Each outer room walks to the boss closest in angle. Distance would also be fair,
-        /// but on a wide ellipse a room can end up "closer" to the opposite boss, and those
-        /// roads would cross the whole map.
+        /// Links two rings. The ring with fewer rooms owns the other one: every room of the
+        /// bigger ring is attached to the room of the smaller ring that is closest in angle, so
+        /// the map is split into wedges centred on the smaller ring. Two roads from different
+        /// wedges never cross, and a road never leans back over a neighbour.
         /// </summary>
-        static void LinkBosses(List<MapNode> rooms, List<MapNode> bosses, Random rng)
+        static void LinkRings(List<MapNode> inner, List<MapNode> outer)
         {
-            if (bosses.Count == 0) return;
+            if (inner.Count == 0 || outer.Count == 0) return;
 
-            var reached = new HashSet<MapNode>();
-            foreach (MapNode room in rooms)
+            List<MapNode> owners = inner;
+            List<MapNode> members = outer;
+
+            if (inner.Count > outer.Count)
             {
-                MapNode best = null;
-                float bestDelta = float.MaxValue;
-
-                foreach (MapNode boss in bosses)
-                {
-                    float delta = AngleDelta(room.Angle, boss.Angle);
-                    if (delta >= bestDelta) continue;
-
-                    bestDelta = delta;
-                    best = boss;
-                }
-
-                if (best == null) continue;
-                Connect(room, best);
-                reached.Add(best);
+                owners = outer;
+                members = inner;
             }
 
-            // A boss nobody walks to would be a decoration, not an exit.
-            foreach (MapNode boss in bosses)
-            {
-                if (reached.Contains(boss)) continue;
+            Dictionary<MapNode, List<MapNode>> wedges = AssignWedges(owners, members);
+            RefillEmptyWedges(owners, wedges);
 
-                MapNode best = null;
-                float bestDelta = float.MaxValue;
-                foreach (MapNode room in rooms)
+            foreach (MapNode owner in owners)
+                foreach (MapNode member in wedges[owner])
+                    Connect(owner, member);
+        }
+
+        /// <summary>Groups every member under the owner it points at most directly.</summary>
+        static Dictionary<MapNode, List<MapNode>> AssignWedges(List<MapNode> owners, List<MapNode> members)
+        {
+            var wedges = new Dictionary<MapNode, List<MapNode>>();
+            foreach (MapNode owner in owners)
+                wedges[owner] = new List<MapNode>();
+
+            foreach (MapNode member in members)
+                wedges[NearestOwner(owners, member.Angle)].Add(member);
+
+            return wedges;
+        }
+
+        static MapNode NearestOwner(List<MapNode> owners, float angle)
+        {
+            MapNode best = owners[0];
+            float bestDelta = AngleDelta(best.Angle, angle);
+
+            for (int i = 1; i < owners.Count; i++)
+            {
+                float delta = AngleDelta(owners[i].Angle, angle);
+                if (delta >= bestDelta) continue;
+
+                best = owners[i];
+                bestDelta = delta;
+            }
+
+            return best;
+        }
+
+        /// <summary>
+        /// A wedge can come out empty when the rooms bunch up: borrow the closest room from an
+        /// adjacent wedge so every owner has somewhere to go.
+        /// </summary>
+        static void RefillEmptyWedges(List<MapNode> owners, Dictionary<MapNode, List<MapNode>> wedges)
+        {
+            bool changed = true;
+
+            while (changed)
+            {
+                changed = false;
+
+                for (int i = 0; i < owners.Count; i++)
                 {
-                    float delta = AngleDelta(room.Angle, boss.Angle);
+                    if (wedges[owners[i]].Count > 0) continue;
+
+                    List<MapNode> left = wedges[owners[(i - 1 + owners.Count) % owners.Count]];
+                    List<MapNode> right = wedges[owners[(i + 1) % owners.Count]];
+
+                    MapNode borrowed = ClosestWithSpare(left, right, owners[i].Angle);
+                    if (borrowed == null) continue;
+
+                    left.Remove(borrowed);
+                    right.Remove(borrowed);
+                    wedges[owners[i]].Add(borrowed);
+                    changed = true;
+                }
+            }
+        }
+
+        /// <summary>Closest room in either list, never taking the last room of a wedge.</summary>
+        static MapNode ClosestWithSpare(List<MapNode> left, List<MapNode> right, float angle)
+        {
+            MapNode best = null;
+            float bestDelta = float.MaxValue;
+
+            foreach (List<MapNode> list in new[] { left, right })
+            {
+                if (list.Count < 2) continue;
+
+                foreach (MapNode node in list)
+                {
+                    float delta = AngleDelta(node.Angle, angle);
                     if (delta >= bestDelta) continue;
 
+                    best = node;
                     bestDelta = delta;
-                    best = room;
                 }
+            }
 
-                if (best != null) Connect(best, boss);
+            return best;
+        }
+
+        /// <summary>Joins neighbouring rooms of the same ring, drawn as an arc (no crossing).</summary>
+        static void LinkLateral(List<MapNode> ring, Random rng, bool full)
+        {
+            if (ring.Count < 3) return;
+
+            for (int i = 0; i < ring.Count; i++)
+            {
+                if (!full && rng.NextDouble() >= LateralChance) continue;
+
+                Connect(ring[i], ring[(i + 1) % ring.Count]);
             }
         }
 
         /// <summary>
-        /// Bosses stand behind the outer rooms, one per sector, so their roads stay short
-        /// instead of cutting across the whole map.
+        /// Bosses are gates: each one sits on the outer ring over the middle of the rooms that
+        /// lead to it. Staying over its rooms keeps every road inside its own ring gap, which is
+        /// what stops two roads from crossing.
         /// </summary>
         static void BuildBossRing(RunMap map, Random rng)
         {
             int bossRing = map.RingCount - 1;
+            List<MapNode> rooms = map.Rings[bossRing - 1];
             int count = rng.Next(MinBosses, MaxBosses + 1);
             float sector = 360f / count;
+            float offset = (float)rng.NextDouble() * 360f;
 
-            var available = new List<MapNode>(map.Rings[bossRing - 1]);
-
-            for (int i = 0; i < count && available.Count > 0; i++)
+            var bosses = new List<MapNode>(count);
+            for (int i = 0; i < count; i++)
             {
-                float target = Normalize(i * sector + sector * 0.5f);
-                MapNode anchor = null;
-                float best = float.MaxValue;
-
-                foreach (MapNode candidate in available)
-                {
-                    float distance = AngleDelta(candidate.Angle, target);
-                    if (distance >= best) continue;
-
-                    best = distance;
-                    anchor = candidate;
-                }
-
-                available.Remove(anchor);
-
-                float jitter = ((float)rng.NextDouble() - 0.5f) * sector * 0.35f;
-                var boss = new MapNode
+                float jitter = ((float)rng.NextDouble() - 0.5f) * sector * 0.2f;
+                bosses.Add(new MapNode
                 {
                     Ring = bossRing,
-                    Angle = Normalize(anchor.Angle + jitter),
+                    Angle = Normalize(offset + i * sector + jitter),
                     Type = NodeType.Boss
-                };
-
-                map.Rings[bossRing].Add(boss);
-                map.Bosses.Add(boss);
+                });
             }
 
+            // Two passes: move each gate over the rooms that chose it, then let them choose again.
+            for (int pass = 0; pass < 2; pass++)
+            {
+                Dictionary<MapNode, List<MapNode>> wedges = AssignWedges(bosses, rooms);
+                foreach (MapNode boss in bosses)
+                {
+                    List<MapNode> wedge = wedges[boss];
+                    if (wedge.Count > 0) boss.Angle = CircularCentre(wedge);
+                }
+            }
+
+            map.Rings[bossRing].AddRange(bosses);
             map.Rings[bossRing].Sort((a, b) => a.Angle.CompareTo(b.Angle));
             for (int i = 0; i < map.Rings[bossRing].Count; i++)
                 map.Rings[bossRing][i].Index = i;
+
+            map.Bosses.AddRange(bosses);
+        }
+
+        /// <summary>Middle angle of a group of rooms, measured on the unit circle so it survives 0°.</summary>
+        static float CircularCentre(List<MapNode> nodes)
+        {
+            double x = 0, y = 0;
+            foreach (MapNode node in nodes)
+            {
+                double radians = node.Angle * System.Math.PI / 180.0;
+                x += System.Math.Cos(radians);
+                y += System.Math.Sin(radians);
+            }
+
+            return Normalize((float)(System.Math.Atan2(y, x) * 180.0 / System.Math.PI));
         }
 
         static void BuildRing(RunMap map, int ring, int count, Random rng)
@@ -204,45 +299,6 @@ namespace Prototype.Mapgen
             map.Rings[ring].Sort((a, b) => a.Angle.CompareTo(b.Angle));
             for (int i = 0; i < map.Rings[ring].Count; i++)
                 map.Rings[ring][i].Index = i;
-        }
-
-        /// <summary>Links rooms of two consecutive rings through their closest neighbours.</summary>
-        static void LinkRings(List<MapNode> inner, List<MapNode> outer, Random rng)
-        {
-            var linked = new HashSet<MapNode>();
-
-            foreach (MapNode from in inner)
-            {
-                List<MapNode> nearest = Nearest(outer, from, 2);
-                if (nearest.Count == 0) continue;
-
-                Connect(from, nearest[0]);
-                linked.Add(nearest[0]);
-
-                if (nearest.Count > 1 && rng.NextDouble() < 0.5)
-                {
-                    Connect(from, nearest[1]);
-                    linked.Add(nearest[1]);
-                }
-            }
-
-            // Every room needs a way in, otherwise it would be unreachable from the centre.
-            foreach (MapNode to in outer)
-            {
-                if (linked.Contains(to)) continue;
-
-                List<MapNode> nearest = Nearest(inner, to, 1);
-                if (nearest.Count > 0) Connect(nearest[0], to);
-            }
-        }
-
-        static List<MapNode> Nearest(List<MapNode> candidates, MapNode origin, int count)
-        {
-            var sorted = new List<MapNode>(candidates);
-            sorted.Sort((a, b) => MapLayout.SqrDistance(a, origin).CompareTo(MapLayout.SqrDistance(b, origin)));
-
-            if (sorted.Count > count) sorted.RemoveRange(count, sorted.Count - count);
-            return sorted;
         }
 
         static void Connect(MapNode from, MapNode to)

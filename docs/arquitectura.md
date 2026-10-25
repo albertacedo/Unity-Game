@@ -44,14 +44,26 @@ següent. Les capes que han de sobreviure (el `DevPanel`) pengen del Canvas, no 
 ## Regles implementades
 
 - **Mapa**: radial i determinista per seed. Un node `Start` al centre, 7 anells
-  (5 de sales + 1 de caps) i 3-6 caps a l'anell exterior. Les arestes uneixen anells
-  veïns pel veí més proper i es poden recórrer en tots dos sentits.
+  (5 de sales + 1 de caps) i 4-7 caps a l'anell exterior.
+- **Connexions**: entre dos anells veïns, cada sala enllaça amb la sala (o cap) més
+  propera en angle. El mapa queda partit en falques centrades en l'anell petit, així
+  que dues carreteres de falques diferents no es creuen mai. Les sales del mateix
+  anell s'uneixen amb arcs que ressegueixen l'anell (mai una recta que el talli), i
+  l'anell just abans dels caps és un anell complet: des de qualsevol branca es pot
+  vorejar el mapa i triar un altre cap. Provat amb 300 seeds: 0 creuaments.
 - **Geometria**: `MapLayout` és l'única font de posicions. El mapa és una el·lipse
-  1,45 vegades més ampla que alta, per aprofitar la pantalla 16:9. Els caps se situen
-  darrere d'una sala de l'últim anell perquè les seves carreteres siguin curtes.
+  1,45 vegades més ampla que alta, per aprofitar la pantalla 16:9. Cada cap se situa
+  sobre el centre angular de les seves sales, perquè cap aresta surti del seu anell
+  (una aresta inclinada més de ~35° entraria a l'anell interior i creuaria carreteres).
+- **Zoom i desplaçament**: roda del ratolí (o botons `+` / `−`) per ampliar entre el
+  60% i el 220%, arrossegant amb el botó dret o el central per moure el mapa. El mapa
+  es retalla dins la seva àrea (`RectMask2D`), així que no trepitja el HUD, i
+  `RESET VIEW` torna a l'estat inicial. Es pot clicar les sales a qualsevol zoom.
 - **Moviment**: lliure i gratis: es pot entrar a qualsevol sala veïna sense visitar,
   cap endins o cap enfora. Les sales visitades queden tancades. Si la sala actual no
   té cap veïna per visitar, la run s'acaba (pantalla de cul-de-sac amb `END RUN`).
+  Anar sempre cap enfora arriba a un cap en 6 sales; els culs-de-sac només passen
+  quan el jugador s'endinsa o va de costat i es queda sense veïnes verges.
 - **Provisions**: pendents. El pla és que explorar costi energia; de moment no n'hi ha.
 - **Combat**: 3 energia per torn, robes 5, el bloqueig es reinicia cada torn.
 - **Multi-enemic**: 1 enemic normal o un pack de 2 variants febles. Cada enemic té

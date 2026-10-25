@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Prototype.Mapgen;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace Prototype.UI
@@ -10,9 +11,19 @@ namespace Prototype.UI
     public class MapScreen : MonoBehaviour
     {
         static readonly Vector2 NodeSize = new Vector2(70f, 30f);
+        static readonly Color RoadColor = new Color(0.29f, 0.27f, 0.34f);
+        static readonly Color ArcColor = new Color(0.24f, 0.23f, 0.30f);
+
+        const float MinScale = 0.6f;
+        const float MaxScale = 2.2f;
+        const float ZoomStep = 1.12f;
 
         RunState run;
         Action<MapNode> onSelect;
+        RectTransform viewport;
+        RectTransform content;
+        TextMeshProUGUI zoomLabel;
+        float viewScale = 1f;
 
         public void Init(RunState runState, Action<MapNode> onSelectNode)
         {
@@ -21,10 +32,38 @@ namespace Prototype.UI
             Build();
         }
 
+        void Update()
+        {
+            Mouse mouse = Mouse.current;
+            if (mouse == null || content == null) return;
+
+            float scroll = mouse.scroll.ReadValue().y;
+            if (Mathf.Abs(scroll) > 0.01f)
+                ZoomAtCursor(mouse.position.ReadValue(), scroll > 0f ? ZoomStep : 1f / ZoomStep);
+
+            if (mouse.rightButton.isPressed || mouse.middleButton.isPressed)
+                Pan(mouse.delta.ReadValue());
+        }
+
         void Build()
         {
             var background = UIFactory.MakePanel(transform, "Background", UIFactory.Background);
 
+            viewport = UIFactory.MakeRect(background, "MapViewport");
+            UIFactory.Place(viewport, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
+                new Vector2(0f, -20f), new Vector2(1460f, 800f));
+            viewport.gameObject.AddComponent<RectMask2D>();
+
+            content = UIFactory.MakeRect(viewport, "MapContent");
+            UIFactory.Place(content, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
+                Vector2.zero, viewport.sizeDelta);
+
+            DrawRoads();
+
+            foreach (MapNode node in run.Map.Nodes())
+                CreateNode(node);
+
+            // Built after the map so the map never draws over the header while zoomed.
             var title = UIFactory.MakeLabel(background, "Title", "ACT I  ·  THE HOLLOW", 32f,
                 UIFactory.Gold);
             UIFactory.Place(title.rectTransform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f),
@@ -38,8 +77,16 @@ namespace Prototype.UI
             var hint = UIFactory.MakeLabel(background, "Hint", HintText(), 18f,
                 UIFactory.Muted, TextAlignmentOptions.Right);
             UIFactory.Place(hint.rectTransform, new Vector2(1f, 1f), new Vector2(1f, 1f),
-                new Vector2(-38f, -26f), new Vector2(700f, 96f));
+                new Vector2(-38f, -26f), new Vector2(740f, 110f));
 
+            CreateViewControls(background);
+
+            if (Options().Count == 0) CreateDeadEnd(background);
+        }
+
+        /// <summary>Zoom and reset buttons, so the map can be read without a mouse wheel.</summary>
+        void CreateViewControls(RectTransform background)
+        {
             var deck = UIFactory.MakeButton(background, "Deck",
                 "VIEW DECK  " + run.Deck.Count, new Color(0.30f, 0.26f, 0.38f), 20f);
             UIFactory.Place((RectTransform)deck.transform, new Vector2(1f, 0f), new Vector2(1f, 0f),
@@ -49,30 +96,148 @@ namespace Prototype.UI
                 if (GameManager.Instance != null) GameManager.Instance.ShowDeck();
             });
 
-            var area = UIFactory.MakeRect(background, "MapArea");
-            UIFactory.Place(area, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
-                new Vector2(0f, -20f), new Vector2(1460f, 800f));
+            var reset = UIFactory.MakeButton(background, "ResetView", "RESET VIEW",
+                new Color(0.22f, 0.21f, 0.27f), 18f);
+            UIFactory.Place((RectTransform)reset.transform, new Vector2(0f, 0f), new Vector2(0f, 0f),
+                new Vector2(38f, 26f), new Vector2(200f, 50f));
+            reset.onClick.AddListener(ResetView);
 
+            var zoomOut = UIFactory.MakeButton(background, "ZoomOut", "−",
+                new Color(0.22f, 0.21f, 0.27f), 26f);
+            UIFactory.Place((RectTransform)zoomOut.transform, new Vector2(0f, 0f), new Vector2(0f, 0f),
+                new Vector2(266f, 26f), new Vector2(56f, 50f));
+            zoomOut.onClick.AddListener(() => ZoomAt(Vector2.zero, 1f / ZoomStep));
+
+            zoomLabel = UIFactory.MakeLabel(background, "ZoomLabel", "100%", 18f, UIFactory.Muted);
+            UIFactory.Place(zoomLabel.rectTransform, new Vector2(0f, 0f), new Vector2(0f, 0f),
+                new Vector2(314f, 26f), new Vector2(80f, 50f));
+
+            var zoomIn = UIFactory.MakeButton(background, "ZoomIn", "+",
+                new Color(0.22f, 0.21f, 0.27f), 26f);
+            UIFactory.Place((RectTransform)zoomIn.transform, new Vector2(0f, 0f), new Vector2(0f, 0f),
+                new Vector2(402f, 26f), new Vector2(56f, 50f));
+            zoomIn.onClick.AddListener(() => ZoomAt(Vector2.zero, ZoomStep));
+        }
+
+        void DrawRoads()
+        {
             foreach (MapNode node in run.Map.Nodes())
             {
                 foreach (MapNode next in node.Next)
                 {
-                    if (next.Ring <= node.Ring) continue;   // each edge is stored on both ends
-                    UIFactory.MakeLine(area, PositionOf(node), PositionOf(next),
-                        new Color(0.29f, 0.27f, 0.34f), 3f);
+                    if (next.Ring < node.Ring) continue;          // each road is stored on both ends
+
+                    if (next.Ring == node.Ring)
+                    {
+                        if (!IsForwardNeighbour(node, next)) continue;
+                        DrawArc(node, next);
+                        continue;
+                    }
+
+                    UIFactory.MakeLine(content, PositionOf(node), PositionOf(next), RoadColor, 3f);
                 }
             }
+        }
 
-            foreach (MapNode node in run.Map.Nodes())
-                CreateNode(area, node);
+        /// <summary>Same-ring roads only exist between consecutive rooms, so one of the two is "forward".</summary>
+        bool IsForwardNeighbour(MapNode node, MapNode next)
+        {
+            List<MapNode> ring = run.Map.Rings[node.Ring];
+            return next.Index == node.Index + 1 || (node.Index == ring.Count - 1 && next.Index == 0);
+        }
 
-            if (Options().Count == 0) CreateDeadEnd(background);
+        /// <summary>Road between two rooms of a ring: follows the ring so it never cuts a radial road.</summary>
+        void DrawArc(MapNode from, MapNode to)
+        {
+            Vector2 previous = PositionOf(from);
+
+            for (int step = 1; step <= MapLayout.ArcSteps; step++)
+            {
+                float t = step / (float)MapLayout.ArcSteps;
+                MapLayout.ProjectArc(from.Ring, from.Angle, to.Angle, t, out float x, out float y);
+
+                var point = new Vector2(x, y);
+                UIFactory.MakeLine(content, previous, point, ArcColor, 2.5f);
+                previous = point;
+            }
         }
 
         Vector2 PositionOf(MapNode node)
         {
             MapLayout.Project(node.Ring, node.Angle, out float x, out float y);
             return new Vector2(x, y);
+        }
+
+        void ZoomAtCursor(Vector2 screenPosition, float factor)
+        {
+            if (content == null) return;
+
+            if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(viewport, screenPosition,
+                    CanvasCamera(), out Vector2 point))
+                return;
+
+            ZoomAt(point, factor);
+        }
+
+        /// <summary>Scales the map around a point given in viewport coordinates, so it stays put.</summary>
+        void ZoomAt(Vector2 point, float factor)
+        {
+            if (content == null) return;
+
+            float newScale = Mathf.Clamp(viewScale * factor, MinScale, MaxScale);
+            if (Mathf.Approximately(newScale, viewScale)) return;
+
+            Vector2 offset = content.anchoredPosition;
+            content.anchoredPosition = point - (point - offset) * (newScale / viewScale);
+
+            viewScale = newScale;
+            content.localScale = new Vector3(viewScale, viewScale, 1f);
+            UpdateZoomLabel();
+            ClampView();
+        }
+
+        void UpdateZoomLabel()
+        {
+            if (zoomLabel != null) zoomLabel.text = Mathf.RoundToInt(viewScale * 100f) + "%";
+        }
+
+        void Pan(Vector2 delta)
+        {
+            Canvas canvas = GetComponentInParent<Canvas>();
+            float scaleFactor = canvas == null ? 1f : Mathf.Max(0.01f, canvas.scaleFactor);
+
+            content.anchoredPosition += delta / scaleFactor;
+            ClampView();
+        }
+
+        /// <summary>Keeps the map from being dragged out of reach.</summary>
+        void ClampView()
+        {
+            Vector2 size = viewport.rect.size;
+            Vector2 limit = Vector2.Max(Vector2.zero, size * viewScale - size) * 0.5f + new Vector2(80f, 80f);
+
+            Vector2 position = content.anchoredPosition;
+            position.x = Mathf.Clamp(position.x, -limit.x, limit.x);
+            position.y = Mathf.Clamp(position.y, -limit.y, limit.y);
+            content.anchoredPosition = position;
+        }
+
+        void ResetView()
+        {
+            viewScale = 1f;
+            UpdateZoomLabel();
+            if (content == null) return;
+
+            content.localScale = Vector3.one;
+            content.anchoredPosition = Vector2.zero;
+        }
+
+        Camera CanvasCamera()
+        {
+            Canvas canvas = GetComponentInParent<Canvas>();
+            if (canvas == null || canvas.renderMode == RenderMode.ScreenSpaceOverlay) return null;
+
+            return canvas.worldCamera;
         }
 
         string StatsText()
@@ -90,6 +255,7 @@ namespace Prototype.UI
 
             return "Click any connected room.  ·  You are in " + ring +
                    "\nRooms you leave cannot be entered again." +
+                   "\nScroll or + / − to zoom  ·  right-drag to move the map" +
                    "\nSomewhere on the outer ring: " + run.Map.Bosses.Count + " bosses.";
         }
 
@@ -118,7 +284,7 @@ namespace Prototype.UI
             return run.Current.Next.Contains(node);
         }
 
-        void CreateNode(RectTransform area, MapNode node)
+        void CreateNode(MapNode node)
         {
             bool available = IsAvailable(node);
             bool current = node == run.Current;
@@ -136,7 +302,7 @@ namespace Prototype.UI
                 textColor = UIFactory.Muted;
             }
 
-            var button = UIFactory.MakeButton(area, "Node_" + node.Ring + "_" + node.Index,
+            var button = UIFactory.MakeButton(content, "Node_" + node.Ring + "_" + node.Index,
                 LabelFor(node.Type), color, 12f);
             var rt = (RectTransform)button.transform;
             UIFactory.Place(rt, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),

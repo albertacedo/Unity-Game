@@ -44,15 +44,21 @@ Botiga + relíquies + descans amb elecció. L'or i el mapa deixen de ser decorat
 
 ## Tanda 2b — pendents de disseny del mapa radial
 
-El mapa ja és radial i el moviment és lliure, però queden tres decisions obertes:
+El mapa ja és radial, el moviment és lliure i ara es pot ampliar i moure. Queden
+aquestes decisions obertes:
 
 - **Provisions**: que moure's costi energia i que, en esgotar-se, la run s'acabi o
   forci el camí cap al boss. De moment el moviment és gratis.
 - **Segellar anells**: alternativa espacial (pots retrocedir un anell; la resta es
   tanca). Més narrativa, més feina d'UI.
-- **Culs-de-sac**: en simulació, ~14% dels recorreguts aleatoris acaben en una sala
-  sense veïns. Ara la run s'hi acaba. Cal decidir si això és un càstig acceptable o
-  si les sales visitades han de poder-se travessar (inertes, sense repetir contingut).
+- **Culs-de-sac**: en simulació, ~25% dels recorreguts *aleatoris* acaben en una sala
+  sense veïnes, però un recorregut que sempre va cap enfora arriba a un cap en 6 sales
+  (0% de culs-de-sac en 12.000 simulacions). Ara la run s'acaba en un cul-de-sac. Cal
+  decidir si això és un càstig acceptable o si les sales visitades han de poder-se
+  travessar (inertes, sense repetir contingut).
+- **Mida del run**: amb les connexions laterals el recorregut aleatori fa 11,4 sales
+  de mitjana (abans 7,6). Si les runs es fan massa llargues, la palanca és
+  `LateralChance` a `MapGenerator` (ara 0,5; l'anell exterior és sempre complet).
 
 ## Preguntes de playtest
 
@@ -63,5 +69,7 @@ Per respondre amb el joc a la mà:
 - Amb 72 HP, arribes al boss amb vida o el mapa és massa dur?
 - Tries sempre la mateixa carta de recompensa? Si sí, el pool és massa petit.
 - Amb el mapa radial: acabes explorant de més (massa combats) o vas directe al boss?
-  Quantes sales visités per run? (La simulació diu 7-8 de mitjana, mínim 6.)
+  Quantes sales visités per run? (La simulació diu 11,4 de mitjana, mínim 6.)
 - Trobes a faltar un límit a l'exploració, o la vida ja n'hi fa prou?
+- Amb zoom: acabes fent servir la roda o el mapa sencer ja es llegeix bé a 100%?
+- L'anell exterior és prou clar com a "tria de cap", o els arcs laterals el fan confús?
