@@ -14,9 +14,22 @@ namespace Prototype.UI
     /// </summary>
     public class DeckScreen : MonoBehaviour
     {
+        /// <summary>Deck overlays on screen; while there is one, the map must ignore wheel and drag.</summary>
+        public static int OpenCount { get; private set; }
+
         RunState run;
         Action onClose;
         RectTransform detail;
+
+        void OnEnable()
+        {
+            OpenCount++;
+        }
+
+        void OnDisable()
+        {
+            OpenCount--;
+        }
 
         public void Init(RunState runState, Action close)
         {
