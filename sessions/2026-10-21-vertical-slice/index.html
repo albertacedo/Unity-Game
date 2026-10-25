@@ -481,6 +481,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#simulacio-del-mapa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Simulació del mapa
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#fitxers" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -662,6 +673,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2026-10-25-mapa-radial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-10-25 · Mapa radial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -711,6 +750,17 @@
     <span class="md-ellipsis">
       
         Què s'ha fet
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simulacio-del-mapa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Simulació del mapa
       
     </span>
   </a>
@@ -817,6 +867,67 @@ al més aviat possible.</p>
 <li>Pantalles: mapa, combat, recompensa, descans, placeholder i final de run.</li>
 <li>Escena <code>Assets/Scenes/Prototype.unity</code> amb un sol objecte <code>Game</code>.</li>
 </ul>
+<h2 id="simulacio-del-mapa">Simulació del mapa<a class="headerlink" href="#simulacio-del-mapa" title="Permanent link">&para;</a></h2>
+<p>El mapa de pisos és determinista per <em>seed</em>: 4 camins pugen del pis 0 al cap i es
+rebutgen les arestes que es creuarien. L'he passat pel mateix banc de proves que els
+dos mapes radials (vegeu la <a href="../2026-10-25-mapa-radial/">sessió del 2026-10-25</a>):
+<strong>300 seeds × 40 excursions = 12.000 recorreguts</strong>, amb un jugador que entra per una
+sala a l'atzar del pis 0 i després tria una aresta a l'atzar.</p>
+<p><a href="../../img/mapa-v1-pisos.svg" target="_blank"><img src="../../img/mapa-v1-pisos.svg" alt="Mapa de pisos: 6 pisos, 7 columnes i 4 camins"></a></p>
+<p><em>Seed 42. Les sales amb contorn discontinu són les entrades possibles; el cap és a dalt.
+Clic a la imatge per veure-la a mida completa.</em></p>
+<table>
+<thead>
+<tr>
+<th>Mètrica</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sales per mapa</td>
+<td>15,1</td>
+</tr>
+<tr>
+<td>Arestes per mapa</td>
+<td>16,6</td>
+</tr>
+<tr>
+<td>Caps</td>
+<td>1 (sempre)</td>
+</tr>
+<tr>
+<td>Sales amb més d'una sortida</td>
+<td>2,3</td>
+</tr>
+<tr>
+<td>Arestes que es creuen</td>
+<td>0 (pitjor mapa: 0)</td>
+</tr>
+<tr>
+<td>Sales inabastables o sobreposades</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Excursions que arriben al cap</td>
+<td><strong>100%</strong></td>
+</tr>
+<tr>
+<td>Excursions sense sortida</td>
+<td><strong>0%</strong></td>
+</tr>
+<tr>
+<td>Sales per excursió</td>
+<td>5,0 (sempre; 6 comptant l'entrada)</td>
+</tr>
+</tbody>
+</table>
+<p>El 100% no vol dir que el mapa sigui millor: vol dir que <strong>no hi ha decisions de
+direcció</strong>. Les arestes només van cap amunt, cada sala en té almenys una i totes les del
+darrer pis van al cap, així que tota partida fa exactament el mateix recorregut de 5
+sales. El mapa és petit (15 sales) perquè els 4 camins es fusionen de seguida: només 2,3
+sales per mapa ofereixen més d'una sortida. És el que va portar a provar el mapa radial
+amb moviment lliure.</p>
 <h2 id="fitxers">Fitxers<a class="headerlink" href="#fitxers" title="Permanent link">&para;</a></h2>
 <h3 id="afegits">Afegits<a class="headerlink" href="#afegits" title="Permanent link">&para;</a></h3>
 <ul>

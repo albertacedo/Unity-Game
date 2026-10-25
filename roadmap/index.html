@@ -422,6 +422,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#tanda-2b-pendents-de-disseny-del-mapa-radial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tanda 2b — pendents de disseny del mapa radial
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#preguntes-de-playtest" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -660,6 +671,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sessions/2026-10-25-mapa-radial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-10-25 · Mapa radial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -762,6 +801,17 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tanda-2b-pendents-de-disseny-del-mapa-radial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tanda 2b — pendents de disseny del mapa radial
+      
+    </span>
+  </a>
   
 </li>
       
@@ -891,6 +941,24 @@ veure i provar el que ja hi ha.</p>
 Aquí el joc comença a tenir decisions de veritat.</p>
 <h3 id="tanda-3-fer-la-run-interessant">Tanda 3 — fer la run interessant<a class="headerlink" href="#tanda-3-fer-la-run-interessant" title="Permanent link">&para;</a></h3>
 <p>Botiga + relíquies + descans amb elecció. L'or i el mapa deixen de ser decoratius.</p>
+<h2 id="tanda-2b-pendents-de-disseny-del-mapa-radial">Tanda 2b — pendents de disseny del mapa radial<a class="headerlink" href="#tanda-2b-pendents-de-disseny-del-mapa-radial" title="Permanent link">&para;</a></h2>
+<p>El mapa ja és radial, el moviment és lliure i ara es pot ampliar i moure. Queden
+aquestes decisions obertes:</p>
+<ul>
+<li><strong>Provisions</strong>: que moure's costi energia i que, en esgotar-se, la run s'acabi o
+  forci el camí cap al boss. De moment el moviment és gratis.</li>
+<li><strong>Segellar anells</strong>: alternativa espacial (pots retrocedir un anell; la resta es
+  tanca). Més narrativa, més feina d'UI.</li>
+<li><strong>Culs-de-sac</strong>: en simulació, ~25% dels recorreguts <em>aleatoris</em> acaben en una sala
+  sense veïnes, però un recorregut que sempre va cap enfora arriba a un cap en 6 sales
+  (0% de culs-de-sac en 12.000 simulacions). Ara la run s'acaba en un cul-de-sac. Cal
+  decidir si això és un càstig acceptable o si les sales visitades han de poder-se
+  travessar (inertes, sense repetir contingut).</li>
+<li><strong>Mida del run</strong>: amb les connexions laterals el recorregut aleatori fa 11,4 sales
+  de mitjana (abans 7,7). Si les runs es fan massa llargues, la palanca és
+  <code>LateralChance</code> a <code>MapGenerator</code> (ara 0,5; l'anell exterior és sempre complet).
+  Totes les xifres surten de la <a href="../sessions/2026-10-25-mapa-radial/#simulacio-dels-tres-mapes">simulació dels tres mapes</a>.</li>
+</ul>
 <h2 id="preguntes-de-playtest">Preguntes de playtest<a class="headerlink" href="#preguntes-de-playtest" title="Permanent link">&para;</a></h2>
 <p>Per respondre amb el joc a la mà:</p>
 <ul>
@@ -898,7 +966,11 @@ Aquí el joc comença a tenir decisions de veritat.</p>
 <li>El combat dura 2-3 torns o 4-6? Un combat normal hauria de durar 4-6.</li>
 <li>Amb 72 HP, arribes al boss amb vida o el mapa és massa dur?</li>
 <li>Tries sempre la mateixa carta de recompensa? Si sí, el pool és massa petit.</li>
-<li>El mapa de 6 pisos es fa curt? (Slay the Spire en té 15 per acte.)</li>
+<li>Amb el mapa radial: acabes explorant de més (massa combats) o vas directe al boss?
+  Quantes sales visités per run? (La simulació diu 11,4 de mitjana, mínim 6.)</li>
+<li>Trobes a faltar un límit a l'exploració, o la vida ja n'hi fa prou?</li>
+<li>Amb zoom: acabes fent servir la roda o el mapa sencer ja es llegeix bé a 100%?</li>
+<li>L'anell exterior és prou clar com a "tria de cap", o els arcs laterals el fan confús?</li>
 </ul>
 
 

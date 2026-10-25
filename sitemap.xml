@@ -2,38 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://albertacedo.github.io/Unity-Game/</loc>
-         <lastmod>2026-10-23</lastmod>
+         <lastmod>2026-10-25</lastmod>
     </url>
     <url>
          <loc>https://albertacedo.github.io/Unity-Game/arquitectura/</loc>
-         <lastmod>2026-10-23</lastmod>
+         <lastmod>2026-10-25</lastmod>
     </url>
     <url>
          <loc>https://albertacedo.github.io/Unity-Game/roadmap/</loc>
-         <lastmod>2026-10-23</lastmod>
+         <lastmod>2026-10-25</lastmod>
     </url>
     <url>
          <loc>https://albertacedo.github.io/Unity-Game/sessions/</loc>
-         <lastmod>2026-10-23</lastmod>
+         <lastmod>2026-10-25</lastmod>
     </url>
     <url>
          <loc>https://albertacedo.github.io/Unity-Game/sessions/2026-10-21-github-i-roadmap/</loc>
-         <lastmod>2026-10-23</lastmod>
+         <lastmod>2026-10-25</lastmod>
     </url>
     <url>
          <loc>https://albertacedo.github.io/Unity-Game/sessions/2026-10-21-vertical-slice/</loc>
-         <lastmod>2026-10-23</lastmod>
+         <lastmod>2026-10-25</lastmod>
     </url>
     <url>
          <loc>https://albertacedo.github.io/Unity-Game/sessions/2026-10-22-docs-i-flux/</loc>
-         <lastmod>2026-10-23</lastmod>
+         <lastmod>2026-10-25</lastmod>
     </url>
     <url>
          <loc>https://albertacedo.github.io/Unity-Game/sessions/2026-10-22-tanda-1/</loc>
-         <lastmod>2026-10-23</lastmod>
+         <lastmod>2026-10-25</lastmod>
     </url>
     <url>
          <loc>https://albertacedo.github.io/Unity-Game/sessions/2026-10-23-tanda-2-multi-enemic/</loc>
-         <lastmod>2026-10-23</lastmod>
+         <lastmod>2026-10-25</lastmod>
+    </url>
+    <url>
+         <loc>https://albertacedo.github.io/Unity-Game/sessions/2026-10-25-mapa-radial/</loc>
+         <lastmod>2026-10-25</lastmod>
     </url>
 </urlset>

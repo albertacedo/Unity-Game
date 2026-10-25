@@ -643,6 +643,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sessions/2026-10-25-mapa-radial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-10-25 · Mapa radial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -794,7 +822,11 @@ següent. Les capes que han de sobreviure (el <code>DevPanel</code>) pengen del 
 </tr>
 <tr>
 <td><code>Scripts/Mapgen/MapGenerator.cs</code></td>
-<td>Mapa determinista per seed</td>
+<td>Mapa radial determinista per seed</td>
+</tr>
+<tr>
+<td><code>Scripts/Mapgen/MapLayout.cs</code></td>
+<td>Geometria compartida (radi, angle i el·lipse) de mapa i pantalla</td>
 </tr>
 <tr>
 <td><code>Scripts/Combat/CombatSession.cs</code></td>
@@ -848,7 +880,29 @@ següent. Les capes que han de sobreviure (el <code>DevPanel</code>) pengen del 
 </table>
 <h2 id="regles-implementades">Regles implementades<a class="headerlink" href="#regles-implementades" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Mapa</strong>: 6 pisos (5 + cap), 7 columnes, 4 camins, arestes que no es creuen.</li>
+<li><strong>Mapa</strong>: radial i determinista per seed. Un node <code>Start</code> al centre, 7 anells
+  (5 de sales + 1 de caps) i 4-7 caps a l'anell exterior.</li>
+<li><strong>Connexions</strong>: entre dos anells veïns, cada sala enllaça amb la sala (o cap) més
+  propera en angle. El mapa queda partit en falques centrades en l'anell petit, així
+  que dues carreteres de falques diferents no es creuen mai. Les sales del mateix
+  anell s'uneixen amb arcs que ressegueixen l'anell (mai una recta que el talli), i
+  l'anell just abans dels caps és un anell complet: des de qualsevol branca es pot
+  vorejar el mapa i triar un altre cap. Provat amb 300 seeds: 0 creuaments (vegeu la
+  <a href="../sessions/2026-10-25-mapa-radial/#simulacio-dels-tres-mapes">simulació comparada</a>).</li>
+<li><strong>Geometria</strong>: <code>MapLayout</code> és l'única font de posicions. El mapa és una el·lipse
+  1,45 vegades més ampla que alta, per aprofitar la pantalla 16:9. Cada cap se situa
+  sobre el centre angular de les seves sales, perquè cap aresta surti del seu anell
+  (una aresta inclinada més de ~35° entraria a l'anell interior i creuaria carreteres).</li>
+<li><strong>Zoom i desplaçament</strong>: roda del ratolí (o botons <code>+</code> / <code>−</code>) per ampliar entre el
+  60% i el 220%, arrossegant amb el botó dret o el central per moure el mapa. El mapa
+  es retalla dins la seva àrea (<code>RectMask2D</code>), així que no trepitja el HUD, i
+  <code>RESET VIEW</code> torna a l'estat inicial. Es pot clicar les sales a qualsevol zoom.</li>
+<li><strong>Moviment</strong>: lliure i gratis: es pot entrar a qualsevol sala veïna sense visitar,
+  cap endins o cap enfora. Les sales visitades queden tancades. Si la sala actual no
+  té cap veïna per visitar, la run s'acaba (pantalla de cul-de-sac amb <code>END RUN</code>).
+  Anar sempre cap enfora arriba a un cap en 6 sales; els culs-de-sac només passen
+  quan el jugador s'endinsa o va de costat i es queda sense veïnes verges.</li>
+<li><strong>Provisions</strong>: pendents. El pla és que explorar costi energia; de moment no n'hi ha.</li>
 <li><strong>Combat</strong>: 3 energia per torn, robes 5, el bloqueig es reinicia cada torn.</li>
 <li><strong>Multi-enemic</strong>: 1 enemic normal o un pack de 2 variants febles. Cada enemic té
   la seva HP, bloqueig, Vulnerable i cua d'intents; el combat acaba quan cauen tots.</li>
