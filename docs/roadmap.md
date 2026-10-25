@@ -42,6 +42,18 @@ Aquí el joc comença a tenir decisions de veritat.
 
 Botiga + relíquies + descans amb elecció. L'or i el mapa deixen de ser decoratius.
 
+## Tanda 2b — pendents de disseny del mapa radial
+
+El mapa ja és radial i el moviment és lliure, però queden tres decisions obertes:
+
+- **Provisions**: que moure's costi energia i que, en esgotar-se, la run s'acabi o
+  forci el camí cap al boss. De moment el moviment és gratis.
+- **Segellar anells**: alternativa espacial (pots retrocedir un anell; la resta es
+  tanca). Més narrativa, més feina d'UI.
+- **Culs-de-sac**: en simulació, ~14% dels recorreguts aleatoris acaben en una sala
+  sense veïns. Ara la run s'hi acaba. Cal decidir si això és un càstig acceptable o
+  si les sales visitades han de poder-se travessar (inertes, sense repetir contingut).
+
 ## Preguntes de playtest
 
 Per respondre amb el joc a la mà:
@@ -50,4 +62,6 @@ Per respondre amb el joc a la mà:
 - El combat dura 2-3 torns o 4-6? Un combat normal hauria de durar 4-6.
 - Amb 72 HP, arribes al boss amb vida o el mapa és massa dur?
 - Tries sempre la mateixa carta de recompensa? Si sí, el pool és massa petit.
-- El mapa de 6 pisos es fa curt? (Slay the Spire en té 15 per acte.)
+- Amb el mapa radial: acabes explorant de més (massa combats) o vas directe al boss?
+  Quantes sales visités per run? (La simulació diu 7-8 de mitjana, mínim 6.)
+- Trobes a faltar un límit a l'exploració, o la vida ja n'hi fa prou?

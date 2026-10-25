@@ -75,13 +75,13 @@ namespace Prototype.UI
             var background = UIFactory.MakePanel(parent, "EndScreen", UIFactory.Background);
 
             var title = UIFactory.MakeLabel(background, "Title",
-                victory ? "THE SPIRE FALLS" : "RUN OVER", 56f,
+                victory ? "THE HOLLOW OPENS" : "RUN OVER", 56f,
                 victory ? UIFactory.Gold : UIFactory.Danger);
             UIFactory.Place(title.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
                 new Vector2(0f, 90f), new Vector2(1000f, 80f));
 
             var text = UIFactory.MakeLabel(background, "Text",
-                victory ? "You defeated the boss of Act I." : "Your deck was not strong enough this time.",
+                victory ? "You defeated one of the bosses of Act I." : "Your deck was not strong enough this time.",
                 24f, UIFactory.Ink);
             UIFactory.Place(text.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
                 new Vector2(0f, 20f), new Vector2(900f, 50f));

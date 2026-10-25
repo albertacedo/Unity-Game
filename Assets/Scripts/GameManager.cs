@@ -83,6 +83,7 @@ namespace Prototype
             run.Map = MapGenerator.Generate(seed);
             run.Deck = CardLibrary.StarterDeck();
             run.Hp = run.MaxHp;
+            run.Current = run.Map.Start;
             rng = new System.Random(seed + 7919);
             combat = null;
             pendingNode = null;
@@ -120,6 +121,8 @@ namespace Prototype
         {
             switch (node.Type)
             {
+                case NodeType.Start:
+                    break;
                 case NodeType.Combat:
                 case NodeType.Elite:
                 case NodeType.Boss:
@@ -284,11 +287,21 @@ namespace Prototype
             if (screen != ScreenKind.Map) return;
 
             var options = new List<MapNode>();
-            if (run.Current == null) options.AddRange(run.Map.Floors[0]);
-            else options.AddRange(run.Current.Next);
+            if (run.Current != null)
+            {
+                foreach (MapNode node in run.Current.Next)
+                    if (!node.Visited) options.Add(node);
+            }
             if (options.Count == 0) return;
 
             OnNodeSelected(options[rng.Next(options.Count)]);
+        }
+
+        /// <summary>Ends the run on purpose: dead end on the map, or a manual give-up.</summary>
+        public void AbandonRun()
+        {
+            if (run == null) return;
+            ShowEnd(false);
         }
 
         public void DebugRestart(int seed)

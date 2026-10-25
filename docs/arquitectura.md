@@ -26,7 +26,8 @@ següent. Les capes que han de sobreviure (el `DevPanel`) pengen del Canvas, no 
 |---|---|
 | `Scripts/GameManager.cs` | Punt d'entrada, canvi de pantalles, helpers de debug |
 | `Scripts/Run/RunState.cs` | HP, or, seed, mapa i mas (el que sobreviu entre sales) |
-| `Scripts/Mapgen/MapGenerator.cs` | Mapa determinista per seed |
+| `Scripts/Mapgen/MapGenerator.cs` | Mapa radial determinista per seed |
+| `Scripts/Mapgen/MapLayout.cs` | Geometria compartida (radi, angle i el·lipse) de mapa i pantalla |
 | `Scripts/Combat/CombatSession.cs` | Regles del combat (torns, energia, dany, bloqueig, objectiu) |
 | `Scripts/Combat/EnemyInstance.cs` | Estat d'un enemic dins d'un combat (HP, bloqueig, Vulnerable, intent) |
 | `Scripts/Content/CardLibrary.cs` | Totes les cartes i enemics del joc |
@@ -42,7 +43,16 @@ següent. Les capes que han de sobreviure (el `DevPanel`) pengen del Canvas, no 
 
 ## Regles implementades
 
-- **Mapa**: 6 pisos (5 + cap), 7 columnes, 4 camins, arestes que no es creuen.
+- **Mapa**: radial i determinista per seed. Un node `Start` al centre, 7 anells
+  (5 de sales + 1 de caps) i 3-6 caps a l'anell exterior. Les arestes uneixen anells
+  veïns pel veí més proper i es poden recórrer en tots dos sentits.
+- **Geometria**: `MapLayout` és l'única font de posicions. El mapa és una el·lipse
+  1,45 vegades més ampla que alta, per aprofitar la pantalla 16:9. Els caps se situen
+  darrere d'una sala de l'últim anell perquè les seves carreteres siguin curtes.
+- **Moviment**: lliure i gratis: es pot entrar a qualsevol sala veïna sense visitar,
+  cap endins o cap enfora. Les sales visitades queden tancades. Si la sala actual no
+  té cap veïna per visitar, la run s'acaba (pantalla de cul-de-sac amb `END RUN`).
+- **Provisions**: pendents. El pla és que explorar costi energia; de moment no n'hi ha.
 - **Combat**: 3 energia per torn, robes 5, el bloqueig es reinicia cada torn.
 - **Multi-enemic**: 1 enemic normal o un pack de 2 variants febles. Cada enemic té
   la seva HP, bloqueig, Vulnerable i cua d'intents; el combat acaba quan cauen tots.
