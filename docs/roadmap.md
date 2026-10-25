@@ -57,8 +57,9 @@ aquestes decisions obertes:
   decidir si això és un càstig acceptable o si les sales visitades han de poder-se
   travessar (inertes, sense repetir contingut).
 - **Mida del run**: amb les connexions laterals el recorregut aleatori fa 11,4 sales
-  de mitjana (abans 7,6). Si les runs es fan massa llargues, la palanca és
+  de mitjana (abans 7,7). Si les runs es fan massa llargues, la palanca és
   `LateralChance` a `MapGenerator` (ara 0,5; l'anell exterior és sempre complet).
+  Totes les xifres surten de la [simulació dels tres mapes](sessions/2026-10-25-mapa-radial.md#simulacio-dels-tres-mapes).
 
 ## Preguntes de playtest
 

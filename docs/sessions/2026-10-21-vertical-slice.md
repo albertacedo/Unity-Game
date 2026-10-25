@@ -24,6 +24,38 @@ al més aviat possible.
 - Pantalles: mapa, combat, recompensa, descans, placeholder i final de run.
 - Escena `Assets/Scenes/Prototype.unity` amb un sol objecte `Game`.
 
+## Simulació del mapa
+
+El mapa de pisos és determinista per *seed*: 4 camins pugen del pis 0 al cap i es
+rebutgen les arestes que es creuarien. L'he passat pel mateix banc de proves que els
+dos mapes radials (vegeu la [sessió del 2026-10-25](2026-10-25-mapa-radial.md)):
+**300 seeds × 40 excursions = 12.000 recorreguts**, amb un jugador que entra per una
+sala a l'atzar del pis 0 i després tria una aresta a l'atzar.
+
+<a href="../../img/mapa-v1-pisos.svg" target="_blank"><img src="../../img/mapa-v1-pisos.svg" alt="Mapa de pisos: 6 pisos, 7 columnes i 4 camins"></a>
+
+*Seed 42. Les sales amb contorn discontinu són les entrades possibles; el cap és a dalt.
+Clic a la imatge per veure-la a mida completa.*
+
+| Mètrica | Valor |
+|---|---|
+| Sales per mapa | 15,1 |
+| Arestes per mapa | 16,6 |
+| Caps | 1 (sempre) |
+| Sales amb més d'una sortida | 2,3 |
+| Arestes que es creuen | 0 (pitjor mapa: 0) |
+| Sales inabastables o sobreposades | 0 |
+| Excursions que arriben al cap | **100%** |
+| Excursions sense sortida | **0%** |
+| Sales per excursió | 5,0 (sempre; 6 comptant l'entrada) |
+
+El 100% no vol dir que el mapa sigui millor: vol dir que **no hi ha decisions de
+direcció**. Les arestes només van cap amunt, cada sala en té almenys una i totes les del
+darrer pis van al cap, així que tota partida fa exactament el mateix recorregut de 5
+sales. El mapa és petit (15 sales) perquè els 4 camins es fusionen de seguida: només 2,3
+sales per mapa ofereixen més d'una sortida. És el que va portar a provar el mapa radial
+amb moviment lliure.
+
 ## Fitxers
 
 ### Afegits

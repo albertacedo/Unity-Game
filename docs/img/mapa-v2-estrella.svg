@@ -1,0 +1,180 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000' viewBox='0 0 1600 1000'>
+<rect width='1600' height='1000' fill='#121016'/>
+<text x='800' y='52' fill='#dbd8de' font-family='Segoe UI, Arial, sans-serif' font-size='30' text-anchor='middle'>v2 - estrella radial: arestes rectes</text>
+<text x='800' y='86' fill='#9e99ab' font-family='Segoe UI, Arial, sans-serif' font-size='18' text-anchor='middle'>seed 42  -  51 rooms  -  5 bosses</text>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='800,560 854.6,480.5'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='800,560 927,551.7'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='800,560 843.7,642.7'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='800,560 705.8,619.3'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='800,560 688.4,517.3'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='854.6,480.5 926.4,440.4'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='854.6,480.5 1006.2,519.1'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='927,551.7 1006.2,519.1'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='927,551.7 973.7,646.9'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='843.7,642.7 785.8,707.7'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='705.8,619.3 634.5,654.2'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='705.8,619.3 785.8,707.7'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='688.4,517.3 691.2,432.4'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='688.4,517.3 594.6,517.1'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='926.4,440.4 896.4,362.9'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='926.4,440.4 1019.1,417.1'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='1006.2,519.1 1019.1,417.1'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='1006.2,519.1 1098,592.2'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='973.7,646.9 989.3,721.9'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='973.7,646.9 1098,592.2'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='785.8,707.7 823.2,767.4'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='785.8,707.7 669.3,747.5'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='634.5,654.2 669.3,747.5'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='594.6,517.1 512.7,496.6'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='594.6,517.1 503.9,599.6'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='691.2,432.4 711.4,361.2'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='691.2,432.4 512.7,496.6'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='896.4,362.9 911.1,303.2'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='896.4,362.9 689.5,303.1'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='1019.1,417.1 1140.8,431.3'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='1098,592.2 1188.5,566.9'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='1098,592.2 1149.7,676.8'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='989.3,721.9 989.7,793.9'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='823.2,767.4 718.9,822.1'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='669.3,747.5 718.9,822.1'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='669.3,747.5 566.8,774.4'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='503.9,599.6 423.8,627.2'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='512.7,496.6 422.8,495.7'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='512.7,496.6 514.7,378.1'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='711.4,361.2 689.5,303.1'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='911.1,303.2 945,247.6'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='911.1,303.2 1067,288.6'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='1140.8,431.3 1218.8,404.5'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='1188.5,566.9 1275.6,561.7'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='1188.5,566.9 1218.8,404.5'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='1149.7,676.8 1179.9,757.4'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='1149.7,676.8 1275.6,561.7'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='989.7,793.9 1067.9,831'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='718.9,822.1 635.1,867.6'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='718.9,822.1 809.5,887.9'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='566.8,774.4 635.1,867.6'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='566.8,774.4 392.9,729.6'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='423.8,627.2 329.5,608'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='423.8,627.2 392.9,729.6'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='422.8,495.7 354,446.1'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='422.8,495.7 329.5,608'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='514.7,378.1 480.6,317'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='514.7,378.1 627.3,254.4'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='689.5,303.1 627.3,254.4'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='945,247.6 1095.2,229.7'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='1067,288.6 1095.2,229.7'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='1218.8,404.5 1360.6,527.5'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='1275.6,561.7 1360.6,527.5'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='1179.9,757.4 1360.6,527.5'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='1067.9,831 710.8,943.1'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='809.5,887.9 710.8,943.1'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='635.1,867.6 710.8,943.1'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='392.9,729.6 240.7,602.1'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='329.5,608 240.7,602.1'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='354,446.1 240.7,602.1'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='480.6,317 467.2,247.2'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='627.3,254.4 467.2,247.2'/>
+<rect x='762' y='542' width='76' height='36' rx='4' fill='none' stroke='#dbd8de' stroke-width='3'/>
+<rect x='765' y='545' width='70' height='30' rx='4' fill='#52617a'/>
+<text x='800' y='560' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>START</text>
+<rect x='819.6' y='465.5' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='854.6' y='480.5' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='892' y='536.7' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='927' y='551.7' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='808.7' y='627.7' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='843.7' y='642.7' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='670.8' y='604.3' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='705.8' y='619.3' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='653.4' y='502.3' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='688.4' y='517.3' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='891.4' y='425.4' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='926.4' y='440.4' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='971.2' y='504.1' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='1006.2' y='519.1' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='938.7' y='631.9' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='973.7' y='646.9' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='750.8' y='692.7' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='785.8' y='707.7' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='599.5' y='639.2' width='70' height='30' rx='4' fill='#a88a38'/>
+<text x='634.5' y='654.2' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Shop</text>
+<rect x='559.6' y='502.1' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='594.6' y='517.1' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='656.2' y='417.4' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='691.2' y='432.4' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='861.4' y='347.9' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='896.4' y='362.9' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='984.1' y='402.1' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='1019.1' y='417.1' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='1063' y='577.2' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='1098' y='592.2' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='954.3' y='706.9' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='989.3' y='721.9' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='788.2' y='752.4' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='823.2' y='767.4' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='634.3' y='732.5' width='70' height='30' rx='4' fill='#a88a38'/>
+<text x='669.3' y='747.5' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Shop</text>
+<rect x='468.9' y='584.6' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='503.9' y='599.6' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='477.7' y='481.6' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='512.7' y='496.6' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='676.4' y='346.2' width='70' height='30' rx='4' fill='#a88a38'/>
+<text x='711.4' y='361.2' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Shop</text>
+<rect x='876.1' y='288.2' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='911.1' y='303.2' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='1105.8' y='416.3' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='1140.8' y='431.3' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='1153.5' y='551.9' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='1188.5' y='566.9' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='1114.7' y='661.8' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='1149.7' y='676.8' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='954.7' y='778.9' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='989.7' y='793.9' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='683.9' y='807.1' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='718.9' y='822.1' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='531.8' y='759.4' width='70' height='30' rx='4' fill='#3d8557'/>
+<text x='566.8' y='774.4' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Rest</text>
+<rect x='388.8' y='612.2' width='70' height='30' rx='4' fill='#3d8557'/>
+<text x='423.8' y='627.2' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Rest</text>
+<rect x='387.8' y='480.7' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='422.8' y='495.7' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='479.7' y='363.1' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='514.7' y='378.1' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='654.5' y='288.1' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='689.5' y='303.1' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='910' y='232.6' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='945' y='247.6' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='1032' y='273.6' width='70' height='30' rx='4' fill='#3d8557'/>
+<text x='1067' y='288.6' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Rest</text>
+<rect x='1183.8' y='389.5' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='1218.8' y='404.5' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='1240.6' y='546.7' width='70' height='30' rx='4' fill='#3d6ba8'/>
+<text x='1275.6' y='561.7' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Event</text>
+<rect x='1144.9' y='742.4' width='70' height='30' rx='4' fill='#3d6ba8'/>
+<text x='1179.9' y='757.4' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Event</text>
+<rect x='1032.9' y='816' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='1067.9' y='831' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='774.5' y='872.9' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='809.5' y='887.9' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='600.1' y='852.6' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='635.1' y='867.6' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='357.9' y='714.6' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='392.9' y='729.6' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='294.5' y='593' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='329.5' y='608' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='319' y='431.1' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='354' y='446.1' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='445.6' y='302' width='70' height='30' rx='4' fill='#993f3d'/>
+<text x='480.6' y='317' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='592.3' y='239.4' width='70' height='30' rx='4' fill='#3d8557'/>
+<text x='627.3' y='254.4' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>Rest</text>
+<rect x='1060.2' y='214.7' width='70' height='30' rx='4' fill='#7a42a3'/>
+<text x='1095.2' y='229.7' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>BOSS</text>
+<rect x='1325.6' y='512.5' width='70' height='30' rx='4' fill='#7a42a3'/>
+<text x='1360.6' y='527.5' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>BOSS</text>
+<rect x='675.8' y='928.1' width='70' height='30' rx='4' fill='#7a42a3'/>
+<text x='710.8' y='943.1' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>BOSS</text>
+<rect x='205.7' y='587.1' width='70' height='30' rx='4' fill='#7a42a3'/>
+<text x='240.7' y='602.1' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>BOSS</text>
+<rect x='432.2' y='232.2' width='70' height='30' rx='4' fill='#7a42a3'/>
+<text x='467.2' y='247.2' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='14' text-anchor='middle' dominant-baseline='central'>BOSS</text>
+</svg>

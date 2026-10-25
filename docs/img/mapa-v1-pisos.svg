@@ -1,0 +1,62 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000' viewBox='0 0 1600 1000'>
+<rect width='1600' height='1000' fill='#121016'/>
+<text x='800' y='52' fill='#dbd8de' font-family='Segoe UI, Arial, sans-serif' font-size='30' text-anchor='middle'>v1 - pisos: 6 pisos x 7 columnes, 4 camins</text>
+<text x='800' y='86' fill='#9e99ab' font-family='Segoe UI, Arial, sans-serif' font-size='18' text-anchor='middle'>seed 42  -  17 rooms  -  1 bosses</text>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='496,840 496,728'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='648,840 800,728'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='952,840 800,728'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='1104,840 1104,728'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='496,728 648,616'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='800,728 952,616'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='800,728 800,616'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='1104,728 952,616'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='648,616 800,504'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='800,616 952,504'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='952,616 1104,504'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='952,616 952,504'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='800,504 648,392'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='952,504 1104,392'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='952,504 952,392'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='1104,504 1104,392'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='648,392 800,280'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='952,392 800,280'/>
+<polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='1104,392 800,280'/>
+<rect x='440' y='805' width='112' height='70' rx='4' fill='none' stroke='#8d8798' stroke-width='2' stroke-dasharray='6 4'/>
+<rect x='444' y='809' width='104' height='62' rx='4' fill='#993f3d'/>
+<text x='496' y='840' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='18' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='592' y='805' width='112' height='70' rx='4' fill='none' stroke='#8d8798' stroke-width='2' stroke-dasharray='6 4'/>
+<rect x='596' y='809' width='104' height='62' rx='4' fill='#993f3d'/>
+<text x='648' y='840' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='18' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='896' y='805' width='112' height='70' rx='4' fill='none' stroke='#8d8798' stroke-width='2' stroke-dasharray='6 4'/>
+<rect x='900' y='809' width='104' height='62' rx='4' fill='#993f3d'/>
+<text x='952' y='840' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='18' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='1048' y='805' width='112' height='70' rx='4' fill='none' stroke='#8d8798' stroke-width='2' stroke-dasharray='6 4'/>
+<rect x='1052' y='809' width='104' height='62' rx='4' fill='#993f3d'/>
+<text x='1104' y='840' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='18' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='444' y='697' width='104' height='62' rx='4' fill='#993f3d'/>
+<text x='496' y='728' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='18' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='748' y='697' width='104' height='62' rx='4' fill='#993f3d'/>
+<text x='800' y='728' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='18' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='1052' y='697' width='104' height='62' rx='4' fill='#993f3d'/>
+<text x='1104' y='728' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='18' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='596' y='585' width='104' height='62' rx='4' fill='#993f3d'/>
+<text x='648' y='616' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='18' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='748' y='585' width='104' height='62' rx='4' fill='#a88a38'/>
+<text x='800' y='616' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='18' text-anchor='middle' dominant-baseline='central'>Shop</text>
+<rect x='900' y='585' width='104' height='62' rx='4' fill='#993f3d'/>
+<text x='952' y='616' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='18' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='748' y='473' width='104' height='62' rx='4' fill='#993f3d'/>
+<text x='800' y='504' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='18' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='900' y='473' width='104' height='62' rx='4' fill='#a88a38'/>
+<text x='952' y='504' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='18' text-anchor='middle' dominant-baseline='central'>Shop</text>
+<rect x='1052' y='473' width='104' height='62' rx='4' fill='#993f3d'/>
+<text x='1104' y='504' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='18' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='596' y='361' width='104' height='62' rx='4' fill='#993f3d'/>
+<text x='648' y='392' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='18' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='900' y='361' width='104' height='62' rx='4' fill='#993f3d'/>
+<text x='952' y='392' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='18' text-anchor='middle' dominant-baseline='central'>Fight</text>
+<rect x='1052' y='361' width='104' height='62' rx='4' fill='#3d8557'/>
+<text x='1104' y='392' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='18' text-anchor='middle' dominant-baseline='central'>Rest</text>
+<rect x='748' y='249' width='104' height='62' rx='4' fill='#7a42a3'/>
+<text x='800' y='280' fill='#ede8de' font-family='Segoe UI, Arial, sans-serif' font-size='18' text-anchor='middle' dominant-baseline='central'>BOSS</text>
+</svg>

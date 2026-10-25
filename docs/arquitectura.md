@@ -50,7 +50,8 @@ següent. Les capes que han de sobreviure (el `DevPanel`) pengen del Canvas, no 
   que dues carreteres de falques diferents no es creuen mai. Les sales del mateix
   anell s'uneixen amb arcs que ressegueixen l'anell (mai una recta que el talli), i
   l'anell just abans dels caps és un anell complet: des de qualsevol branca es pot
-  vorejar el mapa i triar un altre cap. Provat amb 300 seeds: 0 creuaments.
+  vorejar el mapa i triar un altre cap. Provat amb 300 seeds: 0 creuaments (vegeu la
+  [simulació comparada](sessions/2026-10-25-mapa-radial.md#simulacio-dels-tres-mapes)).
 - **Geometria**: `MapLayout` és l'única font de posicions. El mapa és una el·lipse
   1,45 vegades més ampla que alta, per aprofitar la pantalla 16:9. Cada cap se situa
   sobre el centre angular de les seves sales, perquè cap aresta surti del seu anell
