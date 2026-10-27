@@ -95,8 +95,12 @@ següent. Les capes que han de sobreviure (el `DevPanel`) pengen del Canvas, no 
 - `tools/compile-check.ps1` compila `Assets/Scripts` contra les DLLs de `Library/`
   amb el SDK de .NET, sense obrir Unity. És el primer esglaó de verificació;
   després cal comprovar la consola i provar en Play mode.
-- `.opencode/skills/` guarda les instruccions reutilitzables de l'agent (UI des de
-  codi, balanceig, verificació, efectes). Es preparen al final de cada sessió.
+- `.opencode/skills/` guarda les instruccions reutilitzables de l'agent. N'hi ha de dos
+  tipus: les **pròpies** (UI des de codi, balanceig, verificació, efectes: el que només
+  sap aquest repo) i les **externes**, copiades del catàleg de [skills.sh](https://www.skills.sh/)
+  amb l'origen i la data al peu. Al final de cada sessió es revisen les dues: les pròpies
+  s'actualitzen i, per al coneixement general, es busca una skill externa abans d'escriure'n
+  una de nova. Vegeu [Skills externes](sessions/2026-10-27-skills-externes.md).
 
 ## Convencions
 

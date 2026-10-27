@@ -89,10 +89,18 @@ knowledge: they do not know our code, so prefer the project skill when the two d
 Rules:
 
 - **At the end of every session**, look at the next 1-2 roadmap items and decide
-  what the next session will need. Create a skill if that knowledge does not exist,
-  or update an existing one if the session changed how things work (new helpers,
-  new pitfalls, balance shifts). Keep them short and concrete: stale advice is worse
-  than none.
+  what the next session will need, then:
+  1. **Search outside first.** For general knowledge (engine, patterns, genre design,
+     balance, algorithms) go to <https://www.skills.sh/> and look for a skill that
+     already covers it. Do not author that knowledge from session memory: vendor the
+     upstream `SKILL.md` into `.opencode/skills/<slug>/` with its *Upstream source*
+     footer. The search-and-fetch recipe is in
+     `docs/sessions/2026-10-27-skills-externes.md`.
+  2. **Write a project skill only for what upstream cannot know** — this repo's
+     numbers, our classes, our pitfalls, our verification commands.
+  3. **Update the existing ones** if the session changed how things work (new helpers,
+     new pitfalls, balance shifts). Keep them short and concrete: stale advice is worse
+     than none.
 - `description` decides when the model finds the skill, so write it as *when to use
   this*, not what it is.
 - Skills are written in English, like code. The session note mentions them in Catalan.

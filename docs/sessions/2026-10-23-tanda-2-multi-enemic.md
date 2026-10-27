@@ -30,6 +30,12 @@ i muntar el sistema de *skills* per a les properes sessions.
   per a la propera sessió. El flux d'inici/final de sessió d'`AGENTS.md` ara inclou
   carregar-les en començar i preparar-les en acabar.
 
+  !!! note "Ampliació del 2026-10-27"
+      Aquestes cinc són les skills **pròpies**. Més endavant s'hi van afegir nou skills
+      **externes** copiades del catàleg de skills.sh: el coneixement general (uGUI,
+      Input System, zones de cartes, roguelikes) ja no s'escriu des de zero. Vegeu
+      [Skills externes](2026-10-27-skills-externes.md).
+
 ## Fitxers
 
 ### Afegits

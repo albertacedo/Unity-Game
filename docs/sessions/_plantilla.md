@@ -40,6 +40,10 @@ Com s'ha comprovat que funciona (Play mode, consola, compilació…).
 
 ## Skills per a la propera sessió
 
+Abans d'escriure'n una de nova, busca si ja existeix a <https://www.skills.sh/>
+(la recepta és a `docs/sessions/2026-10-27-skills-externes.md`). Les pròpies són només
+per al que l'upstream no pot saber.
+
 | Skill | Per què |
 |---|---|
 | `nom-del-skill` | Què de la propera sessió necessita aquest coneixement |

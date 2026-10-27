@@ -88,6 +88,15 @@ Socket, Snyk) el dia de la baixada.
 - `.opencode/skills/card-game-design/SKILL.md` — la línia `description` de l'upstream
   venia sense espai (`balanceUse when...`) i amb la llista de paraules clau enganxada;
   queda normalitzada perquè el model la pugui fer servir.
+- `docs/arquitectura.md` — l'apartat d'eines explica els dos tipus de skill i enllaça
+  aquesta fitxa.
+- `docs/sessions/2026-10-23-tanda-2-multi-enemic.md` — nota a l'apartat *Skills* perquè
+  les cinc originals no es llegeixin com l'únic que hi ha.
+- `docs/sessions/_plantilla.md` — la secció *Skills per a la propera sessió* recorda
+  buscar primer a skills.sh.
+- `ProjectSettings/ProjectSettings.asset` i l'atles de `LiberationSans SDF - Fallback`
+  — no són d'aquesta feina; eren canvis pendents al *working tree* i s'han comès amb
+  la resta (`runInBackground: 1` per poder provar amb la finestra darrere).
 
 ## Verificació
 
@@ -106,6 +115,11 @@ Socket, Snyk) el dia de la baixada.
   el projecte es documenten a la skill pròpia, no editant l'externa.
 - **Quan xoquen, mana la pròpia.** `unity-ugui-code` sap que la UI es construeix per codi
   i a 1600×900; `ui-ugui` assumeix prefabs i Editor. Les externes són doctrina general.
+- **Cercar fora és el pas 1.** La rutina de final de sessió d'`AGENTS.md` ara diu, en
+  aquest ordre: buscar a skills.sh el coneixement general dels propers 1-2 punts del
+  roadmap; escriure una skill pròpia només pel que l'upstream no pot saber (números,
+  classes, paranys i verificació d'aquest repo); i actualitzar les existents si la sessió
+  ha canviat com funcionen.
 
 ## Pendents
 
