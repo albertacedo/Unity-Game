@@ -1,7 +1,7 @@
 # 2026-10-27 · Skills externes des de skills.sh
 
 **Durada:** tarda
-**Commits:** `pendent` — skills: incorporem nou skills del catàleg de skills.sh
+**Commits:** `3183de6` — skills: nou skills vendoritzades del catàleg de skills.sh
 
 ## Objectiu
 
