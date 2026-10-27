@@ -981,8 +981,12 @@ següent. Les capes que han de sobreviure (el <code>DevPanel</code>) pengen del 
 <li><code>tools/compile-check.ps1</code> compila <code>Assets/Scripts</code> contra les DLLs de <code>Library/</code>
   amb el SDK de .NET, sense obrir Unity. És el primer esglaó de verificació;
   després cal comprovar la consola i provar en Play mode.</li>
-<li><code>.opencode/skills/</code> guarda les instruccions reutilitzables de l'agent (UI des de
-  codi, balanceig, verificació, efectes). Es preparen al final de cada sessió.</li>
+<li><code>.opencode/skills/</code> guarda les instruccions reutilitzables de l'agent. N'hi ha de dos
+  tipus: les <strong>pròpies</strong> (UI des de codi, balanceig, verificació, efectes: el que només
+  sap aquest repo) i les <strong>externes</strong>, copiades del catàleg de <a href="https://www.skills.sh/">skills.sh</a>
+  amb l'origen i la data al peu. Al final de cada sessió es revisen les dues: les pròpies
+  s'actualitzen i, per al coneixement general, es busca una skill externa abans d'escriure'n
+  una de nova. Vegeu <a href="../sessions/2026-10-27-skills-externes/">Skills externes</a>.</li>
 </ul>
 <h2 id="convencions">Convencions<a class="headerlink" href="#convencions" title="Permanent link">&para;</a></h2>
 <ul>
