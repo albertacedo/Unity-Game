@@ -60,12 +60,31 @@ A skill is a directory with a `SKILL.md` (id = directory name) that the agent lo
 on demand with the `skill` tool. They hold the knowledge that is expensive to
 re-derive every session: engine quirks, balance numbers, verification recipes.
 
+**Project skills** — written here, they hold the facts that only this repo knows:
+
 | Skill | Use it when |
 |---|---|
 | `unity-ugui-code` | building or debugging UI that is built from C# |
 | `deckbuilder-balance` | designing cards, enemies, encounters, rewards |
 | `unity-verify` | proving a change compiles and works (compile check, MCP play mode) |
 | `gameplay-architecture` | adding a subsystem or a new screen |
+| `status-effects-pipeline` | adding or changing a combat status or effect |
+
+**External skills** — vendored verbatim from the [skills.sh](https://www.skills.sh/) catalog,
+each with an *Upstream source* footer (repo, path, fetch date, audits). General
+knowledge: they do not know our code, so prefer the project skill when the two disagree.
+
+| Skill | Source | Use it when |
+|---|---|---|
+| `ui-ugui` | `unity-technologies/skills` (official) | Canvas/RectTransform/ScrollRect hierarchies built in the Editor |
+| `optimize-text-mesh-pro` | `unity-technologies/skills` (official) | TMP atlases, fallbacks, text performance |
+| `unity-csharp-scripting` | `gamedev-skills/awesome-gamedev-agent-skills` | MonoBehaviour lifecycle, serialization, coroutines |
+| `unity-input-system` | `gamedev-skills/awesome-gamedev-agent-skills` | Input Actions, action maps, rebinding |
+| `card-game` | `gamedev-skills/awesome-gamedev-agent-skills` | card zones, draw/shuffle, effect resolution |
+| `roguelike` | `gamedev-skills/awesome-gamedev-agent-skills` | run structure, permadeath, procedural levels |
+| `card-game-design` | `omer-metin/skills-for-antigravity` | card system design: curve, rarity, keywords |
+| `game-balance-economy` | `lvtd-llc/skills` | economy, rewards, risk-reward, dominant strategies |
+| `roguelike-game-designer` | `hanjo92/roguelike-game-designer-skill` | reviewing run design, replayability, accessibility |
 
 Rules:
 
@@ -78,6 +97,10 @@ Rules:
   this*, not what it is.
 - Skills are written in English, like code. The session note mentions them in Catalan.
 - Do not duplicate `AGENTS.md`; point at the files the skill documents.
+- **External skills are not ours.** Do not rewrite their body to fit the project;
+  record the divergence in a project skill instead. To update one, fetch the upstream
+  `SKILL.md` again (see `docs/sessions/2026-10-27-skills-externes.md` for the recipe)
+  and keep the *Upstream source* footer current.
 
 ### Documentation language
 
