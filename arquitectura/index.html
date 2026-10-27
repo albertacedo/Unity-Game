@@ -899,7 +899,9 @@ següent. Les capes que han de sobreviure (el <code>DevPanel</code>) pengen del 
 <li><strong>Zoom i desplaçament</strong>: roda del ratolí (o botons <code>+</code> / <code>−</code>) per ampliar entre el
   60% i el 220%, arrossegant amb el botó dret o el central per moure el mapa. El mapa
   es retalla dins la seva àrea (<code>RectMask2D</code>), així que no trepitja el HUD, i
-  <code>RESET VIEW</code> torna a l'estat inicial. Es pot clicar les sales a qualsevol zoom.</li>
+  <code>RESET VIEW</code> torna a l'estat inicial. Es pot clicar les sales a qualsevol zoom.
+  Mentre hi ha una capa oberta (el deck), <code>MapScreen.Update</code> ignora roda i
+  arrossegament: l'scroll de les cartes no ha de moure el mapa del darrere.</li>
 <li><strong>Moviment</strong>: lliure i gratis: es pot entrar a qualsevol sala veïna sense visitar,
   cap endins o cap enfora. Les sales visitades queden tancades. Si la sala actual no
   té cap veïna per visitar, la run s'acaba (pantalla de cul-de-sac amb <code>END RUN</code>).

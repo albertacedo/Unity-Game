@@ -642,10 +642,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#repartiment-de-sales-aquest-commit" class="md-nav__link">
+  <a href="#repartiment-de-sales-4bd2079" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Repartiment de sales (aquest commit)
+        Repartiment de sales (4bd2079)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bug-la-rodeta-del-deck-movia-el-mapa-7f00972" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bug: la rodeta del deck movia el mapa (7f00972)
       
     </span>
   </a>
@@ -839,10 +850,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#repartiment-de-sales-aquest-commit" class="md-nav__link">
+  <a href="#repartiment-de-sales-4bd2079" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Repartiment de sales (aquest commit)
+        Repartiment de sales (4bd2079)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bug-la-rodeta-del-deck-movia-el-mapa-7f00972" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bug: la rodeta del deck movia el mapa (7f00972)
       
     </span>
   </a>
@@ -968,7 +990,8 @@
 <h1 id="2026-10-25-mapa-radial-de-lestrella-als-anells">2026-10-25 · Mapa radial: de l'estrella als anells<a class="headerlink" href="#2026-10-25-mapa-radial-de-lestrella-als-anells" title="Permanent link">&para;</a></h1>
 <p><strong>Durada:</strong> tarda
 <strong>Commits:</strong> <code>cf408e4</code> (mapa radial) · <code>231e2cc</code> (anells, més caps i zoom/pan) ·
-aquest commit (simulacions i docs)</p>
+<code>98b6304</code> (simulacions i docs) · <code>4bd2079</code> (repartiment de sales) · <code>7f00972</code> (rodeta
+del deck)</p>
 <h2 id="objectiu">Objectiu<a class="headerlink" href="#objectiu" title="Permanent link">&para;</a></h2>
 <p>Trencar la rigidesa del mapa de pisos: 5 sales, una sola direcció i cap decisió de
 camí. La idea és un mapa radial amb el centre com a entrada, anells de sales i diversos
@@ -1007,7 +1030,7 @@ teranyina.</p>
   dret o central i <code>RESET VIEW</code>. El mapa es retalla dins la seva àrea perquè no
   trepitgi el HUD.</li>
 </ul>
-<h3 id="repartiment-de-sales-aquest-commit">Repartiment de sales (aquest commit)<a class="headerlink" href="#repartiment-de-sales-aquest-commit" title="Permanent link">&para;</a></h3>
+<h3 id="repartiment-de-sales-4bd2079">Repartiment de sales (<code>4bd2079</code>)<a class="headerlink" href="#repartiment-de-sales-4bd2079" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>50% combat, 15% descans, 10% botiga i 25% esdeveniment</strong> (abans 62/18/10/10).
   L'anell 1 continua sent sempre de combat.</li>
@@ -1015,6 +1038,15 @@ teranyina.</p>
   botiga per mapa; els combats baixen de 29,8 a 25,1 per mapa.</li>
 <li>Botiga i esdeveniment encara són pantalles <em>placeholder</em>: de moment el 35% de les
   sales sortejades no té contingut real. El repartiment va pensat per quan en tinguin.</li>
+</ul>
+<h3 id="bug-la-rodeta-del-deck-movia-el-mapa-7f00972">Bug: la rodeta del deck movia el mapa (<code>7f00972</code>)<a class="headerlink" href="#bug-la-rodeta-del-deck-movia-el-mapa-7f00972" title="Permanent link">&para;</a></h3>
+<p><code>MapScreen</code> llegeix la roda (i els botons dret i central) directament de
+<code>Mouse.current</code>, no de l'EventSystem. Amb el deck obert, l'scroll de les cartes
+arribava també al mapa i li feia zoom (i, amb el botó dret, pan) al darrere.</p>
+<ul>
+<li><code>DeckScreen</code> compta les capes obertes amb un <code>OpenCount</code> estàtic (<code>OnEnable</code> /
+  <code>OnDisable</code>) i <code>MapScreen.Update</code> surt abans d'hora mentre n'hi hagi alguna.</li>
+<li>En tancar el deck el comptador torna a 0 i el mapa recupera roda i arrossegament.</li>
 </ul>
 <h2 id="simulacio-dels-tres-mapes">Simulació dels tres mapes<a class="headerlink" href="#simulacio-dels-tres-mapes" title="Permanent link">&para;</a></h2>
 <p>Mateix banc de proves per als tres algoritmes: <strong>300 seeds × 40 excursions = 12.000
@@ -1158,7 +1190,9 @@ complet abans dels caps: 0 creuaments en 300 seeds.</em></p>
   distància a falques, arcs i 4-7 caps (v3)</li>
 <li><code>Assets/Scripts/Mapgen/MapLayout.cs</code> — el·lipse ampla, <code>ProjectArc</code>, <code>ArcSteps</code> i
   60 px entre anells</li>
-<li><code>Assets/Scripts/UI/MapScreen.cs</code> — mapa radial, moviment lliure, arcs, zoom i pan</li>
+<li><code>Assets/Scripts/UI/MapScreen.cs</code> — mapa radial, moviment lliure, arcs, zoom i pan;
+  amb <code>7f00972</code>, ignora roda i arrossegament mentre hi ha una capa oberta</li>
+<li><code>Assets/Scripts/UI/DeckScreen.cs</code> — <code>OpenCount</code> estàtic per saber si el deck tapa el mapa</li>
 <li><code>Assets/Scripts/GameManager.cs</code> — moviment lliure entre sales i final de run per
   cul-de-sac</li>
 <li><code>Assets/Scripts/UI/SimpleScreens.cs</code> — pantalla <code>END RUN</code></li>
@@ -1174,7 +1208,11 @@ complet abans dels caps: 0 creuaments en 300 seeds.</em></p>
   correcta a 176%; els botons de zoom pugen i baixen amb el factor 1,12 i <code>RESET VIEW</code>
   torna al 100%; el desplaçament queda limitat a l'àrea.</li>
 <li>Una run conduïda sempre cap enfora arriba al cap i mostra <code>THE HOLLOW OPENS</code>.</li>
-<li>La consola d'Unity no mostra errors després dels dos commits.</li>
+<li>Bug de la rodeta: en Play mode, amb el deck obert (<code>OpenCount = 1</code>), injectar 120
+  unitats de roda va deixar el zoom a 106% i el contingut del mapa a <code>(5,77, -102,96)</code>;
+  tancat el deck (<code>OpenCount = 0</code>), la mateixa injecció va pujar el zoom a 118%
+  (1,06 × 1,12). Sense errors ni avisos a la consola.</li>
+<li>La consola d'Unity no mostra errors després dels commits.</li>
 <li>Captures a <code>%TEMP%\opencode\unity-shots\</code> (no es comitegen).</li>
 </ul>
 <h2 id="decisions">Decisions<a class="headerlink" href="#decisions" title="Permanent link">&para;</a></h2>
@@ -1200,6 +1238,10 @@ complet abans dels caps: 0 creuaments en 300 seeds.</em></p>
   quants culs-de-sac hi ha; ara 0,5.</li>
 <li><strong>4-7 caps</strong> (abans 3-6): l'anell exterior és l'última decisió; amb 4-7 i l'anell
   complet, sempre n'hi ha més d'un a l'abast.</li>
+<li><strong>Un comptador estàtic al deck en lloc de passar la roda per l'EventSystem</strong>:
+  reencaminar el zoom a <code>IScrollHandler</code> seria més "correcte" a ulls d'UGUI, però
+  canviaria el comportament a tot el mapa (el HUD també bloquejaria l'scroll) i el pan
+  amb botó dret no és cap drag d'UI. El comptador resol el cas real amb tres línies.</li>
 </ul>
 <h2 id="pendents">Pendents<a class="headerlink" href="#pendents" title="Permanent link">&para;</a></h2>
 <ul>
@@ -1211,6 +1253,8 @@ complet abans dels caps: 0 creuaments en 300 seeds.</em></p>
       reconstruir les tres versions.</li>
 <li>[ ] Respondre les preguntes de zoom del roadmap: roda o botons, i si l'anell exterior
       es llegeix prou bé amb els arcs.</li>
+<li>[ ] El comptador es diu <code>DeckScreen.OpenCount</code>: si la botiga o els esdeveniments
+      tapen el mapa, caldrà un comptador comú de capes (o fer-los servir el mateix).</li>
 </ul>
 <h2 id="skills-per-a-la-propera-sessio">Skills per a la propera sessió<a class="headerlink" href="#skills-per-a-la-propera-sessio" title="Permanent link">&para;</a></h2>
 <table>
@@ -1222,12 +1266,20 @@ complet abans dels caps: 0 creuaments en 300 seeds.</em></p>
 </thead>
 <tbody>
 <tr>
+<td><code>status-effects-pipeline</code></td>
+<td>El següent punt del roadmap són 8 efectes i 15-20 cartes: on resol cada efecte, quan decau i com es veu</td>
+</tr>
+<tr>
 <td><code>deckbuilder-balance</code></td>
-<td>Els números del mapa (11,35 sales, 24,9% culs-de-sac) i les palanques (<code>LateralChance</code>, caps) per decidir la Tanda 2b</td>
+<td>Números de referència i pressupost de la run (ara ~25 combats per mapa, ~11 sales per excursió)</td>
+</tr>
+<tr>
+<td><code>gameplay-architecture</code></td>
+<td>Si ataquem la botiga (#6), com encaixar-la amb <code>GameManager</code> i les pantalles</td>
 </tr>
 <tr>
 <td><code>unity-verify</code></td>
-<td>Per tornar a conduir el Play mode per MCP i capturar el mapa sense dependre de l'usuari</td>
+<td>Per conduir el Play mode per MCP, injectar roda/tecles i comprovar el mapa sense dependre de l'usuari</td>
 </tr>
 </tbody>
 </table>
