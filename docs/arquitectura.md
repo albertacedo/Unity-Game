@@ -63,6 +63,8 @@ següent. Les capes que han de sobreviure (el `DevPanel`) pengen del Canvas, no 
   60% i el 220%, arrossegant amb el botó dret o el central per moure el mapa. El mapa
   es retalla dins la seva àrea (`RectMask2D`), així que no trepitja el HUD, i
   `RESET VIEW` torna a l'estat inicial. Es pot clicar les sales a qualsevol zoom.
+  Mentre hi ha una capa oberta (el deck), `MapScreen.Update` ignora roda i
+  arrossegament: l'scroll de les cartes no ha de moure el mapa del darrere.
 - **Moviment**: lliure i gratis: es pot entrar a qualsevol sala veïna sense visitar,
   cap endins o cap enfora. Les sales visitades queden tancades. Si la sala actual no
   té cap veïna per visitar, la run s'acaba (pantalla de cul-de-sac amb `END RUN`).

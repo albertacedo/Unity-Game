@@ -92,8 +92,59 @@ gm.StartNewRun(seed);
 Assertions worth writing after combat changes: enemy count, `Target`, HP/block
 deltas, `LastEvent` lines, `IsOver` / `PlayerWon`, hand and discard counts.
 
+## Injecting mouse and keyboard input
+
+`Mouse.current` / `Keyboard.current` are read-only from a script, but you can queue
+events on the device and flush them yourself:
+
+```csharp
+InputSystem.QueueDeltaStateEvent(Mouse.current.scroll, new Vector2(0f, 120f));
+InputSystem.Update();   // the value is visible for the rest of this frame
+```
+
+The native backend zeroes deltas on the next input update, so a
+`QueueStateEvent` sent from a `RunCommand` is already gone when the game's `Update`
+runs. Inject from a throwaway component that runs first instead:
+
+```csharp
+[DefaultExecutionOrder(-10000)]
+internal class WheelProbe : MonoBehaviour
+{
+    public static bool Pending;
+
+    void Update()
+    {
+        if (!Pending) return;
+        Pending = false;
+        InputSystem.QueueDeltaStateEvent(Mouse.current.scroll, new Vector2(0f, 120f));
+        InputSystem.Update();
+    }
+}
+```
+
+Create it in one call (`new GameObject("WheelProbe").AddComponent<WheelProbe>()`),
+set `Pending = true`, read the effect in the next call (`ZoomLabel.text`,
+`anchoredPosition`, `ScrollRect.verticalNormalizedPosition`) and check the result
+against a control run with the effect disabled. Every `RunCommand` recompiles into a
+new assembly, so a probe created in an earlier call has a different type: create a
+fresh one (`WheelProbe2`) if you need to inject again.
+
+Pointer position is different: `Mouse.current.position` follows the real OS cursor and
+overwrites queued values, so `EventSystem`/`ScrollRect` hover only happens when the
+cursor is physically inside the Game view. That is fine for code that reads
+`Mouse.current.scroll` directly (`MapScreen`); for UI-event behaviour, move the real
+cursor or drive the handler directly.
+
 ## Gotchas
 
+- Editing scripts while the Editor is in Play mode reloads the domain: statics reset
+  (`GameManager.Instance` becomes null) and non-serialised fields rebuild as null
+  (`run`, `content`), while the runtime UI objects survive. The result is a "zombie"
+  session where `FindFirstObjectByType<GameManager>()` returns an object whose
+  `Run` is null. Detect it with `GameManager.Instance == null || Instance != gm` and
+  leave/re-enter Play mode before asserting anything.
+- `result.Log` expands `{0}` but not format specifiers: `{0:0.0}` prints literally.
+  Pre-format with `ToString("0.0")` and concatenate.
 - Unity AI package warnings pollute the console; filter to `Error,Exception`.
 - `Editor.log` is per session and huge; tail it instead of grepping everything.
 - No MCP connection? Ask the user to open the project. Never hand-edit serialized

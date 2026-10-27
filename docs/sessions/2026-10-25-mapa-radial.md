@@ -2,7 +2,8 @@
 
 **Durada:** tarda
 **Commits:** `cf408e4` (mapa radial) · `231e2cc` (anells, més caps i zoom/pan) ·
-aquest commit (simulacions i docs)
+`98b6304` (simulacions i docs) · `4bd2079` (repartiment de sales) · `7f00972` (rodeta
+del deck)
 
 ## Objectiu
 
@@ -46,7 +47,7 @@ teranyina.
   dret o central i `RESET VIEW`. El mapa es retalla dins la seva àrea perquè no
   trepitgi el HUD.
 
-### Repartiment de sales (aquest commit)
+### Repartiment de sales (`4bd2079`)
 
 - **50% combat, 15% descans, 10% botiga i 25% esdeveniment** (abans 62/18/10/10).
   L'anell 1 continua sent sempre de combat.
@@ -54,6 +55,16 @@ teranyina.
   botiga per mapa; els combats baixen de 29,8 a 25,1 per mapa.
 - Botiga i esdeveniment encara són pantalles *placeholder*: de moment el 35% de les
   sales sortejades no té contingut real. El repartiment va pensat per quan en tinguin.
+
+### Bug: la rodeta del deck movia el mapa (`7f00972`)
+
+`MapScreen` llegeix la roda (i els botons dret i central) directament de
+`Mouse.current`, no de l'EventSystem. Amb el deck obert, l'scroll de les cartes
+arribava també al mapa i li feia zoom (i, amb el botó dret, pan) al darrere.
+
+- `DeckScreen` compta les capes obertes amb un `OpenCount` estàtic (`OnEnable` /
+  `OnDisable`) i `MapScreen.Update` surt abans d'hora mentre n'hi hagi alguna.
+- En tancar el deck el comptador torna a 0 i el mapa recupera roda i arrossegament.
 
 ## Simulació dels tres mapes
 
@@ -132,7 +143,9 @@ complet abans dels caps: 0 creuaments en 300 seeds.*
   distància a falques, arcs i 4-7 caps (v3)
 - `Assets/Scripts/Mapgen/MapLayout.cs` — el·lipse ampla, `ProjectArc`, `ArcSteps` i
   60 px entre anells
-- `Assets/Scripts/UI/MapScreen.cs` — mapa radial, moviment lliure, arcs, zoom i pan
+- `Assets/Scripts/UI/MapScreen.cs` — mapa radial, moviment lliure, arcs, zoom i pan;
+  amb `7f00972`, ignora roda i arrossegament mentre hi ha una capa oberta
+- `Assets/Scripts/UI/DeckScreen.cs` — `OpenCount` estàtic per saber si el deck tapa el mapa
 - `Assets/Scripts/GameManager.cs` — moviment lliure entre sales i final de run per
   cul-de-sac
 - `Assets/Scripts/UI/SimpleScreens.cs` — pantalla `END RUN`
@@ -148,7 +161,11 @@ complet abans dels caps: 0 creuaments en 300 seeds.*
   correcta a 176%; els botons de zoom pugen i baixen amb el factor 1,12 i `RESET VIEW`
   torna al 100%; el desplaçament queda limitat a l'àrea.
 - Una run conduïda sempre cap enfora arriba al cap i mostra `THE HOLLOW OPENS`.
-- La consola d'Unity no mostra errors després dels dos commits.
+- Bug de la rodeta: en Play mode, amb el deck obert (`OpenCount = 1`), injectar 120
+  unitats de roda va deixar el zoom a 106% i el contingut del mapa a `(5,77, -102,96)`;
+  tancat el deck (`OpenCount = 0`), la mateixa injecció va pujar el zoom a 118%
+  (1,06 × 1,12). Sense errors ni avisos a la consola.
+- La consola d'Unity no mostra errors després dels commits.
 - Captures a `%TEMP%\opencode\unity-shots\` (no es comitegen).
 
 ## Decisions
@@ -174,6 +191,10 @@ complet abans dels caps: 0 creuaments en 300 seeds.*
   quants culs-de-sac hi ha; ara 0,5.
 - **4-7 caps** (abans 3-6): l'anell exterior és l'última decisió; amb 4-7 i l'anell
   complet, sempre n'hi ha més d'un a l'abast.
+- **Un comptador estàtic al deck en lloc de passar la roda per l'EventSystem**:
+  reencaminar el zoom a `IScrollHandler` seria més "correcte" a ulls d'UGUI, però
+  canviaria el comportament a tot el mapa (el HUD també bloquejaria l'scroll) i el pan
+  amb botó dret no és cap drag d'UI. El comptador resol el cas real amb tres línies.
 
 ## Pendents
 
@@ -185,10 +206,14 @@ complet abans dels caps: 0 creuaments en 300 seeds.*
       reconstruir les tres versions.
 - [ ] Respondre les preguntes de zoom del roadmap: roda o botons, i si l'anell exterior
       es llegeix prou bé amb els arcs.
+- [ ] El comptador es diu `DeckScreen.OpenCount`: si la botiga o els esdeveniments
+      tapen el mapa, caldrà un comptador comú de capes (o fer-los servir el mateix).
 
 ## Skills per a la propera sessió
 
 | Skill | Per què |
 |---|---|
-| `deckbuilder-balance` | Els números del mapa (11,35 sales, 24,9% culs-de-sac) i les palanques (`LateralChance`, caps) per decidir la Tanda 2b |
-| `unity-verify` | Per tornar a conduir el Play mode per MCP i capturar el mapa sense dependre de l'usuari |
+| `status-effects-pipeline` | El següent punt del roadmap són 8 efectes i 15-20 cartes: on resol cada efecte, quan decau i com es veu |
+| `deckbuilder-balance` | Números de referència i pressupost de la run (ara ~25 combats per mapa, ~11 sales per excursió) |
+| `gameplay-architecture` | Si ataquem la botiga (#6), com encaixar-la amb `GameManager` i les pantalles |
+| `unity-verify` | Per conduir el Play mode per MCP, injectar roda/tecles i comprovar el mapa sense dependre de l'usuari |

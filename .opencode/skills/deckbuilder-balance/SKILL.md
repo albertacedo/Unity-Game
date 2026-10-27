@@ -14,7 +14,11 @@ description: Use when designing or tuning cards, enemies, intents, encounters, r
   1 Bash (2 energy, 8 damage + 2 Vulnerable).
 - Content lives in `Assets/Scripts/Content/CardLibrary.cs` (`CardLibrary` +
   `EnemyLibrary`); enemies get per-fight state in `Combat.EnemyInstance`.
-- Map: 6 floors with combat / elite / boss / rest / shop / event nodes.
+- Map: radial, centre + 7 rings (~50 rooms) and 4-7 bosses. Room mix 50% combat /
+  15% rest / 10% shop / 25% event (ring 1 is always combat), so a map holds ~25
+  fights, ~6 rests, ~4 shops and ~10 events. Movement is free; `LateralChance` (0.5)
+  decides how much the ring rooms interconnect: ~11 rooms per random run, ~25% of
+  runs end in a dead end.
 
 ## Benchmarks (use before inventing numbers)
 

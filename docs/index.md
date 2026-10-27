@@ -46,4 +46,4 @@ Consulta l'[índex de sessions](sessions/index.md) o el [roadmap](roadmap.md).
 | 2026-10-22 | [Tanda 1](sessions/2026-10-22-tanda-1.md) | Panell F1, vista del mas, feedback de combat |
 | 2026-10-22 | [Docs i flux de treball](sessions/2026-10-22-docs-i-flux.md) | Aquest lloc i la rutina d'inici/final de sessió |
 | 2026-10-23 | [Tanda 2: multi-enemic](sessions/2026-10-23-tanda-2-multi-enemic.md) | Diversos enemics, selecció d'objectiu i skills |
-| 2026-10-25 | [Mapa radial](sessions/2026-10-25-mapa-radial.md) | De l'estrella als anells, zoom/pan i simulació dels tres mapes |
+| 2026-10-25 | [Mapa radial](sessions/2026-10-25-mapa-radial.md) | De l'estrella als anells, zoom/pan, simulació dels tres mapes i el fix de la rodeta |
