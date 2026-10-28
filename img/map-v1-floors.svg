@@ -1,6 +1,6 @@
 <svg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000' viewBox='0 0 1600 1000'>
 <rect width='1600' height='1000' fill='#121016'/>
-<text x='800' y='52' fill='#dbd8de' font-family='Segoe UI, Arial, sans-serif' font-size='30' text-anchor='middle'>v1 - pisos: 6 pisos x 7 columnes, 4 camins</text>
+<text x='800' y='52' fill='#dbd8de' font-family='Segoe UI, Arial, sans-serif' font-size='30' text-anchor='middle'>v1 - floors: 6 floors x 7 columns, 4 paths</text>
 <text x='800' y='86' fill='#9e99ab' font-family='Segoe UI, Arial, sans-serif' font-size='18' text-anchor='middle'>seed 42  -  17 rooms  -  1 bosses</text>
 <polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='496,840 496,728'/>
 <polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='648,840 800,728'/>

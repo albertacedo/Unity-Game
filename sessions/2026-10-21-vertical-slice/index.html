@@ -1,12 +1,12 @@
 
 <!doctype html>
-<html lang="ca" class="no-js">
+<html lang="en" class="no-js">
   <head>
     
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Diari de sessions i documentació del prototip de roguelike de cartes">
+        <meta name="description" content="Session log and documentation for the card roguelike prototype">
       
       
       
@@ -16,7 +16,7 @@
         <link rel="prev" href="../">
       
       
-        <link rel="next" href="../2026-10-21-github-i-roadmap/">
+        <link rel="next" href="../2026-10-21-github-and-roadmap/">
       
       
         
@@ -79,7 +79,7 @@
       
         
         <a href="#2026-10-21-vertical-slice" class="md-skip">
-          Salta el contingut
+          Skip to content
         </a>
       
     </div>
@@ -93,7 +93,7 @@
   
 
 <header class="md-header md-header--shadow" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Capçalera">
+  <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../.." title="Unity Game — Dev Log" class="md-header__button md-logo" aria-label="Unity Game — Dev Log" data-md-component="logo">
       
   
@@ -127,9 +127,9 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="amber"  aria-label="Canvia a clar"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="amber"  aria-label="Switch to light"  type="radio" name="__palette" id="__palette_0">
     
-      <label class="md-header__button md-icon" title="Canvia a clar" for="__palette_1" hidden>
+      <label class="md-header__button md-icon" title="Switch to light" for="__palette_1" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
       </label>
     
@@ -137,9 +137,9 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="amber"  aria-label="Canvia a fosc"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="amber"  aria-label="Switch to dark"  type="radio" name="__palette" id="__palette_1">
     
-      <label class="md-header__button md-icon" title="Canvia a fosc" for="__palette_0" hidden>
+      <label class="md-header__button md-icon" title="Switch to dark" for="__palette_0" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
       </label>
     
@@ -162,16 +162,16 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Cerca" placeholder="Cerca" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
       </label>
-      <nav class="md-search__options" aria-label="Cerca">
+      <nav class="md-search__options" aria-label="Search">
         
-        <button type="reset" class="md-search__icon md-icon" title="Neteja" aria-label="Neteja" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
           
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
         </button>
@@ -182,7 +182,7 @@
       <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
-            Inicialitzant cerca
+            Initializing search
           </div>
           <ol class="md-search-result__list" role="presentation"></ol>
         </div>
@@ -216,7 +216,7 @@
 
 
 
-<nav class="md-nav md-nav--primary" aria-label="Navegació" data-md-level="0">
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="Unity Game — Dev Log" class="md-nav__button md-logo" aria-label="Unity Game — Dev Log" data-md-component="logo">
       
@@ -243,7 +243,7 @@
   <span class="md-ellipsis">
     
   
-    Inici
+    Home
   
 
     
@@ -263,14 +263,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../arquitectura/" class="md-nav__link">
+      <a href="../../architecture/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Arquitectura
+    Architecture
   
 
     
@@ -290,14 +290,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../contingut/" class="md-nav__link">
+      <a href="../../content/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Contingut
+    Content
   
 
     
@@ -405,7 +405,7 @@
   <span class="md-ellipsis">
     
   
-    Índex de sessions
+    Session index
   
 
     
@@ -472,7 +472,7 @@
       
         
 
-<nav class="md-nav md-nav--secondary" aria-label="Taula de continguts">
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
   
@@ -481,15 +481,15 @@
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      Taula de continguts
+      Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#objectiu" class="md-nav__link">
+  <a href="#objective" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Objectiu
+        Objective
       
     </span>
   </a>
@@ -497,10 +497,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#que-sha-fet" class="md-nav__link">
+  <a href="#what-was-done" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Què s'ha fet
+        What was done
       
     </span>
   </a>
@@ -508,10 +508,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#simulacio-del-mapa" class="md-nav__link">
+  <a href="#map-simulation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Simulació del mapa
+        Map simulation
       
     </span>
   </a>
@@ -519,22 +519,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#fitxers" class="md-nav__link">
+  <a href="#files" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Fitxers
+        Files
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Fitxers">
+    <nav class="md-nav" aria-label="Files">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#afegits" class="md-nav__link">
+  <a href="#added" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Afegits
+        Added
       
     </span>
   </a>
@@ -547,10 +547,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#verificacio" class="md-nav__link">
+  <a href="#verification" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Verificació
+        Verification
       
     </span>
   </a>
@@ -569,10 +569,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#pendents" class="md-nav__link">
+  <a href="#pending" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Pendents
+        Pending
       
     </span>
   </a>
@@ -595,14 +595,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../2026-10-21-github-i-roadmap/" class="md-nav__link">
+      <a href="../2026-10-21-github-and-roadmap/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    2026-10-21 · GitHub i roadmap
+    2026-10-21 · GitHub and roadmap
   
 
     
@@ -623,14 +623,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../2026-10-22-tanda-1/" class="md-nav__link">
+      <a href="../2026-10-22-batch-1/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    2026-10-22 · Tanda 1
+    2026-10-22 · Batch 1
   
 
     
@@ -651,14 +651,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../2026-10-22-docs-i-flux/" class="md-nav__link">
+      <a href="../2026-10-22-docs-and-workflow/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    2026-10-22 · Docs i flux de treball
+    2026-10-22 · Docs and workflow
   
 
     
@@ -679,14 +679,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../2026-10-23-tanda-2-multi-enemic/" class="md-nav__link">
+      <a href="../2026-10-23-batch-2-multi-enemy/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    2026-10-23 · Tanda 2
+    2026-10-23 · Batch 2
   
 
     
@@ -707,14 +707,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../2026-10-25-mapa-radial/" class="md-nav__link">
+      <a href="../2026-10-25-radial-map/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    2026-10-25 · Mapa radial
+    2026-10-25 · Radial map
   
 
     
@@ -735,14 +735,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../2026-10-27-skills-externes/" class="md-nav__link">
+      <a href="../2026-10-27-external-skills/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    2026-10-27 · Skills externes
+    2026-10-27 · External skills
   
 
     
@@ -763,14 +763,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../2026-10-28-mapa-boira-connexions/" class="md-nav__link">
+      <a href="../2026-10-28-map-fog-connections/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    2026-10-28 · Mapa amb boira i connexions
+    2026-10-28 · Map with fog and connections
   
 
     
@@ -791,14 +791,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../2026-10-28-contingut-csv/" class="md-nav__link">
+      <a href="../2026-10-28-csv-content/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    2026-10-28 · Contingut en CSV
+    2026-10-28 · Content in CSV
   
 
     
@@ -832,7 +832,7 @@
                   <div class="md-sidebar__inner">
                     
 
-<nav class="md-nav md-nav--secondary" aria-label="Taula de continguts">
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
   
@@ -841,15 +841,15 @@
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      Taula de continguts
+      Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#objectiu" class="md-nav__link">
+  <a href="#objective" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Objectiu
+        Objective
       
     </span>
   </a>
@@ -857,10 +857,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#que-sha-fet" class="md-nav__link">
+  <a href="#what-was-done" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Què s'ha fet
+        What was done
       
     </span>
   </a>
@@ -868,10 +868,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#simulacio-del-mapa" class="md-nav__link">
+  <a href="#map-simulation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Simulació del mapa
+        Map simulation
       
     </span>
   </a>
@@ -879,22 +879,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#fitxers" class="md-nav__link">
+  <a href="#files" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Fitxers
+        Files
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Fitxers">
+    <nav class="md-nav" aria-label="Files">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#afegits" class="md-nav__link">
+  <a href="#added" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Afegits
+        Added
       
     </span>
   </a>
@@ -907,10 +907,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#verificacio" class="md-nav__link">
+  <a href="#verification" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Verificació
+        Verification
       
     </span>
   </a>
@@ -929,10 +929,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#pendents" class="md-nav__link">
+  <a href="#pending" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Pendents
+        Pending
       
     </span>
   </a>
@@ -957,92 +957,90 @@
 
 
 <h1 id="2026-10-21-vertical-slice">2026-10-21 · Vertical slice<a class="headerlink" href="#2026-10-21-vertical-slice" title="Permanent link">&para;</a></h1>
-<p><strong>Commits:</strong> <code>5ce0f83</code> (projecte base) · <code>700d2a7</code> (vertical slice)</p>
-<h2 id="objectiu">Objectiu<a class="headerlink" href="#objectiu" title="Permanent link">&para;</a></h2>
-<p>Passar d'un projecte Unity 6.3 acabat de crear a un <strong>bucle jugable complet</strong>: mapa,
-combat de cartes i recompenses. Un <em>thin vertical slice</em> per poder jugar alguna cosa
-al més aviat possible.</p>
-<h2 id="que-sha-fet">Què s'ha fet<a class="headerlink" href="#que-sha-fet" title="Permanent link">&para;</a></h2>
+<p><strong>Commits:</strong> <code>5ce0f83</code> (base project) · <code>700d2a7</code> (vertical slice)</p>
+<h2 id="objective">Objective<a class="headerlink" href="#objective" title="Permanent link">&para;</a></h2>
+<p>Go from a freshly created Unity 6.3 project to a <strong>complete playable loop</strong>: map, card
+combat and rewards. A <em>thin vertical slice</em> so we can play something as early as possible.</p>
+<h2 id="what-was-done">What was done<a class="headerlink" href="#what-was-done" title="Permanent link">&para;</a></h2>
 <ul>
-<li>S'ha localitzat i configurat el projecte existent (URP 2D, Input System nou).</li>
-<li>S'ha connectat l'editor amb l'agent a través del <strong>relay MCP</strong> (<code>opencode.json</code>).</li>
-<li>S'ha importat <strong>TextMesh Pro Essential Resources</strong> (sense això no compila).</li>
-<li><strong>Mapa</strong> estil Slay the Spire: 6 pisos (5 normals + cap), 7 columnes, 4 camins,
-  arestes que no es creuen, determinista per <em>seed</em>.</li>
-<li><strong>Combat</strong> per torns: 3 energia, robes 5 cartes, bloqueig que es reinicia, Vulnerable ×1,5.</li>
-<li><strong>Contingut</strong>: 10 cartes (Strike, Defend, Bash, Cleave, Pommel Strike, Iron Wave,
-  Shrug It Off, Thunderclap, Heavy Blade, Battle Trance) i 3 enemics
-  (Jaw Worm 44 HP, Cultist 50 HP, The Guardian 90 HP com a cap).</li>
-<li><strong>UI sencera construïda des de codi</strong> amb <code>UIFactory</code>: sense prefabs ni pantalles
-  muntades a l'editor.</li>
-<li>Pantalles: mapa, combat, recompensa, descans, placeholder i final de run.</li>
-<li>Escena <code>Assets/Scenes/Prototype.unity</code> amb un sol objecte <code>Game</code>.</li>
+<li>Located and configured the existing project (URP 2D, new Input System).</li>
+<li>Connected the Editor to the agent through the <strong>MCP relay</strong> (<code>opencode.json</code>).</li>
+<li>Imported <strong>TextMesh Pro Essential Resources</strong> (without them nothing compiles).</li>
+<li><strong>Map</strong> Slay the Spire style: 6 floors (5 normal + boss), 7 columns, 4 paths, edges that
+  do not cross, deterministic per <em>seed</em>.</li>
+<li><strong>Combat</strong> turn-based: 3 energy, draw 5 cards, block that resets, Vulnerable ×1.5.</li>
+<li><strong>Content</strong>: 10 cards (Strike, Defend, Bash, Cleave, Pommel Strike, Iron Wave, Shrug It
+  Off, Thunderclap, Heavy Blade, Battle Trance) and 3 enemies (Jaw Worm 44 HP, Cultist
+  50 HP, The Guardian 90 HP as the boss).</li>
+<li><strong>Entire UI built from code</strong> with <code>UIFactory</code>: no prefabs and no screens assembled in
+  the Editor.</li>
+<li>Screens: map, combat, reward, rest, placeholder and end of run.</li>
+<li><code>Assets/Scenes/Prototype.unity</code> scene with a single <code>Game</code> object.</li>
 </ul>
-<h2 id="simulacio-del-mapa">Simulació del mapa<a class="headerlink" href="#simulacio-del-mapa" title="Permanent link">&para;</a></h2>
-<p>El mapa de pisos és determinista per <em>seed</em>: 4 camins pugen del pis 0 al cap i es
-rebutgen les arestes que es creuarien. L'he passat pel mateix banc de proves que els
-dos mapes radials (vegeu la <a href="../2026-10-25-mapa-radial/">sessió del 2026-10-25</a>):
-<strong>300 seeds × 40 excursions = 12.000 recorreguts</strong>, amb un jugador que entra per una
-sala a l'atzar del pis 0 i després tria una aresta a l'atzar.</p>
-<p><a href="../../img/mapa-v1-pisos.svg" target="_blank"><img src="../../img/mapa-v1-pisos.svg" alt="Mapa de pisos: 6 pisos, 7 columnes i 4 camins"></a></p>
-<p><em>Seed 42. Les sales amb contorn discontinu són les entrades possibles; el cap és a dalt.
-Clic a la imatge per veure-la a mida completa.</em></p>
+<h2 id="map-simulation">Map simulation<a class="headerlink" href="#map-simulation" title="Permanent link">&para;</a></h2>
+<p>The floor map is deterministic per <em>seed</em>: 4 paths climb from floor 0 to the boss and the
+edges that would cross are rejected. I ran it through the same benchmark as the two radial
+maps (see the <a href="../2026-10-25-radial-map/">2026-10-25 session</a>): <strong>300 seeds × 40 runs =
+12,000 traversals</strong>, with a player who enters through a random room on floor 0 and then
+picks a random edge.</p>
+<p><a href="../../img/map-v1-floors.svg" target="_blank"><img src="../../img/map-v1-floors.svg" alt="Floor map: 6 floors, 7 columns and 4 paths"></a></p>
+<p><em>Seed 42. Rooms with a dashed outline are the possible entrances; the boss is at the top.
+Click the image to see it full size.</em></p>
 <table>
 <thead>
 <tr>
-<th>Mètrica</th>
-<th>Valor</th>
+<th>Metric</th>
+<th>Value</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Sales per mapa</td>
-<td>15,1</td>
+<td>Rooms per map</td>
+<td>15.1</td>
 </tr>
 <tr>
-<td>Arestes per mapa</td>
-<td>16,6</td>
+<td>Edges per map</td>
+<td>16.6</td>
 </tr>
 <tr>
-<td>Caps</td>
-<td>1 (sempre)</td>
+<td>Bosses</td>
+<td>1 (always)</td>
 </tr>
 <tr>
-<td>Sales amb més d'una sortida</td>
-<td>2,3</td>
+<td>Rooms with more than one exit</td>
+<td>2.3</td>
 </tr>
 <tr>
-<td>Arestes que es creuen</td>
-<td>0 (pitjor mapa: 0)</td>
+<td>Edges that cross</td>
+<td>0 (worst map: 0)</td>
 </tr>
 <tr>
-<td>Sales inabastables o sobreposades</td>
+<td>Unreachable or overlapping rooms</td>
 <td>0</td>
 </tr>
 <tr>
-<td>Excursions que arriben al cap</td>
+<td>Traversals that reach the boss</td>
 <td><strong>100%</strong></td>
 </tr>
 <tr>
-<td>Excursions sense sortida</td>
+<td>Traversals with no way out</td>
 <td><strong>0%</strong></td>
 </tr>
 <tr>
-<td>Sales per excursió</td>
-<td>5,0 (sempre; 6 comptant l'entrada)</td>
+<td>Rooms per traversal</td>
+<td>5.0 (always; 6 counting the entrance)</td>
 </tr>
 </tbody>
 </table>
-<p>El 100% no vol dir que el mapa sigui millor: vol dir que <strong>no hi ha decisions de
-direcció</strong>. Les arestes només van cap amunt, cada sala en té almenys una i totes les del
-darrer pis van al cap, així que tota partida fa exactament el mateix recorregut de 5
-sales. El mapa és petit (15 sales) perquè els 4 camins es fusionen de seguida: només 2,3
-sales per mapa ofereixen més d'una sortida. És el que va portar a provar el mapa radial
-amb moviment lliure.</p>
-<h2 id="fitxers">Fitxers<a class="headerlink" href="#fitxers" title="Permanent link">&para;</a></h2>
-<h3 id="afegits">Afegits<a class="headerlink" href="#afegits" title="Permanent link">&para;</a></h3>
+<p>100% does not mean the map is better: it means there are <strong>no direction decisions</strong>. Edges
+only go upwards, every room has at least one and every room on the last floor goes to the
+boss, so every run follows exactly the same route of 5 rooms. The map is small (15 rooms)
+because the 4 paths merge immediately: only 2.3 rooms per map offer more than one exit.
+That is what led us to try the radial map with free movement.</p>
+<h2 id="files">Files<a class="headerlink" href="#files" title="Permanent link">&para;</a></h2>
+<h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>Assets/Scripts/GameManager.cs</code> — punt d'entrada i canvi de pantalles</li>
+<li><code>Assets/Scripts/GameManager.cs</code> — entry point and screen switching</li>
 <li><code>Assets/Scripts/Run/RunState.cs</code></li>
 <li><code>Assets/Scripts/Mapgen/MapGenerator.cs</code></li>
 <li><code>Assets/Scripts/Combat/CombatSession.cs</code></li>
@@ -1050,26 +1048,26 @@ amb moviment lliure.</p>
 <li><code>Assets/Scripts/Data/CardData.cs</code>, <code>Assets/Scripts/Data/EnemyData.cs</code></li>
 <li><code>Assets/Scripts/UI/UIFactory.cs</code>, <code>MapScreen.cs</code>, <code>CombatScreen.cs</code>, <code>RewardScreen.cs</code>, <code>SimpleScreens.cs</code></li>
 <li><code>Assets/Scenes/Prototype.unity</code></li>
-<li><code>Assets/TextMesh Pro/**</code> — recursos essencials del TMP</li>
+<li><code>Assets/TextMesh Pro/**</code> — TMP essential resources</li>
 </ul>
-<h2 id="verificacio">Verificació<a class="headerlink" href="#verificacio" title="Permanent link">&para;</a></h2>
-<p>Partida completa en Play mode: mapa → combat guanyat amb <strong>56/72 HP</strong> → pantalla de
-recompensa → tornada al mapa amb <strong>10 cartes</strong> al mas. <strong>0 errors</strong> de compilació.</p>
+<h2 id="verification">Verification<a class="headerlink" href="#verification" title="Permanent link">&para;</a></h2>
+<p>A full run in Play mode: map → combat won with <strong>56/72 HP</strong> → reward screen → back to the
+map with <strong>10 cards</strong> in the deck. <strong>0</strong> compilation errors.</p>
 <h2 id="decisions">Decisions<a class="headerlink" href="#decisions" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>UGUI + TextMeshPro</strong>, no UI Toolkit: és el que demana el gènere i el que es veu a la
-  referència.</li>
-<li><strong>UI per codi</strong> en lloc de prefabs: iteració ràpida i tot versionat en text.</li>
-<li><strong>Contingut en C#</strong> (<code>CardLibrary</code>) i no en ScriptableObjects encara: canviar números
-  és editar una línia. Es migrarà quan el volum creixi.</li>
-<li><strong>Una sola escena</strong>: les pantalles són panells de runtime.</li>
-<li><strong>Sense moviment</strong>: el joc és mapa de nodes + combat per torns, no un top-down
-  d'exploració.</li>
+<li><strong>UGUI + TextMeshPro</strong>, not UI Toolkit: it is what the genre asks for and what the
+  reference does.</li>
+<li><strong>UI from code</strong> instead of prefabs: fast iteration and everything versioned as text.</li>
+<li><strong>Content in C#</strong> (<code>CardLibrary</code>) and not in ScriptableObjects yet: changing numbers
+  means editing one line. It will be migrated when the volume grows.</li>
+<li><strong>A single scene</strong>: screens are runtime panels.</li>
+<li><strong>No movement</strong>: the game is a node map + turn-based combat, not a top-down exploration
+  game.</li>
 </ul>
-<h2 id="pendents">Pendents<a class="headerlink" href="#pendents" title="Permanent link">&para;</a></h2>
+<h2 id="pending">Pending<a class="headerlink" href="#pending" title="Permanent link">&para;</a></h2>
 <ul>
-<li>[x] Pujar-ho a GitHub (fet a la sessió següent)</li>
-<li>[ ] Veure el mas i tenir eines de test → es converteix en la <strong>Tanda 1</strong></li>
+<li>[x] Push it to GitHub (done in the next session)</li>
+<li>[ ] See the deck and have test tools → becomes <strong>Batch 1</strong></li>
 </ul>
 
 
@@ -1094,7 +1092,7 @@ recompensa → tornada al mapa amb <strong>10 cartes</strong> al mas. <strong>0 
           <button type="button" class="md-top md-icon" data-md-component="top" hidden>
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
-  Torna a l'inici
+  Back to top
 </button>
         
       </main>
@@ -1126,7 +1124,7 @@ recompensa → tornada al mapa amb <strong>10 cartes</strong> al mas. <strong>0 
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "navigation.tracking", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiat al porta-retalls", "clipboard.copy": "C\u00f2pia al porta-retalls", "search.result.more.one": "1 m\u00e9s en aquesta p\u00e0gina", "search.result.more.other": "# m\u00e9s en aquesta p\u00e0gina", "search.result.none": "Cap document coincideix", "search.result.one": "1 document coincident", "search.result.other": "# documents coincidents", "search.result.placeholder": "Escriu per a comen\u00e7ar a cercar", "search.result.term.missing": "Desaparegut", "select.version": "Selecciona la versi\u00f3"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "navigation.tracking", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
