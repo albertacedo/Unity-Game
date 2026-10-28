@@ -16,7 +16,7 @@ s'ha fet, què s'ha après i quins fitxers han canviat.
 | Bucle jugable | ✅ mapa → combat → recompensa → mapa |
 | Mapa | ✅ radial: centre, 8 anells, 4-7 caps, boira configurable, zoom/pan i connexions segures |
 | Combat | ✅ torns, energia, bloqueig, Vulnerable, multi-enemic amb objectiu |
-| Contingut | 10 cartes · 3 enemics (1 cap) + packs, i taules de relíquies/esdeveniments (encara inertes), tot en CSV editable |
+| Contingut | 10 cartes · 2 enemics, 2 packs i 1 cap, i taules de relíquies/esdeveniments (encara inertes), tot en CSV editable |
 | Eines de test | ✅ panell F1, vista del mas, feedback de combat, `tools/compile-check.ps1` |
 | Eines de contingut | ✅ finestra `Prototype → Content (CSV)` i `tools/content-check` |
 | Or | ⚠️ es mostra però no es pot gastar (botiga pendent) |
@@ -34,7 +34,7 @@ s'ha fet, què s'ha après i quins fitxers han canviat.
 - **Unity** 6000.3.26f1 (Unity 6.3), URP 2D
 - **Input System** nou (no legacy)
 - **UI**: UGUI + TextMeshPro, construïda des de codi
-- **Contingut**: cartes i enemics en C# (`CardLibrary`, `EnemyLibrary`)
+- **Contingut**: cartes, enemics, relíquies i esdeveniments en CSV (`Assets/Resources/Content/`), llegits per `ContentDatabase`
 
 ## Sessions
 

@@ -1,0 +1,20 @@
+#!/bin/sh
+# Records which computer made the commit. The repo is edited from two machines.
+#
+# Installed by: git config core.hooksPath tools/git-hooks
+# Runs as .git/hooks/prepare-commit-msg (git calls it with sh, also on Windows).
+
+msg_file="$1"
+
+# Already recorded (amended commit or hand-written trailer): leave it alone.
+if grep -qi '^Machine:' "$msg_file"; then
+    exit 0
+fi
+
+if [ -n "$COMPUTERNAME" ]; then
+    machine="$COMPUTERNAME"
+else
+    machine="$(hostname 2>/dev/null || echo unknown)"
+fi
+
+printf '\nMachine: %s\n' "$machine" >> "$msg_file"
