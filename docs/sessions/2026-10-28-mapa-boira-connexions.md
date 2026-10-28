@@ -1,7 +1,8 @@
 # 2026-10-28 · Mapa amb boira i connexions
 
 **Durada:** tarda
-**Commits:** aquest commit — feat: tune foggy radial map navigation
+**Commits:** `1fc4e15` feat: tune foggy radial map navigation · `1cacece` feat: author
+cards, enemies, relics and events from CSV · aquest commit — docs: capture the radial map
 
 ## Objectiu
 
@@ -20,6 +21,14 @@ i més opcions per canviar de branca sense fer que les carreteres siguin il·leg
 - Les connexions es validen contra creuaments i contra la proximitat als rectangles dels
   nodes; si una connexió radial no és segura, es prova una branca alternativa.
 - Els valors per defecte són boira apagada i retrocés apagat.
+
+## Captura
+
+![Mapa radial amb les connexions noves](../images/2026-10-28-mapa-radial.png)
+
+*Run nova amb seed aleatòria, zoom al 100% i boira apagada (el valor per defecte). S'hi
+veuen els 8 anells, les connexions laterals rectes, les diagonals entre branques i els
+quatre caps de l'anell exterior.*
 
 ## Fitxers
 

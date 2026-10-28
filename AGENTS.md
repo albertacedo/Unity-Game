@@ -33,11 +33,21 @@ The user works in live-coding sessions. Follow this every time, without being as
 
 1. Run `git pull --ff-only`. If incoming changes touch `Assets/Scenes`, `Assets/Prefabs`
    or other serialized assets, ask the user to close Unity first.
-2. Read the newest file in `docs/sessions/` (plus `docs/index.md` on a fresh clone).
+2. Read the whole working context, not just the newest note:
+   - `docs/index.md` (state table), `docs/roadmap.md` (priorities, open decisions and
+     playtest questions), `docs/arquitectura.md`, `docs/contingut.md` and
+     `docs/sessions/index.md`.
+   - The **last three** session notes in full, plus the *Pendents* and *Decisions*
+     sections of every older note: unfinished work hides there, not in the roadmap.
+   - `git log --oneline -10` to see what actually landed since the notes were written.
 3. Check `.opencode/skills/` and load the skills relevant to today's work with the
    `skill` tool before planning (see *Skills* below).
-4. Reply with 3-5 lines on where the project stands and propose 2-3 concrete next steps
-   from `docs/roadmap.md`. Ask which one to take if it is not obvious.
+4. Reply with: where the project stands (3-5 lines), the **open pending items quoted
+   from the roadmap and the last notes** (do not reconstruct them from memory), and 2-3
+   concrete next steps with their effort. Ask which one to take if it is not obvious.
+
+If the roadmap and the newest session note disagree, say so explicitly instead of
+picking one silently.
 
 ### When the user says the session is over
 
