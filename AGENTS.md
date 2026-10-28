@@ -10,7 +10,7 @@ This file tells AI agents how to work in this repository. Read it before making 
 - **Game type:** 2D top-down prototype. No gameplay code exists yet — everything is greenfield.
 - **Content:** cards, enemies, relics and events are CSV tables in
   `Assets/Resources/Content/`, not `.asset` files. Format and workflow:
-  `docs/contingut.md`; edit through the **Prototype → Content (CSV)** window or Excel.
+  `docs/content.md`; edit through the **Prototype → Content (CSV)** window or Excel.
 - **Key package:** `com.unity.ai.assistant` (Unity's in-editor assistant) is installed.
 - **MCP:** the `unity` server in `opencode.json` connects to the running Editor through `~/.unity/relay/relay_win.exe`.
 
@@ -35,9 +35,9 @@ The user works in live-coding sessions. Follow this every time, without being as
    or other serialized assets, ask the user to close Unity first.
 2. Read the whole working context, not just the newest note:
    - `docs/index.md` (state table), `docs/roadmap.md` (priorities, open decisions and
-     playtest questions), `docs/arquitectura.md`, `docs/contingut.md` and
+     playtest questions), `docs/architecture.md`, `docs/content.md` and
      `docs/sessions/index.md`.
-   - The **last three** session notes in full, plus the *Pendents* and *Decisions*
+   - The **last three** session notes in full, plus the *Pending* and *Decisions*
      sections of every older note: unfinished work hides there, not in the roadmap.
    - `git log --oneline -10` to see what actually landed since the notes were written.
 3. Check `.opencode/skills/` and load the skills relevant to today's work with the
@@ -55,7 +55,7 @@ Words like *"ja estic per avui"*, *"tanquem"*, *"fi de sessió"* mean: wrap up.
 
 1. Make sure the project compiles with zero errors (Unity console via MCP, or Unity's
    `Editor.log`).
-2. Write `docs/sessions/AAAA-MM-DD-<slug>.md` from `docs/sessions/_plantilla.md`:
+2. Write `docs/sessions/YYYY-MM-DD-<slug>.md` from `docs/sessions/_template.md`:
    objective, what was done, files added / modified / deleted, verification, decisions,
    pending items.
 3. Add the page to `nav` in `mkdocs.yml`, to the table in `docs/index.md` and to
@@ -63,9 +63,10 @@ Words like *"ja estic per avui"*, *"tanquem"*, *"fi de sessió"* mean: wrap up.
 4. Run `python -m mkdocs build` and fix any broken link.
 5. Commit code and docs together and push to `origin/main`.
 6. Publish the site with `python -m mkdocs gh-deploy --force`
-   (live at <https://albertacedo.github.io/Unity-Game/>).
+   (live at <https://albertacedo.github.io/Unity-Game/>). On a fresh machine run
+   `pip install -r requirements.txt` first.
 7. **Prepare the skills for the next session** (see below) and list them in the
-   session note under *Skills per a la propera sessió*.
+   session note under *Skills for the next session*.
 
 ### Skills (`.opencode/skills/`)
 
@@ -111,7 +112,7 @@ Rules:
      already covers it. Do not author that knowledge from session memory: vendor the
      upstream `SKILL.md` into `.opencode/skills/<slug>/` with its *Upstream source*
      footer. The search-and-fetch recipe is in
-     `docs/sessions/2026-10-27-skills-externes.md`.
+     `docs/sessions/2026-10-27-external-skills.md`.
   2. **Write a project skill only for what upstream cannot know** — this repo's
      numbers, our classes, our pitfalls, our verification commands.
   3. **Update the existing ones** if the session changed how things work (new helpers,
@@ -119,17 +120,18 @@ Rules:
      than none.
 - `description` decides when the model finds the skill, so write it as *when to use
   this*, not what it is.
-- Skills are written in English, like code. The session note mentions them in Catalan.
+- Skills are written in English, like code. The session note mentions them in English
+  too.
 - Do not duplicate `AGENTS.md`; point at the files the skill documents.
 - **External skills are not ours.** Do not rewrite their body to fit the project;
   record the divergence in a project skill instead. To update one, fetch the upstream
-  `SKILL.md` again (see `docs/sessions/2026-10-27-skills-externes.md` for the recipe)
+  `SKILL.md` again (see `docs/sessions/2026-10-27-external-skills.md` for the recipe)
   and keep the *Upstream source* footer current.
 
 ### Documentation language
 
-The docs site (`docs/`) is written in **Catalan**, like the conversation. Code,
-comments and commit messages stay in **English**.
+Everything is written in **English**: the docs site (`docs/`), code, comments, skills and
+commit messages. Only the conversation with the user stays in Catalan.
 
 ## Folder layout
 

@@ -1,6 +1,6 @@
 <svg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000' viewBox='0 0 1600 1000'>
 <rect width='1600' height='1000' fill='#121016'/>
-<text x='800' y='52' fill='#dbd8de' font-family='Segoe UI, Arial, sans-serif' font-size='30' text-anchor='middle'>v3 - anells: voronoi angular + arcs</text>
+<text x='800' y='52' fill='#dbd8de' font-family='Segoe UI, Arial, sans-serif' font-size='30' text-anchor='middle'>v3 - rings: angular voronoi + arcs</text>
 <text x='800' y='86' fill='#9e99ab' font-family='Segoe UI, Arial, sans-serif' font-size='18' text-anchor='middle'>seed 42  -  52 rooms  -  6 bosses</text>
 <polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='800,560 854.6,480.5'/>
 <polyline fill='none' stroke='#4a4557' stroke-width='2.5' points='800,560 927,551.7'/>

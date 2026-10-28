@@ -14,7 +14,7 @@ description: Use when designing or tuning cards, enemies, intents, encounters, r
   1 Bash (2 energy, 8 damage + 2 Vulnerable).
 - Content lives in `Assets/Resources/Content/cards.csv` and `enemies.csv`; edit it
   through the **Prototype → Content (CSV)** window or a spreadsheet (see
-  `docs/contingut.md`). `CardLibrary` / `EnemyLibrary` only filter those tables, so a
+  `docs/content.md`). `CardLibrary` / `EnemyLibrary` only filter those tables, so a
   balance change is a CSV edit, not a code edit.
 - Map: radial, centre + 7 rings (~50 rooms) and 4-7 bosses. Room mix 50% combat /
   15% rest / 10% shop / 25% event (ring 1 is always combat), so a map holds ~25
@@ -65,7 +65,7 @@ description: Use when designing or tuning cards, enemies, intents, encounters, r
    `+1 ENERGY`, `WIN COMBAT`).
 4. Record: turns taken, HP lost, energy left over, cards played, times you switched
    target, and whether you ever had nothing useful to do.
-5. Check the playtest questions in `docs/roadmap.md` (§ *Preguntes de playtest*).
+5. Check the playtest questions in `docs/roadmap.md` (§ *Playtest questions*).
 
 ## Anti-patterns
 

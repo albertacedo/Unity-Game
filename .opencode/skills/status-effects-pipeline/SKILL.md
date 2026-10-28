@@ -47,7 +47,7 @@ description: Use when adding or changing combat effects and statuses (Weak, Stre
 7. **Log**: one line per application/resolution, e.g. `"Jaw Worm gains 2 Weak."`
 8. **Balance**: check numbers against the `deckbuilder-balance` skill.
 9. **Docs**: tick the roadmap item, update the effect table in
-   `docs/arquitectura.md` and the vocabulary in `docs/contingut.md`.
+   `docs/architecture.md` and the vocabulary in `docs/content.md`.
 
 ## Numbers to start from (Slay-the-Spire-like)
 

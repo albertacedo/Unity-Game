@@ -26,7 +26,7 @@ description: Use when adding a feature or subsystem to this prototype (shop, rel
 3. Build or extend a screen with `UIFactory`; keep the old screen's visual language.
 4. Add a `DevPanel` hook so the feature is reachable in two clicks.
 5. Verify: compile check -> play mode -> screenshot/state assertions.
-6. Update `docs/arquitectura.md` (file table + rules) and `docs/roadmap.md`.
+6. Update `docs/architecture.md` (file table + rules) and `docs/roadmap.md`.
 
 ## Scope discipline
 

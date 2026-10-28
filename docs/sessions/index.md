@@ -1,29 +1,29 @@
-# Índex de sessions
+# Session index
 
-Cada sessió de treball té una fitxa amb l'objectiu, què s'ha fet, els fitxers que han
-canviat i què queda pendent.
+Every work session has a page with its objective, what was done, the files that changed
+and what is still pending.
 
-| Data | Sessió | Commits | Resum en una línia |
+| Date | Session | Commits | One-line summary |
 |---|---|---|---|
-| 2026-10-21 | [Vertical slice](2026-10-21-vertical-slice.md) | `5ce0f83`, `700d2a7` | Mapa, combat, recompenses i primera escena jugable |
-| 2026-10-21 | [GitHub i roadmap](2026-10-21-github-i-roadmap.md) | `98bd00a` | Repo remot, escena de build i pla de 3 tandes |
-| 2026-10-22 | [Tanda 1](2026-10-22-tanda-1.md) | `4a352c0` | Panell F1, vista del mas, feedback de combat |
-| 2026-10-22 | [Docs i flux de treball](2026-10-22-docs-i-flux.md) | — | Aquest lloc i la rutina d'inici/final de sessió |
-| 2026-10-23 | [Tanda 2: multi-enemic](2026-10-23-tanda-2-multi-enemic.md) | aquest commit | Enemics múltiples, selecció d'objectiu, eina de compilació i skills |
-| 2026-10-25 | [Mapa radial: de l'estrella als anells](2026-10-25-mapa-radial.md) | `cf408e4`, `231e2cc`, `98b6304`, `4bd2079`, `7f00972` | Estrella → anells sense creuaments, zoom/pan, simulació dels tres mapes, repartiment de sales i fix de la rodeta |
-| 2026-10-27 | [Skills externes](2026-10-27-skills-externes.md) | aquest commit | Nou skills del catàleg de skills.sh, vendoritzades al repo i amb procedència |
-| 2026-10-28 | [Mapa amb boira i connexions](2026-10-28-mapa-boira-connexions.md) | `1fc4e15`, `3132230` | Boira configurable, retrocés, 8 anells i connexions laterals/diagonals validades |
-| 2026-10-28 | [Contingut en CSV](2026-10-28-contingut-csv.md) | `1cacece`, aquest commit | Cartes, enemics, relíquies i esdeveniments en CSV, finestra d'edició i context d'inici |
+| 2026-10-21 | [Vertical slice](2026-10-21-vertical-slice.md) | `5ce0f83`, `700d2a7` | Map, combat, rewards and the first playable scene |
+| 2026-10-21 | [GitHub and roadmap](2026-10-21-github-and-roadmap.md) | `98bd00a` | Remote repo, build scene and a 3-batch plan |
+| 2026-10-22 | [Batch 1](2026-10-22-batch-1.md) | `4a352c0` | F1 panel, deck view, combat feedback |
+| 2026-10-22 | [Docs and workflow](2026-10-22-docs-and-workflow.md) | — | This site and the session start/end routine |
+| 2026-10-23 | [Batch 2: multi-enemy](2026-10-23-batch-2-multi-enemy.md) | this commit | Multiple enemies, target selection, compile tool and skills |
+| 2026-10-25 | [Radial map: from the star to the rings](2026-10-25-radial-map.md) | `cf408e4`, `231e2cc`, `98b6304`, `4bd2079`, `7f00972` | Star → crossing-free rings, zoom/pan, simulation of the three maps, room distribution and wheel fix |
+| 2026-10-27 | [External skills](2026-10-27-external-skills.md) | this commit | New skills from the skills.sh catalogue, vendored into the repo with provenance |
+| 2026-10-28 | [Map with fog and connections](2026-10-28-map-fog-connections.md) | `1fc4e15`, `3132230` | Configurable fog, backtracking, 8 rings and validated lateral/diagonal connections |
+| 2026-10-28 | [Content in CSV](2026-10-28-csv-content.md) | `1cacece`, this commit | Cards, enemies, relics and events in CSV, editing window and session-start context |
 
-## Convenció de noms
+## Naming convention
 
 ```
-docs/sessions/AAAA-MM-DD-titol-curt.md
+docs/sessions/YYYY-MM-DD-short-title.md
 ```
 
-Si hi ha dues sessions el mateix dia, s'hi afegeix un sufix (`-2`, `-3`…).
+If there are two sessions on the same day, a suffix is added (`-2`, `-3`…).
 
-## Plantilla
+## Template
 
-Copia `_plantilla.md` (a la mateixa carpeta) per començar una fitxa nova. Està exclosa
-del lloc web, així que no apareix a la navegació.
+Copy `_template.md` (in the same folder) to start a new page. It is excluded from the
+website, so it does not show up in the navigation.

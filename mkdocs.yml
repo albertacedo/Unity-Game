@@ -1,25 +1,25 @@
 site_name: Unity Game — Dev Log
-site_description: Diari de sessions i documentació del prototip de roguelike de cartes
+site_description: Session log and documentation for the card roguelike prototype
 site_url: https://albertacedo.github.io/Unity-Game/
 docs_dir: docs
 site_dir: site
 
 theme:
   name: material
-  language: ca
+  language: en
   palette:
     - scheme: slate
       primary: deep purple
       accent: amber
       toggle:
         icon: material/weather-sunny
-        name: Canvia a clar
+        name: Switch to light
     - scheme: default
       primary: deep purple
       accent: amber
       toggle:
         icon: material/weather-night
-        name: Canvia a fosc
+        name: Switch to dark
   features:
     - navigation.sections
     - navigation.top
@@ -32,22 +32,38 @@ markdown_extensions:
   - toc:
       permalink: true
 
+plugins:
+  - search
+  - redirects:
+      redirect_maps:
+        # Pages renamed when the docs were translated to English (2026-10-28).
+        arquitectura.md: architecture.md
+        contingut.md: content.md
+        sessions/2026-10-21-github-i-roadmap.md: sessions/2026-10-21-github-and-roadmap.md
+        sessions/2026-10-22-tanda-1.md: sessions/2026-10-22-batch-1.md
+        sessions/2026-10-22-docs-i-flux.md: sessions/2026-10-22-docs-and-workflow.md
+        sessions/2026-10-23-tanda-2-multi-enemic.md: sessions/2026-10-23-batch-2-multi-enemy.md
+        sessions/2026-10-25-mapa-radial.md: sessions/2026-10-25-radial-map.md
+        sessions/2026-10-27-skills-externes.md: sessions/2026-10-27-external-skills.md
+        sessions/2026-10-28-mapa-boira-connexions.md: sessions/2026-10-28-map-fog-connections.md
+        sessions/2026-10-28-contingut-csv.md: sessions/2026-10-28-csv-content.md
+
 exclude_docs: |
-  sessions/_plantilla.md
+  sessions/_template.md
 
 nav:
-  - Inici: index.md
-  - Arquitectura: arquitectura.md
-  - Contingut: contingut.md
+  - Home: index.md
+  - Architecture: architecture.md
+  - Content: content.md
   - Roadmap: roadmap.md
   - Sessions:
-      - Índex de sessions: sessions/index.md
+      - Session index: sessions/index.md
       - 2026-10-21 · Vertical slice: sessions/2026-10-21-vertical-slice.md
-      - 2026-10-21 · GitHub i roadmap: sessions/2026-10-21-github-i-roadmap.md
-      - 2026-10-22 · Tanda 1: sessions/2026-10-22-tanda-1.md
-      - 2026-10-22 · Docs i flux de treball: sessions/2026-10-22-docs-i-flux.md
-      - 2026-10-23 · Tanda 2: sessions/2026-10-23-tanda-2-multi-enemic.md
-      - 2026-10-25 · Mapa radial: sessions/2026-10-25-mapa-radial.md
-      - 2026-10-27 · Skills externes: sessions/2026-10-27-skills-externes.md
-      - 2026-10-28 · Mapa amb boira i connexions: sessions/2026-10-28-mapa-boira-connexions.md
-      - 2026-10-28 · Contingut en CSV: sessions/2026-10-28-contingut-csv.md
+      - 2026-10-21 · GitHub and roadmap: sessions/2026-10-21-github-and-roadmap.md
+      - 2026-10-22 · Batch 1: sessions/2026-10-22-batch-1.md
+      - 2026-10-22 · Docs and workflow: sessions/2026-10-22-docs-and-workflow.md
+      - 2026-10-23 · Batch 2: sessions/2026-10-23-batch-2-multi-enemy.md
+      - 2026-10-25 · Radial map: sessions/2026-10-25-radial-map.md
+      - 2026-10-27 · External skills: sessions/2026-10-27-external-skills.md
+      - 2026-10-28 · Map with fog and connections: sessions/2026-10-28-map-fog-connections.md
+      - 2026-10-28 · Content in CSV: sessions/2026-10-28-csv-content.md
