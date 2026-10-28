@@ -97,6 +97,9 @@ knowledge: they do not know our code, so prefer the project skill when the two d
 | `roguelike` | `gamedev-skills/awesome-gamedev-agent-skills` | run structure, permadeath, procedural levels |
 | `card-game-design` | `omer-metin/skills-for-antigravity` | card system design: curve, rarity, keywords |
 | `game-balance-economy` | `lvtd-llc/skills` | economy, rewards, risk-reward, dominant strategies |
+| `game-mechanics-design` | `lvtd-llc/skills` | specifying a mechanic's rules, state, failure modes and test cases before coding it |
+| `game-interface-feedback` | `lvtd-llc/skills` | HUD, status chips, legibility of what just happened to the player |
+| `game-playtest-planning` | `lvtd-llc/skills` | turning the open playtest questions into a protocol with telemetry |
 | `roguelike-game-designer` | `hanjo92/roguelike-game-designer-skill` | reviewing run design, replayability, accessibility |
 
 Rules:

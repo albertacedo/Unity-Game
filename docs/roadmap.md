@@ -4,7 +4,7 @@
 
 1. **L'or no serveix per a res** — es mostra i no es pot gastar (botiga pendent).
 2. **Només hi ha un efecte** (Vulnerable) i 10 cartes: el combat encara no té prou
-   decisions per carta.
+   decisions per carta. El format CSV ja és a punt per créixer sense tocar codi.
 3. **El multi-enemic s'ha de jugar amb mans humanes** — hi és des de la Tanda 2, però
    falta el playtest que digui si els packs estan ben ajustats.
 

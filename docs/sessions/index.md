@@ -12,7 +12,8 @@ canviat i què queda pendent.
 | 2026-10-23 | [Tanda 2: multi-enemic](2026-10-23-tanda-2-multi-enemic.md) | aquest commit | Enemics múltiples, selecció d'objectiu, eina de compilació i skills |
 | 2026-10-25 | [Mapa radial: de l'estrella als anells](2026-10-25-mapa-radial.md) | `cf408e4`, `231e2cc`, `98b6304`, `4bd2079`, `7f00972` | Estrella → anells sense creuaments, zoom/pan, simulació dels tres mapes, repartiment de sales i fix de la rodeta |
 | 2026-10-27 | [Skills externes](2026-10-27-skills-externes.md) | aquest commit | Nou skills del catàleg de skills.sh, vendoritzades al repo i amb procedència |
-| 2026-10-28 | [Mapa amb boira i connexions](2026-10-28-mapa-boira-connexions.md) | aquest commit | Boira configurable, retrocés, 8 anells i connexions laterals/diagonals validades |
+| 2026-10-28 | [Mapa amb boira i connexions](2026-10-28-mapa-boira-connexions.md) | `1fc4e15`, `3132230` | Boira configurable, retrocés, 8 anells i connexions laterals/diagonals validades |
+| 2026-10-28 | [Contingut en CSV](2026-10-28-contingut-csv.md) | `1cacece`, aquest commit | Cartes, enemics, relíquies i esdeveniments en CSV, finestra d'edició i context d'inici |
 
 ## Convenció de noms
 
