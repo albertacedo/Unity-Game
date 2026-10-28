@@ -422,10 +422,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#tanda-2b-pendents-de-disseny-del-mapa-radial" class="md-nav__link">
+  <a href="#tanda-2b-boira-dinformacio-del-mapa-radial" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Tanda 2b — pendents de disseny del mapa radial
+        Tanda 2b — boira d'informació del mapa radial
       
     </span>
   </a>
@@ -727,6 +727,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sessions/2026-10-28-mapa-boira-connexions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-10-28 · Mapa amb boira i connexions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -833,10 +861,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#tanda-2b-pendents-de-disseny-del-mapa-radial" class="md-nav__link">
+  <a href="#tanda-2b-boira-dinformacio-del-mapa-radial" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Tanda 2b — pendents de disseny del mapa radial
+        Tanda 2b — boira d'informació del mapa radial
       
     </span>
   </a>
@@ -969,23 +997,18 @@ veure i provar el que ja hi ha.</p>
 Aquí el joc comença a tenir decisions de veritat.</p>
 <h3 id="tanda-3-fer-la-run-interessant">Tanda 3 — fer la run interessant<a class="headerlink" href="#tanda-3-fer-la-run-interessant" title="Permanent link">&para;</a></h3>
 <p>Botiga + relíquies + descans amb elecció. L'or i el mapa deixen de ser decoratius.</p>
-<h2 id="tanda-2b-pendents-de-disseny-del-mapa-radial">Tanda 2b — pendents de disseny del mapa radial<a class="headerlink" href="#tanda-2b-pendents-de-disseny-del-mapa-radial" title="Permanent link">&para;</a></h2>
-<p>El mapa ja és radial, el moviment és lliure i ara es pot ampliar i moure. Queden
-aquestes decisions obertes:</p>
+<h2 id="tanda-2b-boira-dinformacio-del-mapa-radial">Tanda 2b — boira d'informació del mapa radial<a class="headerlink" href="#tanda-2b-boira-dinformacio-del-mapa-radial" title="Permanent link">&para;</a></h2>
+<p>El mapa és radial i el jugador pot caminar en ambdues direccions. La topologia és
+visible, però el tipus de sala només es revela a distància 1; els caps sempre es veuen.
+Les sales visitades no repeteixen contingut i serveixen per tornar a una branca.</p>
+<p>Queden aquestes decisions obertes:</p>
 <ul>
-<li><strong>Provisions</strong>: que moure's costi energia i que, en esgotar-se, la run s'acabi o
-  forci el camí cap al boss. De moment el moviment és gratis.</li>
-<li><strong>Segellar anells</strong>: alternativa espacial (pots retrocedir un anell; la resta es
-  tanca). Més narrativa, més feina d'UI.</li>
-<li><strong>Culs-de-sac</strong>: en simulació, ~25% dels recorreguts <em>aleatoris</em> acaben en una sala
-  sense veïnes, però un recorregut que sempre va cap enfora arriba a un cap en 6 sales
-  (0% de culs-de-sac en 12.000 simulacions). Ara la run s'acaba en un cul-de-sac. Cal
-  decidir si això és un càstig acceptable o si les sales visitades han de poder-se
-  travessar (inertes, sense repetir contingut).</li>
-<li><strong>Mida del run</strong>: amb les connexions laterals el recorregut aleatori fa 11,4 sales
-  de mitjana (abans 7,7). Si les runs es fan massa llargues, la palanca és
-  <code>LateralChance</code> a <code>MapGenerator</code> (ara 0,5; l'anell exterior és sempre complet).
-  Totes les xifres surten de la <a href="../sessions/2026-10-25-mapa-radial/#simulacio-dels-tres-mapes">simulació dels tres mapes</a>.</li>
+<li><strong>Provisions</strong>: si el jugador explora totes les branques, fer que cada moviment
+  consumeixi una provisió. Primer es farà un playtest sense aquest recurs.</li>
+<li><strong>Frontier versus posició actual</strong>: de moment només es pot entrar en un veí directe;
+  els nodes connectats a altres sales visitades es coneixen però no són teleportables.</li>
+<li><strong>Mida del run</strong>: mesurar quantes sales visitades i quants retrocessos produeix la
+  boira amb <code>LateralChance = 0,55</code> i les connexions diagonals validades a <code>MapGenerator</code>.</li>
 </ul>
 <h2 id="preguntes-de-playtest">Preguntes de playtest<a class="headerlink" href="#preguntes-de-playtest" title="Permanent link">&para;</a></h2>
 <p>Per respondre amb el joc a la mà:</p>
