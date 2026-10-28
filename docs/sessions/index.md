@@ -14,6 +14,7 @@ and what is still pending.
 | 2026-10-27 | [External skills](2026-10-27-external-skills.md) | this commit | New skills from the skills.sh catalogue, vendored into the repo with provenance |
 | 2026-10-28 | [Map with fog and connections](2026-10-28-map-fog-connections.md) | `1fc4e15`, `3132230` | Configurable fog, backtracking, 8 rings and validated lateral/diagonal connections |
 | 2026-10-28 | [Content in CSV](2026-10-28-csv-content.md) | `1cacece`, this commit | Cards, enemies, relics and events in CSV, editing window and session-start context |
+| 2026-10-29 | [English documentation](2026-10-29-english-docs.md) | `de90152`, `2e736a4`, this commit | English site, renamed URLs, redirects and merged remote updates |
 
 ## Naming convention
 
