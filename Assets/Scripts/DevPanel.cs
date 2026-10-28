@@ -16,6 +16,7 @@ namespace Prototype
         const float PanelWidth = 320f;
 
         RectTransform panel;
+        Button tab;
         TextMeshProUGUI status;
         Button winButton;
         Button killButton;
@@ -35,13 +36,22 @@ namespace Prototype
         void Update()
         {
             if (Keyboard.current == null) return;
-            if (Keyboard.current.f1Key.wasPressedThisFrame) Toggle();
+
+            // F1 is the documented shortcut, but laptop keyboards often send the media
+            // key instead, so the backtick works too. The on-screen tab never depends
+            // on the keyboard at all.
+            if (Keyboard.current.f1Key.wasPressedThisFrame ||
+                Keyboard.current.backquoteKey.wasPressedThisFrame)
+            {
+                Toggle();
+            }
         }
 
         void Toggle()
         {
             bool show = !panel.gameObject.activeSelf;
             panel.gameObject.SetActive(show);
+            tab.gameObject.SetActive(!show);
             if (show) Refresh();
         }
 
@@ -81,6 +91,20 @@ namespace Prototype
             status.rectTransform.pivot = new Vector2(0.5f, 0f);
             status.rectTransform.offsetMin = new Vector2(14f, 10f);
             status.rectTransform.offsetMax = new Vector2(-14f, 64f);
+
+            var close = UIFactory.MakeButton(panel, "Close", "X",
+                new Color(0.30f, 0.26f, 0.38f), 15f);
+            UIFactory.Place((RectTransform)close.transform, new Vector2(1f, 1f), new Vector2(1f, 1f),
+                new Vector2(-10f, -8f), new Vector2(28f, 26f));
+            close.onClick.AddListener(Toggle);
+
+            // Always-visible tab: the panel must be reachable when the keyboard does not
+            // deliver F1 (media keys, Game view focus, remote desktop).
+            tab = UIFactory.MakeButton(transform, "DevTab", "D\nE\nV",
+                new Color(0.20f, 0.19f, 0.24f, 0.9f), 13f);
+            UIFactory.Place((RectTransform)tab.transform, new Vector2(0f, 0.5f), new Vector2(0f, 0.5f),
+                new Vector2(8f, 0f), new Vector2(26f, 84f));
+            tab.onClick.AddListener(Toggle);
         }
 
         Button Add(string caption, Color color, Action action)
