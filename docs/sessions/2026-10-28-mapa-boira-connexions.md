@@ -68,9 +68,11 @@ quatre caps de l'anell exterior.*
 
 ## Pendents
 
-- [ ] Fer un playtest visual de les seeds problemàtiques (especialment `14195000`).
-- [ ] Mesurar quantes connexions diagonals sobreviuen al filtre geomètric.
-- [ ] Decidir si cal afegir provisions després de provar la boira i el retrocés.
+- [x] Playtest visual de les seeds problemàtiques (especialment `14195000`). **Fet**: el
+      playtest funciona i la boira no s'ha de retocar ara.
+- [x] Mesurar quantes connexions diagonals sobreviuen al filtre geomètric. **Fet**.
+- [~] Decidir si cal afegir provisions: **no és una decisió d'aquest mapa**. Es resoldrà
+      amb el redisseny (radi de descobriment, poder tornar enrere…).
 
 ## Skills per a la propera sessió
 

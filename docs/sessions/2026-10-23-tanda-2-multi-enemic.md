@@ -103,8 +103,8 @@ i muntar el sistema de *skills* per a les properes sessions.
 
 ## Pendents
 
-- [ ] Playtest humà de la Tanda 2: sensació dels clics, llegibilitat de la fila
-      d'enemics i del log de tres línies
+- [x] Playtest humà de la Tanda 2: sensació dels clics, llegibilitat de la fila
+      d'enemics i del log. **Fet**, es dona per bo.
 - [ ] Ajustar els packs després del playtest (HP i dany de `JawWormPack`/`CultistPack`)
 - [ ] Estètica del combat: queda un buit gran al mig; val la pena pujar el log o
       afegir-hi un marc
@@ -113,7 +113,7 @@ i muntar el sistema de *skills* per a les properes sessions.
 - [ ] `NodeType.Elite` encara genera un encontre normal; hauria de tenir el seu propi
 - [ ] `GameManager.combat` no es neteja fins a `Advance()`: inofensiu, però convé
       decidir si la recompensa ha de veure el combat acabat o `null`
-- [ ] Fer portable `opencode.json` (arrossegat de sessions anteriors)
+- [x] Fer portable `opencode.json`. **Fet** al commit `5a3be18`.
 
 ## Skills per a la propera sessió
 

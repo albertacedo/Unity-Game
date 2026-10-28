@@ -198,14 +198,16 @@ complet abans dels caps: 0 creuaments en 300 seeds.*
 
 ## Pendents
 
-- [ ] Decidir què fem amb el 24,9% de culs-de-sac: provisions, sales visitades
-      traversables (inertes) o segellar anells. És la decisió de la Tanda 2b.
-- [ ] Playtest humà: 11,35 sales per run és massa llarg? La palanca és `LateralChance`.
-- [ ] Polir l'aresta del darrer salt que passa per sota d'un botó (74 de 300 mapes).
+- [~] 24,9% de culs-de-sac i 11,35 sales per run: **deixa de ser rellevant** amb el
+      redisseny del mapa (radi de descobriment, retrocés). Es decidirà amb el mapa nou.
+- [x] Playtest humà de la durada del run. **Fet**: el playtest funciona; la decisió de
+      mida arribarà amb el mapa nou.
+- [~] Polir l'aresta del darrer salt que passa per sota d'un botó (74 de 300 mapes):
+      **acceptat** per ara; es farà quan s'acabi el mapa.
 - [ ] Muntar el banc de proves dins el repo (`tools/`) si volem repetir les xifres sense
       reconstruir les tres versions.
-- [ ] Respondre les preguntes de zoom del roadmap: roda o botons, i si l'anell exterior
-      es llegeix prou bé amb els arcs.
+- [~] Preguntes de zoom: **més o menys bé**; es perfilaran quan canviï el mapa, no cal
+      tocar-ho ara.
 - [ ] El comptador es diu `DeckScreen.OpenCount`: si la botiga o els esdeveniments
       tapen el mapa, caldrà un comptador comú de capes (o fer-los servir el mateix).
 

@@ -116,19 +116,23 @@ Dues coses que semblaven separades i no ho són:
 
 ## Pendents
 
+- [x] Playtest de la Tanda 2 (objectiu, feedback i sensació dels clics): **fet**, es dona
+      per bo.
+- [x] Playtest de la boira amb seeds conegudes, `14195000` inclosa: **fet**, el playtest
+      funciona.
+- [x] Fer portable `opencode.json`. **Fet** al commit `5a3be18` (ruta `.` i regla de màquina).
+- [x] Mirar la finestra `Prototype → Content (CSV)` a ull. **Fet**; serveix per editar.
+- [~] 24,9% de carrerons i 11,35 sales per run: **deixa de ser rellevant** amb el
+      redisseny del mapa (radi de descobriment, poder tornar enrere…). Es decidirà amb
+      el mapa nou.
+- [~] L'extrem de l'últim salt queda sota un botó (74 de 300 mapes): **acceptat** per ara;
+      es polirà quan s'acabi el mapa.
 - [ ] Estrenar `card-game`, `card-game-design`, `game-mechanics-design` i
       `game-interface-feedback` a la tanda d'efectes (roadmap #5).
-- [ ] Playtest humà de la Tanda 2: senyalització de l'objectiu i feedback de combat.
-- [ ] Playtest de la boira amb seeds conegudes, inclosa `14195000`; mesurar les diagonals
-      que sobreviuen al filtre geomètric i decidir si calen provisions.
 - [ ] Ajustar els packs `JawWormPack` i `CultistPack` amb el que surti del playtest.
 - [ ] `NodeType.Elite` encara genera un encontre normal.
 - [ ] `GameManager.combat` no es neteja fins a `Advance()`.
-- [ ] 24,9% de carrerons sense sortida i 11,35 sales per run: decidir si és massa.
-- [ ] L'extrem de l'últim salt queda sota un botó (74 de 300 mapes).
 - [ ] Renombrar `DeckScreen.OpenCount`.
-- [ ] Fer portable `opencode.json` (arrossegat des del 21/10).
-- [ ] Mirar la finestra de contingut a ull: encara no s'ha vist en captura.
 - [ ] Sistemes de relíquies i esdeveniments (les taules ja hi són, el codi no).
 
 ## Skills per a la propera sessió

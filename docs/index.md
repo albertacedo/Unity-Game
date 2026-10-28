@@ -14,7 +14,7 @@ s'ha fet, què s'ha après i quins fitxers han canviat.
 | Cosa | Estat |
 |---|---|
 | Bucle jugable | ✅ mapa → combat → recompensa → mapa |
-| Mapa | ✅ radial: centre, 8 anells, 4-7 caps, boira configurable, zoom/pan i connexions segures |
+| Mapa | ⚠️ radial: centre, 8 anells, 4-7 caps, boira configurable, zoom/pan i connexions segures; es redissenya (radi de descobriment i retrocés) |
 | Combat | ✅ torns, energia, bloqueig, Vulnerable, multi-enemic amb objectiu |
 | Contingut | 10 cartes · 2 enemics, 2 packs i 1 cap, i taules de relíquies/esdeveniments (encara inertes), tot en CSV editable |
 | Eines de test | ✅ panell F1, vista del mas, feedback de combat, `tools/compile-check.ps1` |
