@@ -193,14 +193,16 @@ the bosses: 0 crossings across 300 seeds.*
 
 ## Pending
 
-- [ ] Decide what to do with the 24.9% of dead ends: provisions, traversable visited rooms
-      (inert) or sealing rings. It is the Batch 2b decision.
-- [ ] Human playtest: is 11.35 rooms per run too long? The lever is `LateralChance`.
-- [ ] Polish the last-hop edge that passes under a button (74 of 300 maps).
+- [~] 24.9% dead ends and 11.35 rooms per run: **it stops being relevant** with the map
+      redesign (reveal radius, backtracking). It will be decided with the new map.
+- [x] Human playtest of run length. **Done**: the playtest works; the size decision will
+      come with the new map.
+- [~] Polish the last-hop edge that passes under a button (74 of 300 maps): **accepted**
+      for now; it will be done when the map is finished.
 - [ ] Set up the benchmark inside the repo (`tools/`) if we want to reproduce the numbers
       without rebuilding the three versions.
-- [ ] Answer the roadmap's zoom questions: wheel or buttons, and whether the outer ring
-      reads well enough with the arcs.
+- [~] Zoom questions: **more or less fine**; they will be sharpened when the map changes,
+      there is no need to touch it now.
 - [ ] The counter is called `DeckScreen.OpenCount`: if the shop or the events cover the map,
       a shared overlay counter will be needed (or have them use the same one).
 

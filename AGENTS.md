@@ -24,6 +24,8 @@ This file tells AI agents how to work in this repository. Read it before making 
 6. **Do not change project-wide settings** (physics, quality, graphics, input handling, tags/layers, build scenes) without asking first.
 7. **Placeholder art is fine.** Use Unity primitives / solid-color sprites for the prototype; do not block on assets.
 8. **Commit small and often** once the Editor compiles cleanly.
+9. **Every commit says which machine made it.** The same repo is used from two
+   computers, so the message ends with a `Machine: <name>` trailer (see *Commits*).
 
 ## Session workflow (agreed with the user)
 
@@ -48,6 +50,32 @@ The user works in live-coding sessions. Follow this every time, without being as
 
 If the roadmap and the newest session note disagree, say so explicitly instead of
 picking one silently.
+
+### Commits
+
+The repo is edited from two computers. Before committing:
+
+1. `git fetch origin` and `git pull --ff-only`. If `HEAD...origin/main` is not `0 0`,
+   pull or rebase **before** committing; never `push --force`.
+2. Stage only what the change needs — `git add <paths>`, not `git add -A`, so the
+   other machine's leftovers are not swept in.
+3. The message ends with a `Machine:` trailer:
+
+```
+feat: fix the dev panel toggle
+
+Machine: KIT-ACEDO
+```
+
+`tools/git-hooks/prepare-commit-msg` adds it automatically (it skips the line if it
+is already there). Install the hook once per clone:
+
+```powershell
+git config core.hooksPath tools/git-hooks
+```
+
+4. `git status` before committing: nothing from the other machine should appear as
+   modified unless it is part of this work.
 
 ### When the user says the session is over
 

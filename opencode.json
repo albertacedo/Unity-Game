@@ -8,7 +8,7 @@
           "C:\\Users\\alber\\.unity\\relay\\relay_win.exe",
           "--mcp",
           "--project-path",
-          "C:\\Users\\alber\\OneDrive\\Documents\\Albert\\Unity Game\\Unity Game"
+          "."
         ],
         "timeout": {
           "startup": 60000,

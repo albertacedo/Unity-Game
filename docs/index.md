@@ -14,9 +14,9 @@ what was learned and which files changed.
 | Item | Status |
 |---|---|
 | Playable loop | ✅ map → combat → reward → map |
-| Map | ✅ radial: centre, 8 rings, 4-7 bosses, configurable fog, zoom/pan and safe connections |
+| Map | ⚠️ radial: centre, 8 rings, 4-7 bosses, configurable fog, zoom/pan and safe connections; being redesigned (reveal radius and backtracking) |
 | Combat | ✅ turns, energy, block, Vulnerable, multi-enemy with targeting |
-| Content | 10 cards · 3 enemies (1 boss) + packs, and relic/event tables (still inert), all in editable CSV |
+| Content | 10 cards · 2 enemies, 2 packs and 1 boss, and relic/event tables (still inert), all in editable CSV |
 | Test tools | ✅ F1 panel, deck view, combat feedback, `tools/compile-check.ps1` |
 | Content tools | ✅ `Prototype → Content (CSV)` window and `tools/content-check` |
 | Gold | ⚠️ shown but cannot be spent (shop pending) |
@@ -34,7 +34,8 @@ what was learned and which files changed.
 - **Unity** 6000.3.26f1 (Unity 6.3), URP 2D
 - New **Input System** (no legacy)
 - **UI**: UGUI + TextMeshPro, built from code
-- **Content**: cards and enemies in C# (`CardLibrary`, `EnemyLibrary`)
+- **Content**: cards, enemies, relics and events in CSV (`Assets/Resources/Content/`), read
+  by `ContentDatabase`
 
 ## Sessions
 

@@ -35,7 +35,14 @@ namespace Prototype
         void Update()
         {
             if (Keyboard.current == null) return;
-            if (Keyboard.current.f1Key.wasPressedThisFrame) Toggle();
+
+            // F1 needs the Fn key on laptop keyboards that send the media key, so the
+            // backtick works as well.
+            if (Keyboard.current.f1Key.wasPressedThisFrame ||
+                Keyboard.current.backquoteKey.wasPressedThisFrame)
+            {
+                Toggle();
+            }
         }
 
         void Toggle()
@@ -81,6 +88,12 @@ namespace Prototype
             status.rectTransform.pivot = new Vector2(0.5f, 0f);
             status.rectTransform.offsetMin = new Vector2(14f, 10f);
             status.rectTransform.offsetMax = new Vector2(-14f, 64f);
+
+            var close = UIFactory.MakeButton(panel, "Close", "X",
+                new Color(0.30f, 0.26f, 0.38f), 15f);
+            UIFactory.Place((RectTransform)close.transform, new Vector2(1f, 1f), new Vector2(1f, 1f),
+                new Vector2(-10f, -8f), new Vector2(28f, 26f));
+            close.onClick.AddListener(Toggle);
         }
 
         Button Add(string caption, Color color, Action action)

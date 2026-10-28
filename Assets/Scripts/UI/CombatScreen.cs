@@ -285,7 +285,7 @@ namespace Prototype.UI
         {
             resultShown = true;
 
-            var overlay = UIFactory.MakePanel(transform, "Result", new Color(0f, 0f, 0f, 0.78f));
+            var overlay = UIFactory.MakePanel(transform, "Result", new Color(0f, 0f, 0f, 0.95f));
 
             var title = UIFactory.MakeLabel(overlay, "Title",
                 session.PlayerWon ? "VICTORY" : "DEFEAT", 58f,

@@ -114,19 +114,22 @@ Two things that looked separate and are not:
 
 ## Pending
 
+- [x] Batch 2 playtest (targeting, feedback and feel of the clicks): **done**, accepted.
+- [x] Fog playtest with known seeds, `14195000` included: **done**, the playtest works.
+- [x] Make `opencode.json` portable. **Done** in commit `5a3be18` (`.` path and machine
+      rule).
+- [x] Look at the `Prototype → Content (CSV)` window with your own eyes. **Done**; it works
+      for editing.
+- [~] 24.9% dead ends and 11.35 rooms per run: **it stops being relevant** with the map
+      redesign (reveal radius, being able to go back…). It will be decided with the new map.
+- [~] The tip of the last hop ends up under a button (74 of 300 maps): **accepted** for now;
+      it will be polished when the map is finished.
 - [ ] Break in `card-game`, `card-game-design`, `game-mechanics-design` and
       `game-interface-feedback` on the effects batch (roadmap #5).
-- [ ] Human playtest of Batch 2: target signalling and combat feedback.
-- [ ] Fog playtest with known seeds, including `14195000`; measure which diagonals survive
-      the geometric filter and decide whether provisions are needed.
 - [ ] Tune the `JawWormPack` and `CultistPack` packs with whatever the playtest shows.
 - [ ] `NodeType.Elite` still generates a normal encounter.
 - [ ] `GameManager.combat` is not cleared until `Advance()`.
-- [ ] 24.9% dead ends and 11.35 rooms per run: decide whether that is too much.
-- [ ] The tip of the last hop ends up under a button (74 of 300 maps).
 - [ ] Rename `DeckScreen.OpenCount`.
-- [ ] Make `opencode.json` portable (dragged over since 21/10).
-- [ ] Look at the content window with your own eyes: it has not been seen in a capture yet.
 - [ ] Relic and event systems (the tables are there, the code is not).
 
 ## Skills for the next session

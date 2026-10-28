@@ -69,9 +69,11 @@ bosses on the outer ring.*
 
 ## Pending
 
-- [ ] Do a visual playtest of the problematic seeds (especially `14195000`).
-- [ ] Measure how many diagonal connections survive the geometric filter.
-- [ ] Decide whether provisions are needed after trying fog and backtracking.
+- [x] Visual playtest of the problematic seeds (especially `14195000`). **Done**: the
+      playtest works and the fog does not need retouching for now.
+- [x] Measure how many diagonal connections survive the geometric filter. **Done**.
+- [~] Decide whether provisions are needed: **it is not a decision for this map**. It will
+      be settled with the redesign (reveal radius, being able to go back…).
 
 ## Skills for the next session
 

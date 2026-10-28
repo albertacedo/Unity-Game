@@ -103,8 +103,8 @@ system for the coming sessions.
 
 ## Pending
 
-- [ ] Human playtest of Batch 2: feel of the clicks, readability of the enemy row and of
-      the three-line log
+- [x] Human playtest of Batch 2: feel of the clicks, readability of the enemy row and of
+      the log. **Done**, accepted.
 - [ ] Tune the packs after the playtest (HP and damage of `JawWormPack`/`CultistPack`)
 - [ ] Combat aesthetics: there is a big gap left in the middle; it is worth raising the log
       or adding a frame
@@ -113,7 +113,7 @@ system for the coming sessions.
 - [ ] `NodeType.Elite` still generates a normal encounter; it should have its own
 - [ ] `GameManager.combat` is not cleared until `Advance()`: harmless, but we should decide
       whether the reward should see the finished combat or `null`
-- [ ] Make `opencode.json` portable (dragged over from previous sessions)
+- [x] Make `opencode.json` portable. **Done** in commit `5a3be18`.
 
 ## Skills for the next session
 
