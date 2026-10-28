@@ -23,7 +23,28 @@ description: Use when you must prove a Unity change compiles or works without a 
 
 Never claim success from a compile alone when the change is visual or gameplay.
 
+## When the tools are not there
+
+The `unity` MCP server only appears if the relay is up when the session starts. Two
+things matter:
+
+- The relay is started by the Editor **on a domain reload**, not always at launch. If
+  `Tools/list` is empty or `relay.txt` has no new lines, focus the Editor (a script
+  change or `AssetDatabase.Refresh` triggers the compile) and it comes up.
+- You can still drive the Editor without the MCP tool catalog: `relay_win.exe --mcp
+  --project-path <project>` speaks MCP over stdio. A ~60-line Node client that sends
+  `initialize` → `tools/tools/list` → `tools/call` is enough (it is how the 2026-10-28
+  session verified play mode when the session had started with Unity closed).
+
+**Play mode only advances frames while the Editor window has focus.** RunCommand keeps
+working (it is an editor-side call), so state reads succeed while `Update` is frozen:
+queued input, `wasPressedThisFrame` checks and screenshots silently do nothing.
+`SetForegroundWindow` on the Unity `MainWindowHandle` first, then assert.
+Play mode can also drop between calls; re-check `Application.isPlaying` before each
+assertion and re-enter if needed.
+
 ## Unity MCP RunCommand
+
 
 `Unity_RunCommand` compiles a snippet with Roslyn and runs it in the Editor:
 
@@ -77,6 +98,20 @@ Unity window is foregrounded and the Game view repaints:
    the Game view and retry. Treat screenshots as a sanity check, not proof of logic.
 
 `Unity_Camera_Capture` renders a camera only — the overlay canvas is not included.
+
+`ScreenCapture.CaptureScreenshot("C:/Users/<user>/AppData/Local/Temp/opencode/shot.png")`
+is the simplest way to get the Game view **with** the UGUI overlay; the file appears at
+the end of the frame, so wait a second before reading it.
+
+## Reading the UI from a script
+
+- `FindObjectsByType<T>(...)` **skips inactive objects**; the dev panel keeps its body
+  inactive, so use `FindObjectsByType<T>(FindObjectsInactive.Include,
+  FindObjectsSortMode.None)` (that argument order is the one Unity 6.3 accepts).
+- Buttons are a good stand-in for a player click: `button.onClick.Invoke()` goes
+  through the same handler, and `button.name` (e.g. `Card_strike`, `Continue`,
+  `DevTab`) is more reliable than the first `TMP_Text` child, which is usually the cost.
+
 
 ## Playtest recipes
 
