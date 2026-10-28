@@ -1,0 +1,11 @@
+id;title;text;cost;kind;pool;copies;effects
+strike;Strike;;1;attack;starter;4;damage:6
+defend;Defend;;1;skill;starter;4;block:5
+bash;Bash;;2;attack;starter;1;damage:8|vulnerable:2
+cleave;Cleave;;1;attack;reward;1;damage_all:8
+pommel_strike;Pommel Strike;;1;attack;reward;1;damage:9|draw:1
+iron_wave;Iron Wave;;1;attack;reward;1;block:5|damage:5
+shrug_it_off;Shrug It Off;;1;skill;reward;1;block:8|draw:1
+thunderclap;Thunderclap;;1;attack;reward;1;damage:4|vulnerable:1
+heavy_blade;Heavy Blade;;2;attack;reward;1;damage:14
+battle_trance;Battle Trance;;0;skill;reward;1;draw:3

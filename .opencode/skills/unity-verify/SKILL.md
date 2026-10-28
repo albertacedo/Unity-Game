@@ -8,8 +8,11 @@ description: Use when you must prove a Unity change compiles or works without a 
 ## Ladder — cheapest first
 
 1. **Compile** without Unity: `powershell -File tools/compile-check.ps1`.
-   It builds `Assets/Scripts/**/*.cs` against the Unity assemblies already in
-   `Library/`. Fails in ~2 s and prints Roslyn errors.
+   It builds `Assets/Scripts/**/*.cs` and `Assets/Editor/**/*.cs` against the Unity
+   assemblies already in `Library/`. Fails in ~2 s and prints Roslyn errors.
+2. **Content** without Unity: `dotnet run --project tools/content-check` parses every
+   CSV in `Assets/Resources/Content`, validates it and round-trips it. Same code as the
+   game, so a green run means the tables are legal.
 2. **Import**: open the project, then read `%LOCALAPPDATA%\Unity\Editor\Editor.log`
    or call `Unity_GetConsoleLogs` with `logTypes: "Error,Exception"`.
 3. **Play mode logic**: drive `Prototype.GameManager` / `CombatSession` through

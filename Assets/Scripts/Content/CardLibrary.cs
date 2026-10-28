@@ -1,195 +1,73 @@
 using System.Collections.Generic;
 using Prototype.Data;
-using UnityEngine;
 
 namespace Prototype.Content
 {
     /// <summary>
-    /// Content lives here as plain code so the prototype can be tuned in one place.
-    /// Once the card list grows, these become .asset files and this class goes away.
+    /// Thin facade over <see cref="ContentDatabase"/>: the rest of the game asks for
+    /// "the starter deck" or "a random encounter" and never touches CSV details.
     /// </summary>
     public static class CardLibrary
     {
-        static CardData Make(string id, string title, string text, int cost, CardKind kind,
-            params CardEffect[] effects)
-        {
-            CardData card = ScriptableObject.CreateInstance<CardData>();
-            card.name = id;
-            card.Id = id;
-            card.Title = title;
-            card.Text = text;
-            card.Cost = cost;
-            card.Kind = kind;
-            card.Effects = effects;
-            return card;
-        }
-
         public static List<CardData> StarterDeck()
         {
-            return new List<CardData>
+            var deck = new List<CardData>();
+            foreach (CardData card in ContentDatabase.Cards)
             {
-                Strike(), Strike(), Strike(), Strike(),
-                Defend(), Defend(), Defend(), Defend(),
-                Bash()
-            };
+                if (!card.IsStarter) continue;
+                for (int copy = 0; copy < card.Copies; copy++) deck.Add(card);
+            }
+            return deck;
         }
 
         public static List<CardData> RewardPool()
         {
-            return new List<CardData>
-            {
-                Cleave(), PommelStrike(), IronWave(), ShrugItOff(),
-                Thunderclap(), HeavyBlade(), BattleTrance()
-            };
-        }
-
-        static CardData Strike()
-        {
-            return Make("strike", "Strike", "Deal 6 damage.", 1, CardKind.Attack,
-                new CardEffect(EffectKind.Damage, 6));
-        }
-
-        static CardData Defend()
-        {
-            return Make("defend", "Defend", "Gain 5 Block.", 1, CardKind.Skill,
-                new CardEffect(EffectKind.Block, 5));
-        }
-
-        static CardData Bash()
-        {
-            return Make("bash", "Bash", "Deal 8 damage.\nApply 2 Vulnerable.", 2, CardKind.Attack,
-                new CardEffect(EffectKind.Damage, 8),
-                new CardEffect(EffectKind.Vulnerable, 2));
-        }
-
-        static CardData Cleave()
-        {
-            return Make("cleave", "Cleave", "Deal 8 damage to ALL enemies.", 1, CardKind.Attack,
-                new CardEffect(EffectKind.DamageAll, 8));
-        }
-
-        static CardData PommelStrike()
-        {
-            return Make("pommel_strike", "Pommel Strike", "Deal 9 damage.\nDraw 1 card.", 1, CardKind.Attack,
-                new CardEffect(EffectKind.Damage, 9),
-                new CardEffect(EffectKind.Draw, 1));
-        }
-
-        static CardData IronWave()
-        {
-            return Make("iron_wave", "Iron Wave", "Gain 5 Block.\nDeal 5 damage.", 1, CardKind.Attack,
-                new CardEffect(EffectKind.Block, 5),
-                new CardEffect(EffectKind.Damage, 5));
-        }
-
-        static CardData ShrugItOff()
-        {
-            return Make("shrug_it_off", "Shrug It Off", "Gain 8 Block.\nDraw 1 card.", 1, CardKind.Skill,
-                new CardEffect(EffectKind.Block, 8),
-                new CardEffect(EffectKind.Draw, 1));
-        }
-
-        static CardData Thunderclap()
-        {
-            return Make("thunderclap", "Thunderclap", "Deal 4 damage.\nApply 1 Vulnerable.", 1, CardKind.Attack,
-                new CardEffect(EffectKind.Damage, 4),
-                new CardEffect(EffectKind.Vulnerable, 1));
-        }
-
-        static CardData HeavyBlade()
-        {
-            return Make("heavy_blade", "Heavy Blade", "Deal 14 damage.", 2, CardKind.Attack,
-                new CardEffect(EffectKind.Damage, 14));
-        }
-
-        static CardData BattleTrance()
-        {
-            return Make("battle_trance", "Battle Trance", "Draw 3 cards.", 0, CardKind.Skill,
-                new CardEffect(EffectKind.Draw, 3));
+            var pool = new List<CardData>();
+            foreach (CardData card in ContentDatabase.Cards)
+                if (card.IsReward) pool.Add(card);
+            return pool;
         }
     }
 
     public static class EnemyLibrary
     {
-        static EnemyData Make(string id, string title, int maxHp, params EnemyIntent[] intents)
-        {
-            EnemyData enemy = ScriptableObject.CreateInstance<EnemyData>();
-            enemy.name = id;
-            enemy.Id = id;
-            enemy.Title = title;
-            enemy.MaxHp = maxHp;
-            enemy.Intents = intents;
-            return enemy;
-        }
-
         /// <summary>
-        /// Normal fight: roughly half the time a single regular enemy, otherwise a pack of
-        /// two weaker ones. Pack members are separate definitions so their damage stays fair.
+        /// Normal room: 55% of the time one regular enemy, otherwise a pack of two
+        /// weaker ones. Both kinds are picked from the CSV by role.
         /// </summary>
         public static List<EnemyData> RandomEncounter(System.Random rng)
         {
+            List<EnemyData> solo = ByRole(EnemyRole.Normal);
+            List<EnemyData> packs = ByRole(EnemyRole.Pack);
+
             if (rng.Next(100) < 55)
             {
-                return new List<EnemyData> { rng.Next(2) == 0 ? JawWorm() : Cultist() };
+                if (solo.Count > 0) return new List<EnemyData> { solo[rng.Next(solo.Count)] };
+                if (packs.Count > 0) return new List<EnemyData> { packs[rng.Next(packs.Count)] };
+                return new List<EnemyData>();
             }
 
-            var pack = new List<EnemyData>();
-            int composition = rng.Next(3);
-            if (composition == 0)
+            if (packs.Count == 0)
             {
-                pack.Add(JawWormPack());
-                pack.Add(JawWormPack());
-            }
-            else if (composition == 1)
-            {
-                pack.Add(CultistPack());
-                pack.Add(CultistPack());
-            }
-            else
-            {
-                pack.Add(JawWormPack());
-                pack.Add(CultistPack());
+                if (solo.Count == 0) return new List<EnemyData>();
+                return new List<EnemyData> { solo[rng.Next(solo.Count)], solo[rng.Next(solo.Count)] };
             }
 
-            return pack;
+            return new List<EnemyData> { packs[rng.Next(packs.Count)], packs[rng.Next(packs.Count)] };
         }
 
-        public static EnemyData Boss()
+        public static EnemyData Boss(System.Random rng)
         {
-            return Make("the_guardian", "The Guardian", 90,
-                new EnemyIntent(IntentKind.Attack, 14),
-                new EnemyIntent(IntentKind.Block, 10),
-                new EnemyIntent(IntentKind.Attack, 18));
+            List<EnemyData> bosses = ByRole(EnemyRole.Boss);
+            return bosses.Count == 0 ? null : bosses[rng.Next(bosses.Count)];
         }
 
-        static EnemyData JawWorm()
+        static List<EnemyData> ByRole(EnemyRole role)
         {
-            return Make("jaw_worm", "Jaw Worm", 44,
-                new EnemyIntent(IntentKind.Attack, 11),
-                new EnemyIntent(IntentKind.Block, 6),
-                new EnemyIntent(IntentKind.Attack, 7));
-        }
-
-        static EnemyData Cultist()
-        {
-            return Make("cultist", "Cultist", 50,
-                new EnemyIntent(IntentKind.Attack, 6),
-                new EnemyIntent(IntentKind.Attack, 9));
-        }
-
-        static EnemyData JawWormPack()
-        {
-            return Make("jaw_worm_pack", "Jaw Worm", 22,
-                new EnemyIntent(IntentKind.Attack, 4),
-                new EnemyIntent(IntentKind.Block, 4),
-                new EnemyIntent(IntentKind.Attack, 5));
-        }
-
-        static EnemyData CultistPack()
-        {
-            return Make("cultist_pack", "Cultist", 24,
-                new EnemyIntent(IntentKind.Attack, 3),
-                new EnemyIntent(IntentKind.Attack, 6));
+            var list = new List<EnemyData>();
+            foreach (EnemyData enemy in ContentDatabase.Enemies)
+                if (enemy.Role == role) list.Add(enemy);
+            return list;
         }
     }
 }

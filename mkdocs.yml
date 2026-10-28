@@ -38,6 +38,7 @@ exclude_docs: |
 nav:
   - Inici: index.md
   - Arquitectura: arquitectura.md
+  - Contingut: contingut.md
   - Roadmap: roadmap.md
   - Sessions:
       - Índex de sessions: sessions/index.md

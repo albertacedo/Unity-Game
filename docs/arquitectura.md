@@ -1,7 +1,9 @@
 # Arquitectura
 
 Tot el joc es construeix **des de codi**: l'escena només conté un objecte `Game` amb el
-component `GameManager`. No hi ha prefabs ni cap pantalla muntada a mà.
+component `GameManager`. No hi ha prefabs ni cap pantalla muntada a mà. El contingut, en
+canvi, és **dades**: quatre taules CSV a `Assets/Resources/Content` (vegeu
+[Contingut en CSV](contingut.md)).
 
 ## Flux
 
@@ -30,9 +32,14 @@ següent. Les capes que han de sobreviure (el `DevPanel`) pengen del Canvas, no 
 | `Scripts/Mapgen/MapLayout.cs` | Geometria compartida (radi, angle i el·lipse) de mapa i pantalla |
 | `Scripts/Combat/CombatSession.cs` | Regles del combat (torns, energia, dany, bloqueig, objectiu) |
 | `Scripts/Combat/EnemyInstance.cs` | Estat d'un enemic dins d'un combat (HP, bloqueig, Vulnerable, intent) |
-| `Scripts/Content/CardLibrary.cs` | Totes les cartes i enemics del joc |
-| `Scripts/Data/CardData.cs` | Tipus de carta (`ScriptableObject`) i efectes |
-| `Scripts/Data/EnemyData.cs` | Enemic i els seus intents |
+| `Scripts/Content/ContentCsv.cs` | Format de les taules CSV: lectura, escriptura i validació |
+| `Scripts/Content/ContentDatabase.cs` | Carrega `Resources/Content/*.csv` i en guarda la caché |
+| `Scripts/Content/CardLibrary.cs` | Façana: mas inicial, pool de recompenses i encontres |
+| `Scripts/Data/CardData.cs` | Carta, efectes i text generat a partir dels efectes |
+| `Scripts/Data/EnemyData.cs` | Enemic, rol (sol/grup/cap) i cua d'intents |
+| `Scripts/Data/RelicData.cs` | Relíquia (catàleg; el sistema encara no existeix) |
+| `Scripts/Data/EventData.cs` | Esdeveniment i opcions (catàleg; la pantalla encara no existeix) |
+| `Editor/ContentWindow.cs` | Finestra *Prototype → Content (CSV)* per editar les taules |
 | `Scripts/UI/UIFactory.cs` | Helpers per construir UI des de codi |
 | `Scripts/UI/MapScreen.cs` | Mapa, nodes i connexions |
 | `Scripts/UI/CombatScreen.cs` | Combat, mà, feedback visual |
@@ -43,6 +50,10 @@ següent. Les capes que han de sobreviure (el `DevPanel`) pengen del Canvas, no 
 
 ## Regles implementades
 
+- **Contingut**: cartes, enemics, relíquies i esdeveniments són dades, no codi. Viuen a
+  `Assets/Resources/Content/*.csv`, es carreguen un cop amb `ContentDatabase` i no hi ha
+  cap `.asset` de contingut. El format, les regles i el flux d'edició són a
+  [Contingut en CSV](contingut.md).
 - **Mapa**: radial i determinista per seed. Un node `Start` al centre, 8 anells
   (6 de sales + 1 de caps) i 4-7 caps a l'anell exterior. Les connexions laterals dels
   anells de sales es generen amb un 55% de probabilitat i es dibuixen sempre amb línies
@@ -85,17 +96,21 @@ següent. Les capes que han de sobreviure (el `DevPanel`) pengen del Canvas, no 
 
 | Vull… | On toco |
 |---|---|
-| Afegir una carta | `CardLibrary` (mètode `Make`) + afegir-la a `RewardPool` |
-| Afegir un enemic | `EnemyLibrary` + incloure'l a `RandomEncounter` |
-| Afegir un efecte | `EffectKind` (a `CardData`) + el `switch` de `CombatSession.ApplyEffects` + un camp a `EnemyInstance` si és un estat |
+| Afegir una carta | `Resources/Content/cards.csv` (o la finestra *Prototype → Content*): una fila |
+| Afegir un enemic | `Resources/Content/enemies.csv`: una fila amb el seu `role` |
+| Afegir un efecte | `EffectKind` (a `CardData`) + el `switch` de `CombatSession.ApplyEffects` + un camp a `EnemyInstance` si és un estat + el nom a `ContentCsv` |
+| Afegir una relíquia o un event | `relics.csv` / `events.csv`; el sistema de joc encara s'ha d'escriure |
 | Afegir una pantalla | `GameManager.ScreenKind` + un `ShowX()` + una classe a `UI/` |
 | Canviar l'aspecte d'un element | `UIFactory` (afecta totes les pantalles alhora) |
 
 ## Eines
 
-- `tools/compile-check.ps1` compila `Assets/Scripts` contra les DLLs de `Library/`
-  amb el SDK de .NET, sense obrir Unity. És el primer esglaó de verificació;
+- `tools/compile-check.ps1` compila `Assets/Scripts` i `Assets/Editor` contra les DLLs de
+  `Library/` amb el SDK de .NET, sense obrir Unity. És el primer esglaó de verificació;
   després cal comprovar la consola i provar en Play mode.
+- `tools/content-check/` valida els CSV de contingut sense obrir Unity: mateix parser,
+  mateixes regles i una prova d'anada i tornada de cada taula.
+- `Prototype → Content (CSV)` és la finestra d'edició de contingut dins l'Editor.
 - `.opencode/skills/` guarda les instruccions reutilitzables de l'agent. N'hi ha de dos
   tipus: les **pròpies** (UI des de codi, balanceig, verificació, efectes: el que només
   sap aquest repo) i les **externes**, copiades del catàleg de [skills.sh](https://www.skills.sh/)

@@ -30,6 +30,11 @@ if (-not (Test-Path $scriptAssemblies)) {
 $references = @()
 $references += (Get-ChildItem (Join-Path $unityData 'Managed\UnityEngine') -Filter *.dll | Select-Object -ExpandProperty FullName)
 
+# Editor scripts (Assets/Editor) are checked in the same pass so the content window
+# does not have to wait for a Unity reimport to reveal a typo.
+$unityEditor = Join-Path $unityData 'Managed\UnityEditor.dll'
+if (Test-Path $unityEditor) { $references += $unityEditor }
+
 foreach ($name in @('UnityEngine.UI.dll', 'Unity.TextMeshPro.dll', 'Unity.InputSystem.dll')) {
     $path = Join-Path $scriptAssemblies $name
     if (Test-Path $path) { $references += $path }
@@ -58,6 +63,7 @@ $csproj = @"
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$projectRoot\Assets\Scripts\**\*.cs" />
+    <Compile Include="$projectRoot\Assets\Editor\**\*.cs" />
   </ItemGroup>
   <ItemGroup>
 $referenceXml

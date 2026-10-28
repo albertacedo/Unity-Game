@@ -109,3 +109,8 @@ InitTestScene*.unity*
 # MkDocs output and cache
 /site/
 .cache/
+
+# Content-check tool: build output is ignored, the project file is tracked
+/tools/**/bin/
+/tools/**/obj/
+!/tools/content-check/content-check.csproj

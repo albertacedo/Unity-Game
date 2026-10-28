@@ -12,8 +12,10 @@ description: Use when designing or tuning cards, enemies, intents, encounters, r
   (per enemy and for the player).
 - Starter deck: 4 Strike (1 energy, 6 damage), 4 Defend (1 energy, 5 block),
   1 Bash (2 energy, 8 damage + 2 Vulnerable).
-- Content lives in `Assets/Scripts/Content/CardLibrary.cs` (`CardLibrary` +
-  `EnemyLibrary`); enemies get per-fight state in `Combat.EnemyInstance`.
+- Content lives in `Assets/Resources/Content/cards.csv` and `enemies.csv`; edit it
+  through the **Prototype → Content (CSV)** window or a spreadsheet (see
+  `docs/contingut.md`). `CardLibrary` / `EnemyLibrary` only filter those tables, so a
+  balance change is a CSV edit, not a code edit.
 - Map: radial, centre + 7 rings (~50 rooms) and 4-7 bosses. Room mix 50% combat /
   15% rest / 10% shop / 25% event (ring 1 is always combat), so a map holds ~25
   fights, ~6 rests, ~4 shops and ~10 events. Movement is free; `LateralChance` (0.5)
@@ -54,8 +56,11 @@ description: Use when designing or tuning cards, enemies, intents, encounters, r
 
 ## Tuning loop
 
-1. Change one variable at a time in `CardLibrary` / `EnemyLibrary`.
-2. Run `powershell -File tools/compile-check.ps1`.
+1. Change one variable at a time in `Assets/Resources/Content/cards.csv` or
+   `enemies.csv` (content window or spreadsheet).
+2. Run `dotnet run --project tools/content-check`; the game also logs every problem
+   with its file and row. Code changes still go through
+   `powershell -File tools/compile-check.ps1`.
 3. Play 2-3 fights with F1 -> SKIP ROOM, using the dev panel (`KILL TARGET`,
    `+1 ENERGY`, `WIN COMBAT`).
 4. Record: turns taken, HP lost, energy left over, cards played, times you switched

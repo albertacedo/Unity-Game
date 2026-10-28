@@ -16,8 +16,9 @@ s'ha fet, què s'ha après i quins fitxers han canviat.
 | Bucle jugable | ✅ mapa → combat → recompensa → mapa |
 | Mapa | ✅ radial: centre, 8 anells, 4-7 caps, boira configurable, zoom/pan i connexions segures |
 | Combat | ✅ torns, energia, bloqueig, Vulnerable, multi-enemic amb objectiu |
-| Contingut | 10 cartes · 3 enemics (1 cap) + packs de 2 |
+| Contingut | 10 cartes · 3 enemics (1 cap) + variants de pack, en CSV editable |
 | Eines de test | ✅ panell F1, vista del mas, feedback de combat, `tools/compile-check.ps1` |
+| Eines de contingut | ✅ finestra `Prototype → Content (CSV)` i `tools/content-check` |
 | Or | ⚠️ es mostra però no es pot gastar (botiga pendent) |
 | Àudio / art | ❌ placeholder |
 
@@ -37,7 +38,8 @@ s'ha fet, què s'ha après i quins fitxers han canviat.
 
 ## Sessions
 
-Consulta l'[índex de sessions](sessions/index.md) o el [roadmap](roadmap.md).
+Consulta l'[índex de sessions](sessions/index.md), el [roadmap](roadmap.md) o com
+s'edita el [contingut en CSV](contingut.md).
 
 | Data | Sessió | Què hi trobaràs |
 |---|---|---|

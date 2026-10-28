@@ -14,7 +14,7 @@ description: Use when adding or changing combat effects and statuses (Weak, Stre
 | Damage + Vulnerable math, one choke point | `CombatSession.DealDamageToEnemy` |
 | Player status (`PlayerVulnerable`, `PlayerBlock`) | `CombatSession` fields |
 | Per-enemy status (`Vulnerable`, `Block`) | `Combat.EnemyInstance` |
-| Card values | `Content/CardLibrary.cs` |
+| Card values | `Assets/Resources/Content/cards.csv` (format in `ContentCsv`) |
 | Display | `UI/CombatScreen.cs` (`Refresh`, `EnemyWidget`) |
 
 ## How an effect resolves (current behaviour)
@@ -34,18 +34,20 @@ description: Use when adding or changing combat effects and statuses (Weak, Stre
    `CombatSession` (player). Keep counters as `int` stacks/remaining turns.
 2. **Enum**: add an `EffectKind` value at the end of the enum (order is serialized
    by name, but appending keeps diffs clean).
-3. **Damage math**: modify `DealDamageToEnemy` and the enemy-attack path in
+3. **CSV**: add the name to `ContentCsv.TryEffectKind` (plus aliases) and to
+   `ContentCsv.EffectName`, or the table will reject the new effect.
+4. **Damage math**: modify `DealDamageToEnemy` and the enemy-attack path in
    `EnemyTurn` only. If both outgoing and incoming modifiers grow, extract
    `int OutgoingDamage(int baseDamage)` / `int IncomingDamage(int rawDamage)` so
    later effects do not scatter across the class.
-4. **Decay**: write the decay rule in the existing end-of-round block, once.
+5. **Decay**: write the decay rule in the existing end-of-round block, once.
    Block is reset, not decayed; durations decrease by 1 per round.
-5. **UI**: add a small status chip row to `EnemyWidget` and the player panel
+6. **UI**: add a small status chip row to `EnemyWidget` and the player panel
    (e.g. `Weak 2`, `Str 3`); update it in `Refresh`.
-6. **Log**: one line per application/resolution, e.g. `"Jaw Worm gains 2 Weak."`
-7. **Balance**: check numbers against the `deckbuilder-balance` skill.
-8. **Docs**: tick the roadmap item and update the effect table in
-   `docs/arquitectura.md`.
+7. **Log**: one line per application/resolution, e.g. `"Jaw Worm gains 2 Weak."`
+8. **Balance**: check numbers against the `deckbuilder-balance` skill.
+9. **Docs**: tick the roadmap item, update the effect table in
+   `docs/arquitectura.md` and the vocabulary in `docs/contingut.md`.
 
 ## Numbers to start from (Slay-the-Spire-like)
 

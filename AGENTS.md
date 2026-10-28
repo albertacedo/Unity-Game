@@ -8,6 +8,9 @@ This file tells AI agents how to work in this repository. Read it before making 
 - **Render pipeline:** URP 2D (`Assets/Settings/UniversalRP.asset`, `Renderer2D.asset`)
 - **Input:** new Input System only (`activeInputHandler: 1`). Assets: `Assets/Settings/InputSystem_Actions.inputactions`
 - **Game type:** 2D top-down prototype. No gameplay code exists yet — everything is greenfield.
+- **Content:** cards, enemies, relics and events are CSV tables in
+  `Assets/Resources/Content/`, not `.asset` files. Format and workflow:
+  `docs/contingut.md`; edit through the **Prototype → Content (CSV)** window or Excel.
 - **Key package:** `com.unity.ai.assistant` (Unity's in-editor assistant) is installed.
 - **MCP:** the `unity` server in `opencode.json` connects to the running Editor through `~/.unity/relay/relay_win.exe`.
 
@@ -121,10 +124,13 @@ comments and commit messages stay in **English**.
 Assets/
   Scenes/     gameplay scenes (SampleScene is the template scene)
   Scripts/    all C# runtime code
+  Editor/     editor-only tools (the content window)
   Prefabs/    reusable GameObjects
   Art/Sprites 2D art
   Audio/      music and SFX
   UI/         UI prefabs, sprites, fonts
+  Resources/
+    Content/  cards.csv, enemies.csv, relics.csv, events.csv
   Settings/   URP + input assets (do not reorganize)
 ```
 
@@ -150,4 +156,7 @@ Assets/
 
 - Read the Unity console for compile errors before claiming success:
   `Unity_ReadConsole` (via MCP), or ask the user to check the Console window.
+- After touching `Assets/Resources/Content/*.csv`, run
+  `dotnet run --project tools/content-check`: it validates every table and round-trips it
+  without opening Unity.
 - Prefer small verifiable steps over large speculative refactors.

@@ -1,0 +1,6 @@
+id;title;maxhp;role;intents
+jaw_worm;Jaw Worm;44;normal;attack:11|block:6|attack:7
+cultist;Cultist;50;normal;attack:6|attack:9
+jaw_worm_pack;Jaw Worm;22;pack;attack:4|block:4|attack:5
+cultist_pack;Cultist;24;pack;attack:3|attack:6
+the_guardian;The Guardian;90;boss;attack:14|block:10|attack:18

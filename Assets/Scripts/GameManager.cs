@@ -79,6 +79,7 @@ namespace Prototype
 
         public void StartNewRun(int seed)
         {
+            ContentDatabase.Reload();
             run = new RunState { Seed = seed };
             run.Map = MapGenerator.Generate(seed);
             run.Deck = CardLibrary.StarterDeck();
@@ -178,8 +179,17 @@ namespace Prototype
         void StartCombat(MapNode node)
         {
             List<EnemyData> enemies = node.Type == NodeType.Boss
-                ? new List<EnemyData> { EnemyLibrary.Boss() }
+                ? BossEncounter()
                 : EnemyLibrary.RandomEncounter(rng);
+
+            enemies.RemoveAll(enemy => enemy == null);
+            if (enemies.Count == 0)
+            {
+                Debug.LogError("Content: no enemy for a " + node.Type +
+                               " room. Check Assets/Resources/Content/enemies.csv.");
+                Advance(node);
+                return;
+            }
 
             combat = new CombatSession(run, enemies);
 
@@ -188,6 +198,12 @@ namespace Prototype
             var screenRoot = UIFactory.MakeRect(root, "CombatScreen");
             UIFactory.Stretch(screenRoot);
             screenRoot.gameObject.AddComponent<CombatScreen>().Init(combat, () => OnCombatFinished(node));
+        }
+
+        List<EnemyData> BossEncounter()
+        {
+            EnemyData boss = EnemyLibrary.Boss(rng);
+            return boss == null ? new List<EnemyData>() : new List<EnemyData> { boss };
         }
 
         void OnCombatFinished(MapNode node)

@@ -16,6 +16,17 @@ namespace Prototype.UI
         public static readonly Color Danger = new Color(0.78f, 0.30f, 0.28f);
         public static readonly Color Success = new Color(0.32f, 0.66f, 0.42f);
 
+        /// <summary>Card background by kind. Lives here because it is a UI concern.</summary>
+        public static Color CardTint(CardKind kind)
+        {
+            switch (kind)
+            {
+                case CardKind.Attack: return new Color(0.52f, 0.17f, 0.17f);
+                case CardKind.Skill: return new Color(0.15f, 0.30f, 0.50f);
+                default: return new Color(0.32f, 0.21f, 0.46f);
+            }
+        }
+
         public static Canvas MakeCanvas()
         {
             var go = new GameObject("UI", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
@@ -123,7 +134,7 @@ namespace Prototype.UI
         {
             var rt = MakeRect(parent, "Card_" + card.Id);
             var image = rt.gameObject.AddComponent<Image>();
-            image.color = card.Tint;
+            image.color = CardTint(card.Kind);
 
             var button = rt.gameObject.AddComponent<Button>();
             button.targetGraphic = image;
@@ -141,7 +152,7 @@ namespace Prototype.UI
             Place(title.rectTransform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f),
                 new Vector2(10f, -46f), new Vector2(130f, 46f));
 
-            var body = MakeLabel(rt, "Body", card.Text, 15f, Ink, TextAlignmentOptions.Center);
+            var body = MakeLabel(rt, "Body", card.DisplayText, 15f, Ink, TextAlignmentOptions.Center);
             Place(body.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
                 new Vector2(0f, -16f), new Vector2(134f, 100f));
 
