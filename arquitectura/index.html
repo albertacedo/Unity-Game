@@ -16,7 +16,7 @@
         <link rel="prev" href="..">
       
       
-        <link rel="next" href="../roadmap/">
+        <link rel="next" href="../contingut/">
       
       
         
@@ -403,6 +403,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../contingut/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contingut
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../roadmap/" class="md-nav__link">
         
   
@@ -443,10 +470,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
             
   
   
@@ -464,8 +491,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -727,6 +754,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sessions/2026-10-28-contingut-csv/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-10-28 · Contingut en CSV
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -845,7 +900,9 @@
 
 <h1 id="arquitectura">Arquitectura<a class="headerlink" href="#arquitectura" title="Permanent link">&para;</a></h1>
 <p>Tot el joc es construeix <strong>des de codi</strong>: l'escena només conté un objecte <code>Game</code> amb el
-component <code>GameManager</code>. No hi ha prefabs ni cap pantalla muntada a mà.</p>
+component <code>GameManager</code>. No hi ha prefabs ni cap pantalla muntada a mà. El contingut, en
+canvi, és <strong>dades</strong>: quatre taules CSV a <code>Assets/Resources/Content</code> (vegeu
+<a href="../contingut/">Contingut en CSV</a>).</p>
 <h2 id="flux">Flux<a class="headerlink" href="#flux" title="Permanent link">&para;</a></h2>
 <pre><code>GameManager.Awake()
   ├─ crea Canvas + EventSystem
@@ -893,16 +950,36 @@ següent. Les capes que han de sobreviure (el <code>DevPanel</code>) pengen del 
 <td>Estat d'un enemic dins d'un combat (HP, bloqueig, Vulnerable, intent)</td>
 </tr>
 <tr>
+<td><code>Scripts/Content/ContentCsv.cs</code></td>
+<td>Format de les taules CSV: lectura, escriptura i validació</td>
+</tr>
+<tr>
+<td><code>Scripts/Content/ContentDatabase.cs</code></td>
+<td>Carrega <code>Resources/Content/*.csv</code> i en guarda la caché</td>
+</tr>
+<tr>
 <td><code>Scripts/Content/CardLibrary.cs</code></td>
-<td>Totes les cartes i enemics del joc</td>
+<td>Façana: mas inicial, pool de recompenses i encontres</td>
 </tr>
 <tr>
 <td><code>Scripts/Data/CardData.cs</code></td>
-<td>Tipus de carta (<code>ScriptableObject</code>) i efectes</td>
+<td>Carta, efectes i text generat a partir dels efectes</td>
 </tr>
 <tr>
 <td><code>Scripts/Data/EnemyData.cs</code></td>
-<td>Enemic i els seus intents</td>
+<td>Enemic, rol (sol/grup/cap) i cua d'intents</td>
+</tr>
+<tr>
+<td><code>Scripts/Data/RelicData.cs</code></td>
+<td>Relíquia (catàleg; el sistema encara no existeix)</td>
+</tr>
+<tr>
+<td><code>Scripts/Data/EventData.cs</code></td>
+<td>Esdeveniment i opcions (catàleg; la pantalla encara no existeix)</td>
+</tr>
+<tr>
+<td><code>Editor/ContentWindow.cs</code></td>
+<td>Finestra <em>Prototype → Content (CSV)</em> per editar les taules</td>
 </tr>
 <tr>
 <td><code>Scripts/UI/UIFactory.cs</code></td>
@@ -936,6 +1013,10 @@ següent. Les capes que han de sobreviure (el <code>DevPanel</code>) pengen del 
 </table>
 <h2 id="regles-implementades">Regles implementades<a class="headerlink" href="#regles-implementades" title="Permanent link">&para;</a></h2>
 <ul>
+<li><strong>Contingut</strong>: cartes, enemics, relíquies i esdeveniments són dades, no codi. Viuen a
+  <code>Assets/Resources/Content/*.csv</code>, es carreguen un cop amb <code>ContentDatabase</code> i no hi ha
+  cap <code>.asset</code> de contingut. El format, les regles i el flux d'edició són a
+  <a href="../contingut/">Contingut en CSV</a>.</li>
 <li><strong>Mapa</strong>: radial i determinista per seed. Un node <code>Start</code> al centre, 8 anells
   (6 de sales + 1 de caps) i 4-7 caps a l'anell exterior. Les connexions laterals dels
   anells de sales es generen amb un 55% de probabilitat i es dibuixen sempre amb línies
@@ -985,15 +1066,19 @@ següent. Les capes que han de sobreviure (el <code>DevPanel</code>) pengen del 
 <tbody>
 <tr>
 <td>Afegir una carta</td>
-<td><code>CardLibrary</code> (mètode <code>Make</code>) + afegir-la a <code>RewardPool</code></td>
+<td><code>Resources/Content/cards.csv</code> (o la finestra <em>Prototype → Content</em>): una fila</td>
 </tr>
 <tr>
 <td>Afegir un enemic</td>
-<td><code>EnemyLibrary</code> + incloure'l a <code>RandomEncounter</code></td>
+<td><code>Resources/Content/enemies.csv</code>: una fila amb el seu <code>role</code></td>
 </tr>
 <tr>
 <td>Afegir un efecte</td>
-<td><code>EffectKind</code> (a <code>CardData</code>) + el <code>switch</code> de <code>CombatSession.ApplyEffects</code> + un camp a <code>EnemyInstance</code> si és un estat</td>
+<td><code>EffectKind</code> (a <code>CardData</code>) + el <code>switch</code> de <code>CombatSession.ApplyEffects</code> + un camp a <code>EnemyInstance</code> si és un estat + el nom a <code>ContentCsv</code></td>
+</tr>
+<tr>
+<td>Afegir una relíquia o un event</td>
+<td><code>relics.csv</code> / <code>events.csv</code>; el sistema de joc encara s'ha d'escriure</td>
 </tr>
 <tr>
 <td>Afegir una pantalla</td>
@@ -1007,9 +1092,12 @@ següent. Les capes que han de sobreviure (el <code>DevPanel</code>) pengen del 
 </table>
 <h2 id="eines">Eines<a class="headerlink" href="#eines" title="Permanent link">&para;</a></h2>
 <ul>
-<li><code>tools/compile-check.ps1</code> compila <code>Assets/Scripts</code> contra les DLLs de <code>Library/</code>
-  amb el SDK de .NET, sense obrir Unity. És el primer esglaó de verificació;
+<li><code>tools/compile-check.ps1</code> compila <code>Assets/Scripts</code> i <code>Assets/Editor</code> contra les DLLs de
+  <code>Library/</code> amb el SDK de .NET, sense obrir Unity. És el primer esglaó de verificació;
   després cal comprovar la consola i provar en Play mode.</li>
+<li><code>tools/content-check/</code> valida els CSV de contingut sense obrir Unity: mateix parser,
+  mateixes regles i una prova d'anada i tornada de cada taula.</li>
+<li><code>Prototype → Content (CSV)</code> és la finestra d'edició de contingut dins l'Editor.</li>
 <li><code>.opencode/skills/</code> guarda les instruccions reutilitzables de l'agent. N'hi ha de dos
   tipus: les <strong>pròpies</strong> (UI des de codi, balanceig, verificació, efectes: el que només
   sap aquest repo) i les <strong>externes</strong>, copiades del catàleg de <a href="https://www.skills.sh/">skills.sh</a>
