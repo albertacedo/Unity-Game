@@ -48,7 +48,7 @@ namespace Prototype.UI
 
         void Build()
         {
-            var dim = UIFactory.MakePanel(transform, "Dim", new Color(0f, 0f, 0f, 0.86f));
+            var dim = UIFactory.MakePanel(transform, "Dim", new Color(0f, 0f, 0f, 0.97f));
 
             var title = UIFactory.MakeLabel(dim, "Title",
                 "YOUR DECK  ·  " + run.Deck.Count + " CARDS", 34f, UIFactory.Gold);
