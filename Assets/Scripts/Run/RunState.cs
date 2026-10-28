@@ -14,5 +14,10 @@ namespace Prototype
         public RunMap Map;
         public MapNode Current;
         public List<CardData> Deck = new List<CardData>();
+
+        // Playtest switches. They live with the run so every screen reads the same rules.
+        public bool FogOfWar = false;
+        public int RevealDistance = 1;
+        public bool AllowBacktracking = false;
     }
 }

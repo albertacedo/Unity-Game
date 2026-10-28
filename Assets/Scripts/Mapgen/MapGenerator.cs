@@ -13,7 +13,9 @@ namespace Prototype.Mapgen
         public float Angle;
         public NodeType Type;
         public bool Visited;
-        /// <summary>Every connected room, inwards and outwards. Walking is free both ways.</summary>
+        /// <summary>Whether the player knows what kind of room this is.</summary>
+        public bool TypeRevealed;
+        /// <summary>Every connected room, inwards and outwards. Walking is allowed both ways.</summary>
         public readonly List<MapNode> Next = new List<MapNode>();
     }
 
@@ -45,13 +47,13 @@ namespace Prototype.Mapgen
     /// 4-7 bosses on the outer ring. Consecutive rings are joined by angular wedges: each
     /// room of the bigger ring hangs from the room (or boss) of the smaller ring that is
     /// closest in angle, so roads never lean past each other and the map stays readable.
-    /// Rooms of the same ring are joined by arcs that follow the ring, and the last room
-    /// ring is a full ring road, which connects every branch without cutting a road.
+    /// Rooms of the same ring are joined by direct connections, and the last room ring is
+    /// a full ring road, which connects every branch without cutting a road.
     /// Same seed always produces the same map.
     /// </summary>
     public static class MapGenerator
     {
-        public const int DefaultRingCount = 7;
+        public const int DefaultRingCount = 8;
 
         const int FirstRingRooms = 5;
         const int MaxRoomsPerRing = 15;
@@ -59,7 +61,16 @@ namespace Prototype.Mapgen
         const int MaxBosses = 7;
 
         /// <summary>Chance that two neighbouring rooms of the same ring are joined.</summary>
-        const float LateralChance = 0.5f;
+        const float LateralChance = 0.55f;
+
+        /// <summary>Chance for a diagonal link to a neighbouring branch in the next ring.</summary>
+        const float DiagonalChance = 0.35f;
+
+        // NodeSize is 70x30 in MapScreen. Expand that rectangle slightly so roads never
+        // touch or visually graze another node, including the boss nodes.
+        const float NodeHalfWidth = 35f;
+        const float NodeHalfHeight = 15f;
+        const float NodeClearanceMargin = 8f;
 
         public static RunMap Generate(int seed, int ringCount = DefaultRingCount)
         {
@@ -70,7 +81,15 @@ namespace Prototype.Mapgen
             for (int ring = 0; ring < ringCount; ring++)
                 map.Rings[ring] = new List<MapNode>();
 
-            var start = new MapNode { Ring = 0, Index = 0, Angle = 0f, Type = NodeType.Start, Visited = true };
+            var start = new MapNode
+            {
+                Ring = 0,
+                Index = 0,
+                Angle = 0f,
+                Type = NodeType.Start,
+                Visited = true,
+                TypeRevealed = true
+            };
             map.Rings[0].Add(start);
             map.Start = start;
 
@@ -92,14 +111,148 @@ namespace Prototype.Mapgen
                 Connect(start, node);
 
             for (int ring = 1; ring < bossRing; ring++)
-                LinkRings(map.Rings[ring], map.Rings[ring + 1]);
+                LinkRings(map, map.Rings[ring], map.Rings[ring + 1]);
+
+            LinkDiagonalBranches(map, rng, bossRing);
 
             // The room ring in front of the bosses is a complete ring road: from any branch
             // you can walk around the edge and pick a different boss.
             for (int ring = 1; ring < bossRing; ring++)
-                LinkLateral(map.Rings[ring], rng, ring == bossRing - 1);
+                LinkLateral(map, map.Rings[ring], rng, ring == bossRing - 1);
 
             return map;
+        }
+
+        /// <summary>
+        /// Adds sparse diagonal links between consecutive rings. The normal radial link
+        /// points to the closest angle; this one points to the neighbouring angle, allowing
+        /// a route to drift into the branch on the left or right.
+        /// </summary>
+        static void LinkDiagonalBranches(RunMap map, Random rng, int bossRing)
+        {
+            for (int innerRing = 1; innerRing < bossRing - 1; innerRing++)
+            {
+                List<MapNode> inner = map.Rings[innerRing];
+                List<MapNode> outer = map.Rings[innerRing + 1];
+                if (outer.Count < 2) continue;
+
+                foreach (MapNode node in inner)
+                {
+                    if (rng.NextDouble() >= DiagonalChance) continue;
+
+                    MapNode nearest = NearestOwner(outer, node.Angle);
+                    int direction = rng.Next(2) == 0 ? -1 : 1;
+                    int targetIndex = (nearest.Index + direction + outer.Count) % outer.Count;
+                    MapNode target = outer[targetIndex];
+                    if (CanAddConnection(map, node, target))
+                        Connect(node, target);
+                }
+            }
+        }
+
+        static bool CanAddConnection(RunMap map, MapNode from, MapNode to)
+        {
+            Project(from, out float fromX, out float fromY);
+            Project(to, out float toX, out float toY);
+
+            foreach (MapNode node in map.Nodes())
+            {
+                if (node == from || node == to) continue;
+
+                Project(node, out float nodeX, out float nodeY);
+                if (SegmentTouchesNode(fromX, fromY, toX, toY, nodeX, nodeY))
+                    return false;
+            }
+
+            foreach (MapNode node in map.Nodes())
+            {
+                foreach (MapNode next in node.Next)
+                {
+                    if (!IsStoredEdge(node, next, map)) continue;
+                    if (node == from || node == to || next == from || next == to) continue;
+
+                    Project(node, out float ax, out float ay);
+                    Project(next, out float bx, out float by);
+                    if (SegmentsIntersect(fromX, fromY, toX, toY, ax, ay, bx, by))
+                        return false;
+                }
+            }
+
+            return true;
+        }
+
+        static bool IsStoredEdge(MapNode from, MapNode to, RunMap map)
+        {
+            if (to.Ring < from.Ring) return false;
+            if (to.Ring > from.Ring) return true;
+
+            List<MapNode> ring = map.Rings[from.Ring];
+            return to.Index == from.Index + 1
+                || (from.Index == ring.Count - 1 && to.Index == 0);
+        }
+
+        static void Project(MapNode node, out float x, out float y)
+        {
+            MapLayout.Project(node.Ring, node.Angle, out x, out y);
+        }
+
+        static bool SegmentTouchesNode(float fromX, float fromY, float toX, float toY,
+            float nodeX, float nodeY)
+        {
+            float halfWidth = NodeHalfWidth + NodeClearanceMargin;
+            float halfHeight = NodeHalfHeight + NodeClearanceMargin;
+            float left = nodeX - halfWidth;
+            float right = nodeX + halfWidth;
+            float bottom = nodeY - halfHeight;
+            float top = nodeY + halfHeight;
+
+            if (PointInside(fromX, fromY, left, right, bottom, top)
+                || PointInside(toX, toY, left, right, bottom, top))
+                return true;
+
+            return SegmentsIntersect(fromX, fromY, toX, toY, left, bottom, right, bottom)
+                || SegmentsIntersect(fromX, fromY, toX, toY, right, bottom, right, top)
+                || SegmentsIntersect(fromX, fromY, toX, toY, right, top, left, top)
+                || SegmentsIntersect(fromX, fromY, toX, toY, left, top, left, bottom);
+        }
+
+        static bool PointInside(float x, float y, float left, float right, float bottom, float top)
+        {
+            return x >= left && x <= right && y >= bottom && y <= top;
+        }
+
+        static bool SegmentsIntersect(float ax, float ay, float bx, float by,
+            float cx, float cy, float dx, float dy)
+        {
+            const float epsilon = 0.001f;
+            float abC = Cross(bx - ax, by - ay, cx - ax, cy - ay);
+            float abD = Cross(bx - ax, by - ay, dx - ax, dy - ay);
+            float cdA = Cross(dx - cx, dy - cy, ax - cx, ay - cy);
+            float cdB = Cross(dx - cx, dy - cy, bx - cx, by - cy);
+
+            if (((abC > epsilon && abD < -epsilon) || (abC < -epsilon && abD > epsilon))
+                && ((cdA > epsilon && cdB < -epsilon) || (cdA < -epsilon && cdB > epsilon)))
+                return true;
+
+            return OnSegment(ax, ay, bx, by, cx, cy, epsilon)
+                || OnSegment(ax, ay, bx, by, dx, dy, epsilon)
+                || OnSegment(cx, cy, dx, dy, ax, ay, epsilon)
+                || OnSegment(cx, cy, dx, dy, bx, by, epsilon);
+        }
+
+        static float Cross(float ax, float ay, float bx, float by)
+        {
+            return ax * by - ay * bx;
+        }
+
+        static bool OnSegment(float ax, float ay, float bx, float by,
+            float px, float py, float epsilon)
+        {
+            if (Math.Abs(Cross(bx - ax, by - ay, px - ax, py - ay)) > epsilon)
+                return false;
+
+            return px >= Math.Min(ax, bx) - epsilon && px <= Math.Max(ax, bx) + epsilon
+                && py >= Math.Min(ay, by) - epsilon && py <= Math.Max(ay, by) + epsilon;
         }
 
         /// <summary>
@@ -108,7 +261,7 @@ namespace Prototype.Mapgen
         /// the map is split into wedges centred on the smaller ring. Two roads from different
         /// wedges never cross, and a road never leans back over a neighbour.
         /// </summary>
-        static void LinkRings(List<MapNode> inner, List<MapNode> outer)
+        static void LinkRings(RunMap map, List<MapNode> inner, List<MapNode> outer)
         {
             if (inner.Count == 0 || outer.Count == 0) return;
 
@@ -125,8 +278,27 @@ namespace Prototype.Mapgen
             RefillEmptyWedges(owners, wedges);
 
             foreach (MapNode owner in owners)
+            {
                 foreach (MapNode member in wedges[owner])
-                    Connect(owner, member);
+                {
+                    if (CanAddConnection(map, owner, member))
+                    {
+                        Connect(owner, member);
+                        continue;
+                    }
+
+                    // The angular owner is the normal route. If it would cross a road or
+                    // graze a node, try another owner rather than drawing a bad connection.
+                    foreach (MapNode alternative in owners)
+                    {
+                        if (alternative == owner || !CanAddConnection(map, alternative, member))
+                            continue;
+
+                        Connect(alternative, member);
+                        break;
+                    }
+                }
+            }
         }
 
         /// <summary>Groups every member under the owner it points at most directly.</summary>
@@ -212,8 +384,8 @@ namespace Prototype.Mapgen
             return best;
         }
 
-        /// <summary>Joins neighbouring rooms of the same ring, drawn as an arc (no crossing).</summary>
-        static void LinkLateral(List<MapNode> ring, Random rng, bool full)
+        /// <summary>Joins neighbouring rooms of the same ring.</summary>
+        static void LinkLateral(RunMap map, List<MapNode> ring, Random rng, bool full)
         {
             if (ring.Count < 3) return;
 
@@ -221,7 +393,10 @@ namespace Prototype.Mapgen
             {
                 if (!full && rng.NextDouble() >= LateralChance) continue;
 
-                Connect(ring[i], ring[(i + 1) % ring.Count]);
+                MapNode from = ring[i];
+                MapNode to = ring[(i + 1) % ring.Count];
+                if (CanAddConnection(map, from, to))
+                    Connect(from, to);
             }
         }
 
@@ -246,7 +421,8 @@ namespace Prototype.Mapgen
                 {
                     Ring = bossRing,
                     Angle = Normalize(offset + i * sector + jitter),
-                    Type = NodeType.Boss
+                    Type = NodeType.Boss,
+                    TypeRevealed = true
                 });
             }
 

@@ -14,7 +14,7 @@ s'ha fet, què s'ha après i quins fitxers han canviat.
 | Cosa | Estat |
 |---|---|
 | Bucle jugable | ✅ mapa → combat → recompensa → mapa |
-| Mapa | ✅ radial: centre, 7 anells, 4-7 caps i zoom/pan; exploració lliure |
+| Mapa | ✅ radial: centre, 8 anells, 4-7 caps, boira configurable, zoom/pan i connexions segures |
 | Combat | ✅ torns, energia, bloqueig, Vulnerable, multi-enemic amb objectiu |
 | Contingut | 10 cartes · 3 enemics (1 cap) + packs de 2 |
 | Eines de test | ✅ panell F1, vista del mas, feedback de combat, `tools/compile-check.ps1` |
@@ -48,3 +48,4 @@ Consulta l'[índex de sessions](sessions/index.md) o el [roadmap](roadmap.md).
 | 2026-10-23 | [Tanda 2: multi-enemic](sessions/2026-10-23-tanda-2-multi-enemic.md) | Diversos enemics, selecció d'objectiu i skills |
 | 2026-10-25 | [Mapa radial](sessions/2026-10-25-mapa-radial.md) | De l'estrella als anells, zoom/pan, simulació dels tres mapes i el fix de la rodeta |
 | 2026-10-27 | [Skills externes](sessions/2026-10-27-skills-externes.md) | Nou skills del catàleg de skills.sh, vendoritzades amb procedència |
+| 2026-10-28 | [Mapa amb boira i connexions](sessions/2026-10-28-mapa-boira-connexions.md) | Boira configurable, retrocés, 8 anells i connexions laterals/diagonals validades |

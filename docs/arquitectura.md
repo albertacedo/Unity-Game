@@ -43,18 +43,18 @@ següent. Les capes que han de sobreviure (el `DevPanel`) pengen del Canvas, no 
 
 ## Regles implementades
 
-- **Mapa**: radial i determinista per seed. Un node `Start` al centre, 7 anells
-  (5 de sales + 1 de caps) i 4-7 caps a l'anell exterior.
+- **Mapa**: radial i determinista per seed. Un node `Start` al centre, 8 anells
+  (6 de sales + 1 de caps) i 4-7 caps a l'anell exterior. Les connexions laterals dels
+  anells de sales es generen amb un 55% de probabilitat i es dibuixen sempre amb línies
+  rectes. Un 35% de les sales també pot tenir una connexió diagonal amb la branca angular
+  veïna de l'anell següent. Les diagonals es rebutgen si creuen una carretera, toquen el
+  rectangle d'un altre node o passen a menys de 8 unitats del seu marge visual.
 - **Tipus de sala**: l'anell 1 és sempre de combat; als anells 2-5 es tira 50% combat,
   15% descans, 10% botiga i 25% esdeveniment. Els caps són sempre caps, i `Elite` encara
   no es genera.
 - **Connexions**: entre dos anells veïns, cada sala enllaça amb la sala (o cap) més
-  propera en angle. El mapa queda partit en falques centrades en l'anell petit, així
-  que dues carreteres de falques diferents no es creuen mai. Les sales del mateix
-  anell s'uneixen amb arcs que ressegueixen l'anell (mai una recta que el talli), i
-  l'anell just abans dels caps és un anell complet: des de qualsevol branca es pot
-  vorejar el mapa i triar un altre cap. Provat amb 300 seeds: 0 creuaments (vegeu la
-  [simulació comparada](sessions/2026-10-25-mapa-radial.md#simulacio-dels-tres-mapes)).
+  propera en angle. El mapa queda partit en falques centrades en l'anell petit. Les sales
+  del mateix anell s'uneixen amb línies directes, i l'anell just abans dels caps és complet.
 - **Geometria**: `MapLayout` és l'única font de posicions. El mapa és una el·lipse
   1,45 vegades més ampla que alta, per aprofitar la pantalla 16:9. Cada cap se situa
   sobre el centre angular de les seves sales, perquè cap aresta surti del seu anell
@@ -65,12 +65,13 @@ següent. Les capes que han de sobreviure (el `DevPanel`) pengen del Canvas, no 
   `RESET VIEW` torna a l'estat inicial. Es pot clicar les sales a qualsevol zoom.
   Mentre hi ha una capa oberta (el deck), `MapScreen.Update` ignora roda i
   arrossegament: l'scroll de les cartes no ha de moure el mapa del darrere.
-- **Moviment**: lliure i gratis: es pot entrar a qualsevol sala veïna sense visitar,
-  cap endins o cap enfora. Les sales visitades queden tancades. Si la sala actual no
-  té cap veïna per visitar, la run s'acaba (pantalla de cul-de-sac amb `END RUN`).
-  Anar sempre cap enfora arriba a un cap en 6 sales; els culs-de-sac només passen
-  quan el jugador s'endinsa o va de costat i es queda sense veïnes verges.
-- **Provisions**: pendents. El pla és que explorar costi energia; de moment no n'hi ha.
+- **Moviment**: cada elecció mou exactament un node i es pot caminar en ambdues direccions.
+  Les sales visitades no repeteixen contingut, però es poden travessar per tornar a una
+  branca. Els tipus de sala només es revelen dins del radi configurat (`1-5`, `1` per defecte);
+  els caps són visibles des del principi. La topologia i les carreteres sempre són visibles.
+  El panell F1 permet provar boira, radi de revelació `1-5` i retrocés sense reiniciar.
+  No hi ha provisions encara: primer es prova si el moviment i el contingut d'un sol ús
+  ja creen prou compromís.
 - **Combat**: 3 energia per torn, robes 5, el bloqueig es reinicia cada torn.
 - **Multi-enemic**: 1 enemic normal o un pack de 2 variants febles. Cada enemic té
   la seva HP, bloqueig, Vulnerable i cua d'intents; el combat acaba quan cauen tots.

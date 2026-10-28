@@ -84,10 +84,39 @@ namespace Prototype
             run.Deck = CardLibrary.StarterDeck();
             run.Hp = run.MaxHp;
             run.Current = run.Map.Start;
+            RevealVisibleNodes();
             rng = new System.Random(seed + 7919);
             combat = null;
             pendingNode = null;
             ShowMap();
+        }
+
+        public void DebugToggleFogOfWar()
+        {
+            if (run == null) return;
+            run.FogOfWar = !run.FogOfWar;
+            RevealVisibleNodes();
+            RefreshMapForDebug();
+        }
+
+        public void DebugCycleRevealDistance()
+        {
+            if (run == null) return;
+            run.RevealDistance = run.RevealDistance >= 5 ? 1 : run.RevealDistance + 1;
+            RevealVisibleNodes();
+            RefreshMapForDebug();
+        }
+
+        public void DebugToggleBacktracking()
+        {
+            if (run == null) return;
+            run.AllowBacktracking = !run.AllowBacktracking;
+            RefreshMapForDebug();
+        }
+
+        void RefreshMapForDebug()
+        {
+            if (screen == ScreenKind.Map) ShowMap();
         }
 
         void Clear()
@@ -119,6 +148,15 @@ namespace Prototype
 
         void OnNodeSelected(MapNode node)
         {
+            // Visited rooms are safe traversal nodes. They never replay their content.
+            if (node.Visited)
+            {
+                run.Current = node;
+                RevealVisibleNodes();
+                ShowMap();
+                return;
+            }
+
             switch (node.Type)
             {
                 case NodeType.Start:
@@ -229,9 +267,52 @@ namespace Prototype
         {
             run.Current = node;
             node.Visited = true;
+            node.TypeRevealed = true;
+            RevealVisibleNodes();
             combat = null;
             pendingNode = null;
             ShowMap();
+        }
+
+        void RevealVisibleNodes()
+        {
+            if (run == null || run.Current == null) return;
+
+            // TypeRevealed is the current accumulated visibility: every visited room is a
+            // source for the reveal radius. Visited rooms keep their identity because their
+            // content has already been experienced.
+            foreach (MapNode mapNode in run.Map.Nodes())
+            {
+                if (!mapNode.Visited && mapNode.Type != NodeType.Boss)
+                    mapNode.TypeRevealed = false;
+            }
+
+            if (!run.FogOfWar) return;
+
+            var queue = new Queue<MapNode>();
+            var distances = new Dictionary<MapNode, int>();
+
+            foreach (MapNode mapNode in run.Map.Nodes())
+            {
+                if (!mapNode.Visited) continue;
+                queue.Enqueue(mapNode);
+                distances[mapNode] = 0;
+            }
+
+            while (queue.Count > 0)
+            {
+                MapNode node = queue.Dequeue();
+                int distance = distances[node];
+                node.TypeRevealed = true;
+                if (distance >= run.RevealDistance) continue;
+
+                foreach (MapNode neighbour in node.Next)
+                {
+                    if (distances.ContainsKey(neighbour)) continue;
+                    distances[neighbour] = distance + 1;
+                    queue.Enqueue(neighbour);
+                }
+            }
         }
 
         // --- Playtest helpers (used by DevPanel, safe to call at any time) ----

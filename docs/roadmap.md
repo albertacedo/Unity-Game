@@ -42,24 +42,20 @@ Aquí el joc comença a tenir decisions de veritat.
 
 Botiga + relíquies + descans amb elecció. L'or i el mapa deixen de ser decoratius.
 
-## Tanda 2b — pendents de disseny del mapa radial
+## Tanda 2b — boira d'informació del mapa radial
 
-El mapa ja és radial, el moviment és lliure i ara es pot ampliar i moure. Queden
-aquestes decisions obertes:
+El mapa és radial i el jugador pot caminar en ambdues direccions. La topologia és
+visible, però el tipus de sala només es revela a distància 1; els caps sempre es veuen.
+Les sales visitades no repeteixen contingut i serveixen per tornar a una branca.
 
-- **Provisions**: que moure's costi energia i que, en esgotar-se, la run s'acabi o
-  forci el camí cap al boss. De moment el moviment és gratis.
-- **Segellar anells**: alternativa espacial (pots retrocedir un anell; la resta es
-  tanca). Més narrativa, més feina d'UI.
-- **Culs-de-sac**: en simulació, ~25% dels recorreguts *aleatoris* acaben en una sala
-  sense veïnes, però un recorregut que sempre va cap enfora arriba a un cap en 6 sales
-  (0% de culs-de-sac en 12.000 simulacions). Ara la run s'acaba en un cul-de-sac. Cal
-  decidir si això és un càstig acceptable o si les sales visitades han de poder-se
-  travessar (inertes, sense repetir contingut).
-- **Mida del run**: amb les connexions laterals el recorregut aleatori fa 11,4 sales
-  de mitjana (abans 7,7). Si les runs es fan massa llargues, la palanca és
-  `LateralChance` a `MapGenerator` (ara 0,5; l'anell exterior és sempre complet).
-  Totes les xifres surten de la [simulació dels tres mapes](sessions/2026-10-25-mapa-radial.md#simulacio-dels-tres-mapes).
+Queden aquestes decisions obertes:
+
+- **Provisions**: si el jugador explora totes les branques, fer que cada moviment
+  consumeixi una provisió. Primer es farà un playtest sense aquest recurs.
+- **Frontier versus posició actual**: de moment només es pot entrar en un veí directe;
+  els nodes connectats a altres sales visitades es coneixen però no són teleportables.
+- **Mida del run**: mesurar quantes sales visitades i quants retrocessos produeix la
+  boira amb `LateralChance = 0,55` i les connexions diagonals validades a `MapGenerator`.
 
 ## Preguntes de playtest
 

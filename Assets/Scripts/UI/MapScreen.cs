@@ -12,7 +12,7 @@ namespace Prototype.UI
     {
         static readonly Vector2 NodeSize = new Vector2(70f, 30f);
         static readonly Color RoadColor = new Color(0.29f, 0.27f, 0.34f);
-        static readonly Color ArcColor = new Color(0.24f, 0.23f, 0.30f);
+        static readonly Color SameRingRoadColor = new Color(0.24f, 0.23f, 0.30f);
 
         const float MinScale = 0.6f;
         const float MaxScale = 2.2f;
@@ -133,7 +133,7 @@ namespace Prototype.UI
                     if (next.Ring == node.Ring)
                     {
                         if (!IsForwardNeighbour(node, next)) continue;
-                        DrawArc(node, next);
+                        UIFactory.MakeLine(content, PositionOf(node), PositionOf(next), SameRingRoadColor, 2.5f);
                         continue;
                     }
 
@@ -147,22 +147,6 @@ namespace Prototype.UI
         {
             List<MapNode> ring = run.Map.Rings[node.Ring];
             return next.Index == node.Index + 1 || (node.Index == ring.Count - 1 && next.Index == 0);
-        }
-
-        /// <summary>Road between two rooms of a ring: follows the ring so it never cuts a radial road.</summary>
-        void DrawArc(MapNode from, MapNode to)
-        {
-            Vector2 previous = PositionOf(from);
-
-            for (int step = 1; step <= MapLayout.ArcSteps; step++)
-            {
-                float t = step / (float)MapLayout.ArcSteps;
-                MapLayout.ProjectArc(from.Ring, from.Angle, to.Angle, t, out float x, out float y);
-
-                var point = new Vector2(x, y);
-                UIFactory.MakeLine(content, previous, point, ArcColor, 2.5f);
-                previous = point;
-            }
         }
 
         Vector2 PositionOf(MapNode node)
@@ -257,7 +241,8 @@ namespace Prototype.UI
                 : "ring " + run.Current.Ring + " of " + (run.Map.RingCount - 1);
 
             return "Click any connected room.  ·  You are in " + ring +
-                   "\nRooms you leave cannot be entered again." +
+                    "\nUnknown rooms show only their position; bosses are always revealed." +
+                    "\nBacktracking: " + (run.AllowBacktracking ? "allowed" : "blocked") + "." +
                    "\nScroll or + / − to zoom  ·  right-drag to move the map" +
                    "\nSomewhere on the outer ring: " + run.Map.Bosses.Count + " bosses.";
         }
@@ -269,21 +254,23 @@ namespace Prototype.UI
             return count;
         }
 
-        /// <summary>Unvisited rooms connected to the room the player is standing in.</summary>
+        /// <summary>Rooms reachable in one map move, including visited rooms for backtracking.</summary>
         List<MapNode> Options()
         {
             var options = new List<MapNode>();
             if (run.Current == null) return options;
 
             foreach (MapNode node in run.Current.Next)
-                if (!node.Visited) options.Add(node);
+                if (run.AllowBacktracking || !node.Visited)
+                    options.Add(node);
 
             return options;
         }
 
         bool IsAvailable(MapNode node)
         {
-            if (node.Visited || run.Current == null) return false;
+            if (run.Current == null || node == run.Current) return false;
+            if (!run.AllowBacktracking && node.Visited) return false;
             return run.Current.Next.Contains(node);
         }
 
@@ -291,7 +278,8 @@ namespace Prototype.UI
         {
             bool available = IsAvailable(node);
             bool current = node == run.Current;
-            Color color = ColorFor(node.Type);
+            bool known = !run.FogOfWar || node.TypeRevealed || node.Type == NodeType.Boss;
+            Color color = known ? ColorFor(node.Type) : UnknownColor;
             Color textColor = UIFactory.Ink;
 
             if (node.Visited)
@@ -306,7 +294,7 @@ namespace Prototype.UI
             }
 
             var button = UIFactory.MakeButton(content, "Node_" + node.Ring + "_" + node.Index,
-                LabelFor(node.Type), color, 12f);
+                LabelFor(node, known), color, 12f);
             var rt = (RectTransform)button.transform;
             UIFactory.Place(rt, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f),
                 PositionOf(node), NodeSize);
@@ -347,8 +335,13 @@ namespace Prototype.UI
             });
         }
 
-        static string LabelFor(NodeType type)
+        static readonly Color UnknownColor = new Color(0.27f, 0.27f, 0.32f);
+
+        static string LabelFor(MapNode node, bool known)
         {
+            if (!known) return "?";
+
+            NodeType type = node.Type;
             switch (type)
             {
                 case NodeType.Start: return "START";

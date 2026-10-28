@@ -21,6 +21,9 @@ namespace Prototype
         Button killButton;
         Button energyButton;
         Button skipButton;
+        Button fogButton;
+        Button distanceButton;
+        Button backtrackButton;
         float nextY;
 
         void Awake()
@@ -46,7 +49,7 @@ namespace Prototype
         {
             panel = UIFactory.MakePanel(transform, "Panel", new Color(0.09f, 0.08f, 0.11f, 0.97f));
             UIFactory.Place(panel, new Vector2(0f, 0f), new Vector2(0f, 0f),
-                new Vector2(24f, 24f), new Vector2(PanelWidth, 476f));
+                new Vector2(24f, 24f), new Vector2(PanelWidth, 650f));
 
             var title = UIFactory.MakeLabel(panel, "Title", "DEV PANEL  ·  F1", 19f, UIFactory.Gold,
                 TextAlignmentOptions.Left);
@@ -60,6 +63,12 @@ namespace Prototype
             killButton = Add("KILL TARGET", new Color(0.42f, 0.22f, 0.30f), () => GameManager.Instance.DebugKillTarget());
             energyButton = Add("+1 ENERGY", new Color(0.36f, 0.32f, 0.18f), () => GameManager.Instance.DebugAddEnergy());
             skipButton = Add("SKIP ROOM", new Color(0.24f, 0.32f, 0.46f), () => GameManager.Instance.DebugSkipRoom());
+            fogButton = Add("FOG OF WAR", new Color(0.24f, 0.30f, 0.38f),
+                () => GameManager.Instance.DebugToggleFogOfWar());
+            distanceButton = Add("REVEAL DISTANCE", new Color(0.24f, 0.30f, 0.38f),
+                () => GameManager.Instance.DebugCycleRevealDistance());
+            backtrackButton = Add("BACKTRACKING", new Color(0.24f, 0.30f, 0.38f),
+                () => GameManager.Instance.DebugToggleBacktracking());
             Add("RESTART (SAME SEED)", new Color(0.20f, 0.19f, 0.24f),
                 () => GameManager.Instance.DebugRestart(GameManager.Instance.Run.Seed));
             Add("RESTART (NEW SEED)", new Color(0.20f, 0.19f, 0.24f),
@@ -102,6 +111,13 @@ namespace Prototype
             killButton.interactable = inCombat;
             energyButton.interactable = inCombat;
             skipButton.interactable = true;
+
+            fogButton.GetComponentInChildren<TextMeshProUGUI>().text =
+                "FOG OF WAR: " + (run.FogOfWar ? "ON" : "OFF");
+            distanceButton.GetComponentInChildren<TextMeshProUGUI>().text =
+                "REVEAL DISTANCE: " + run.RevealDistance;
+            backtrackButton.GetComponentInChildren<TextMeshProUGUI>().text =
+                "BACKTRACKING: " + (run.AllowBacktracking ? "ON" : "OFF");
 
             string line = "Seed " + run.Seed + "   ·   HP " + run.Hp + " / " + run.MaxHp;
             string extra = "\nDeck " + run.Deck.Count + "   ·   Gold " + run.Gold;
