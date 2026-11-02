@@ -15,6 +15,7 @@ and what is still pending.
 | 2026-10-28 | [Map with fog and connections](2026-10-28-map-fog-connections.md) | `1fc4e15`, `3132230` | Configurable fog, backtracking, 8 rings and validated lateral/diagonal connections |
 | 2026-10-28 | [Content in CSV](2026-10-28-csv-content.md) | `1cacece`, this commit | Cards, enemies, relics and events in CSV, editing window and session-start context |
 | 2026-10-29 | [English documentation](2026-10-29-english-docs.md) | `de90152`, `2e736a4`, this commit | English site, renamed URLs, redirects and merged remote updates |
+| 2026-11-02 | [Dev panel and overlays](2026-11-02-dev-panel-and-overlays.md) | `c57ba95`, `5a3be18`, `4ec943e`, `8901827`, `3ca3345`, this commit | F1 diagnosed, machine rule for commits, darker overlays and a cleaner backlog |
 
 ## Naming convention
 

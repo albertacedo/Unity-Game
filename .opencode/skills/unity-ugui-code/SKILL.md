@@ -46,7 +46,14 @@ When items must keep exact sizes, use a `HorizontalLayoutGroup` with
   background colour + `button.interactable`. Do not destroy and rebuild the panel.
 - **Overlay canvas is invisible to cameras.** A camera render does not include
   `ScreenSpaceOverlay` UI; use a Game view screenshot instead.
+- **Alpha is not what it looks like.** The project renders in linear space, so a black
+  panel at alpha 0.86 still lets the screen behind show through clearly. Overlays that
+  must hide what is underneath need 0.95-0.97 (victory 0.95, deck 0.97). Judge by
+  screenshot, not by the number.
 - **Canvas is 1600x900.** Existing margins are 24-40 px; reuse them so screens match.
+- **The Game view aspect can be much shorter than 16:9** (1520x481 was common here). Fixed
+  tall layouts (the deck's 690 px viewport) get cut at the top and bottom; check a
+  screenshot before blaming the layout code.
 
 ## Recipes
 

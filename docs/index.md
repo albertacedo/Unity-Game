@@ -54,3 +54,4 @@ See the [session index](sessions/index.md), the [roadmap](roadmap.md) or how the
 | 2026-10-28 | [Map with fog and connections](sessions/2026-10-28-map-fog-connections.md) | Configurable fog, backtracking, 8 rings and validated lateral/diagonal connections |
 | 2026-10-28 | [Content in CSV](sessions/2026-10-28-csv-content.md) | Cards, enemies, relics and events editable from Excel, plus session-start context |
 | 2026-10-29 | [English documentation](sessions/2026-10-29-english-docs.md) | English site, renamed URLs, redirects and merged remote updates |
+| 2026-11-02 | [Dev panel and overlays](sessions/2026-11-02-dev-panel-and-overlays.md) | F1 diagnosed, machine rule for commits, darker overlays and a cleaner backlog |
