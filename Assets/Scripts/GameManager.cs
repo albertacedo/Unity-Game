@@ -208,7 +208,12 @@ namespace Prototype
 
         void OnCombatFinished(MapNode node)
         {
-            if (combat != null && combat.PlayerWon)
+            // The fight is over, so nothing reads it any more: the reward and end screens must
+            // not be able to see a finished combat.
+            bool won = combat != null && combat.PlayerWon;
+            combat = null;
+
+            if (won)
             {
                 if (node.Type == NodeType.Boss)
                 {
@@ -285,7 +290,6 @@ namespace Prototype
             node.Visited = true;
             node.TypeRevealed = true;
             RevealVisibleNodes();
-            combat = null;
             pendingNode = null;
             ShowMap();
         }

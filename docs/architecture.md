@@ -46,6 +46,7 @@ The layers that must survive (the `DevPanel`) hang off the Canvas, not off `Scre
 | `Scripts/UI/RewardScreen.cs` | Pick 3 cards |
 | `Scripts/UI/SimpleScreens.cs` | Rest, placeholder and end of run |
 | `Scripts/UI/DeckScreen.cs` | Overlay with the whole deck |
+| `Scripts/UI/OverlayInput.cs` | Counts the overlays that must block map input (the deck today) |
 | `Scripts/DevPanel.cs` | Test panel (F1) |
 
 ## Implemented rules
@@ -73,7 +74,8 @@ The layers that must survive (the `DevPanel`) hang off the Canvas, not off `Scre
 - **Zoom and pan**: mouse wheel (or the `+` / `−` buttons) to zoom between 60% and 220%,
   drag with the right or middle button to move the map. The map is clipped to its area
   (`RectMask2D`), so it never covers the HUD, and `RESET VIEW` returns to the initial
-  state. Rooms can be clicked at any zoom level. While an overlay is open (the deck),
+  state. Rooms can be clicked at any zoom level. While an overlay is open
+  (`OverlayInput.Count > 0`: the deck today, the shop and the events later),
   `MapScreen.Update` ignores wheel and drag: scrolling the cards must not move the map
   behind.
 - **Movement**: every choice moves exactly one node and you can walk in both directions.
@@ -83,7 +85,9 @@ The layers that must survive (the `DevPanel`) hang off the Canvas, not off `Scre
   F1 panel lets you try fog, reveal radius `1-5` and backtracking without restarting.
   There are no provisions yet: first we check whether movement and single-use content
   already create enough commitment.
-- **Combat**: 3 energy per turn, draw 5, block resets every turn.
+- **Combat**: 3 energy per turn, draw 5, block resets every turn. The running fight
+  (`GameManager.Combat`) exists only while the combat screen is up: `OnCombatFinished`
+  clears it before the reward or the end screen, so no screen can read a finished fight.
 - **Multi-enemy**: 1 normal enemy or a pack of 2 weak variants. Each enemy has its own
   HP, block, Vulnerable and intent queue; the fight ends when they all fall.
 - **Target**: attack cards hit `Target`; when it dies, targeting moves to the next living

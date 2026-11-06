@@ -73,7 +73,8 @@ To answer with the game in hand:
 - Does a combat last 2-3 turns or 4-6? A normal combat should last 4-6.
 - With 72 HP, do you reach the boss alive or is the map too harsh?
 - Do you always pick the same reward card? If so, the pool is too small.
-- Are the packs (`JawWormPack`, `CultistPack`) the right size and damage?
+- Are the packs (`JawWormPack`, `CultistPack`) the right size and damage? **Answered
+  (2026-11-06): yes, keep them as they are.**
 
 **Map** (these will be asked again on the new map):
 

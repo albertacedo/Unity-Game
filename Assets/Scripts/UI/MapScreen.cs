@@ -37,8 +37,9 @@ namespace Prototype.UI
             Mouse mouse = Mouse.current;
             if (mouse == null || content == null) return;
 
-            // The deck overlay scrolls with the wheel; the map behind it must stay still.
-            if (DeckScreen.OpenCount > 0) return;
+            // An overlay on top (the deck, and later the shop and the events) scrolls with the
+            // wheel; the map behind it must stay still.
+            if (OverlayInput.Count > 0) return;
 
             float scroll = mouse.scroll.ReadValue().y;
             if (Mathf.Abs(scroll) > 0.01f)

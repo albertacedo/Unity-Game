@@ -497,6 +497,10 @@ namespace Prototype.Mapgen
             return angle < 0f ? angle + 360f : angle;
         }
 
+        /// <summary>
+        /// Room mix for rings 2-5. <see cref="NodeType.Elite"/> is never returned: the room mix
+        /// is decided again in the map redesign, and only then will we know whether elites belong.
+        /// </summary>
         static NodeType PickType(Random rng)
         {
             double roll = rng.NextDouble();
