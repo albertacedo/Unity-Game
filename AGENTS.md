@@ -109,6 +109,7 @@ re-derive every session: engine quirks, balance numbers, verification recipes.
 | `unity-ugui-code` | building or debugging UI that is built from C# |
 | `deckbuilder-balance` | designing cards, enemies, encounters, rewards |
 | `unity-verify` | proving a change compiles and works (compile check, MCP play mode) |
+| `unity-hub` | the Hub does not list the project, or its project list must be read or changed |
 | `gameplay-architecture` | adding a subsystem or a new screen |
 | `status-effects-pipeline` | adding or changing a combat status or effect |
 

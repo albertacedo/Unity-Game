@@ -25,8 +25,11 @@ Never claim success from a compile alone when the change is visual or gameplay.
 
 ## When the tools are not there
 
-The `unity` MCP server only appears if the relay is up when the session starts. Two
-things matter:
+The `unity` MCP catalog **follows the Editor, not the session**: on 2026-11-09 the
+session started with Unity closed and no `Unity_*` tools; launching the project mid
+session made them appear, and closing the Editor removed them again. Before assuming
+the bridge is broken, check `search({ namespace: "unity" })` and whether the Editor
+process exists.
 
 - The relay is started by the Editor **on a domain reload**, not always at launch. If
   `Tools/list` is empty or `relay.txt` has no new lines, focus the Editor (a script
@@ -181,6 +184,13 @@ cursor or drive the handler directly.
   session where `FindFirstObjectByType<GameManager>()` returns an object whose
   `Run` is null. Detect it with `GameManager.Instance == null || Instance != gm` and
   leave/re-enter Play mode before asserting anything.
+- **Smart App Control can block the console tools.** With
+  `HKLM:\SYSTEM\CurrentControlSet\Control\CI\Policy\PolicyState = 1`, `dotnet run` on a
+  freshly built assembly dies with `FileLoadException 0x800711C7` ("blocked by an
+  application control policy") before reading anything. `dotnet build` still works, so
+  `compile-check.ps1` is green while `content-check` fails. That is the machine, not the
+  code: verify the CSV inside the Editor (`Prototype → Content (CSV)` → Validate) and
+  report the policy instead of chasing a phantom content bug.
 - `result.Log` expands `{0}` but not format specifiers: `{0:0.0}` prints literally.
   Pre-format with `ToString("0.0")` and concatenate.
 - Unity AI package warnings pollute the console; filter to `Error,Exception`.
