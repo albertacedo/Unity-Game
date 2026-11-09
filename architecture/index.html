@@ -838,6 +838,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sessions/2026-11-09-overlay-counter-and-unity-hub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-11-09 · Overlay counter and Unity Hub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1062,6 +1090,10 @@ The layers that must survive (the <code>DevPanel</code>) hang off the Canvas, no
 <td>Overlay with the whole deck</td>
 </tr>
 <tr>
+<td><code>Scripts/UI/OverlayInput.cs</code></td>
+<td>Counts the overlays that must block map input (the deck today)</td>
+</tr>
+<tr>
 <td><code>Scripts/DevPanel.cs</code></td>
 <td>Test panel (F1)</td>
 </tr>
@@ -1092,7 +1124,8 @@ The layers that must survive (the <code>DevPanel</code>) hang off the Canvas, no
 <li><strong>Zoom and pan</strong>: mouse wheel (or the <code>+</code> / <code>−</code> buttons) to zoom between 60% and 220%,
   drag with the right or middle button to move the map. The map is clipped to its area
   (<code>RectMask2D</code>), so it never covers the HUD, and <code>RESET VIEW</code> returns to the initial
-  state. Rooms can be clicked at any zoom level. While an overlay is open (the deck),
+  state. Rooms can be clicked at any zoom level. While an overlay is open
+  (<code>OverlayInput.Count &gt; 0</code>: the deck today, the shop and the events later),
   <code>MapScreen.Update</code> ignores wheel and drag: scrolling the cards must not move the map
   behind.</li>
 <li><strong>Movement</strong>: every choice moves exactly one node and you can walk in both directions.
@@ -1102,7 +1135,9 @@ The layers that must survive (the <code>DevPanel</code>) hang off the Canvas, no
   F1 panel lets you try fog, reveal radius <code>1-5</code> and backtracking without restarting.
   There are no provisions yet: first we check whether movement and single-use content
   already create enough commitment.</li>
-<li><strong>Combat</strong>: 3 energy per turn, draw 5, block resets every turn.</li>
+<li><strong>Combat</strong>: 3 energy per turn, draw 5, block resets every turn. The running fight
+  (<code>GameManager.Combat</code>) exists only while the combat screen is up: <code>OnCombatFinished</code>
+  clears it before the reward or the end screen, so no screen can read a finished fight.</li>
 <li><strong>Multi-enemy</strong>: 1 normal enemy or a pack of 2 weak variants. Each enemy has its own
   HP, block, Vulnerable and intent queue; the fight ends when they all fall.</li>
 <li><strong>Target</strong>: attack cards hit <code>Target</code>; when it dies, targeting moves to the next living
