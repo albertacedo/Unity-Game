@@ -112,6 +112,10 @@ The layers that must survive (the `DevPanel`) hang off the Canvas, not off `Scre
 - `tools/compile-check.ps1` compiles `Assets/Scripts` and `Assets/Editor` against the
   DLLs in `Library/` using the .NET SDK, without opening Unity. It is the first
   verification step; after that you still need to check the console and try Play mode.
+- `tools/sync-check.ps1` is the start of a session: fetch, pull, and the check that
+  matches what arrived (see [Two machines](sync.md)).
+- `tools/skills-check.ps1` compares the vendored skills against upstream; `-Update`
+  refreshes the ones that changed.
 - `tools/content-check/` validates the content CSVs without opening Unity: same parser,
   same rules and a round-trip test of every table.
 - `Prototype → Content (CSV)` is the content editing window inside the Editor.

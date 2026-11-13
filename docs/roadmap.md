@@ -62,6 +62,21 @@ are not closed here.
 - **Run size**: the `LateralChance = 0.55` figures (11.35 rooms per run) stop being the
   reference; they will be measured on the new map.
 
+## Retired items
+
+Closed on 2026-11-13 while auditing the backlog. They no longer need a session:
+
+- The map test bench: the figures it would reproduce (24.9% dead ends, 11.35 rooms per
+  run) are retired with the radial map. A bench belongs to the map redesign, with the
+  metrics that map decides.
+- Compatibility copies of the three old SVG names: no page links to them, and
+  `mkdocs-redirects` cannot redirect a binary anyway.
+- `content-check` blocked by Smart App Control: the check runs green again.
+- The four Git LFS hooks seen as untracked: `git lfs` puts them where `core.hooksPath`
+  points, they are generated per machine and `.gitignore` now covers them.
+- "Review the external skills every session": it is now a command,
+  `tools/skills-check.ps1`, last run on 2026-11-13.
+
 ## Playtest questions
 
 To answer with the game in hand:

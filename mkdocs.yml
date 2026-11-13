@@ -55,6 +55,7 @@ nav:
   - Home: index.md
   - Architecture: architecture.md
   - Content: content.md
+  - Two machines: sync.md
   - Roadmap: roadmap.md
   - Sessions:
       - Session index: sessions/index.md

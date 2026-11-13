@@ -33,8 +33,11 @@ The user works in live-coding sessions. Follow this every time, without being as
 
 ### First message of a session
 
-1. Run `git pull --ff-only`. If incoming changes touch `Assets/Scenes`, `Assets/Prefabs`
-   or other serialized assets, ask the user to close Unity first.
+1. Run `powershell -File tools/sync-check.ps1`. It fetches and pulls what the other
+   machine pushed, stops when the pull would collide with local work or with a running
+   Editor, and then runs the check that matches what landed (compile, content, docs,
+   skills). Full reference: `docs/sync.md`. If it exits `2` (no network), fall back to
+   `git pull --ff-only` and ask the user to close Unity when serialized assets arrive.
 2. Read the whole working context, not just the newest note:
    - `docs/index.md` (state table), `docs/roadmap.md` (priorities, open decisions and
      playtest questions), `docs/architecture.md`, `docs/content.md` and
@@ -204,4 +207,8 @@ Assets/
 - After touching `Assets/Resources/Content/*.csv`, run
   `dotnet run --project tools/content-check`: it validates every table and round-trips it
   without opening Unity.
+- At the start of a session, `tools/sync-check.ps1` is the gate: it pulls and runs the
+  check for each kind of change that arrived from the other machine.
+- Before touching a vendored skill, `tools/skills-check.ps1` says whether upstream has
+  moved since the footer date.
 - Prefer small verifiable steps over large speculative refactors.

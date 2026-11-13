@@ -29,6 +29,13 @@ what was learned and which files changed.
 3. Press **Play**.
 4. In game: **F1** opens the development panel.
 
+## Two machines
+
+The repo is edited from two computers. Every session starts with
+`powershell -File tools/sync-check.ps1`: it pulls what the other machine pushed, refuses
+the cases that would corrupt a scene, and runs the check for each kind of change. See
+[Two machines](sync.md).
+
 ## Stack
 
 - **Unity** 6000.3.26f1 (Unity 6.3), URP 2D

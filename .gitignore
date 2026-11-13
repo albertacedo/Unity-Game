@@ -118,3 +118,10 @@ InitTestScene*.unity*
 # Unity 6.3 solution + editor integration
 *.slnx
 .vscode/
+
+# Git LFS installs its hooks wherever core.hooksPath points (tools/git-hooks), so they
+# appear per machine on a fresh clone. Generated: never stage, never delete.
+/tools/git-hooks/post-checkout
+/tools/git-hooks/post-commit
+/tools/git-hooks/post-merge
+/tools/git-hooks/pre-push
