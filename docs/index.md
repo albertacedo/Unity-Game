@@ -63,3 +63,4 @@ See the [session index](sessions/index.md), the [roadmap](roadmap.md) or how the
 | 2026-10-29 | [English documentation](sessions/2026-10-29-english-docs.md) | English site, renamed URLs, redirects and merged remote updates |
 | 2026-11-02 | [Dev panel and overlays](sessions/2026-11-02-dev-panel-and-overlays.md) | F1 diagnosed, machine rule for commits, darker overlays and a cleaner backlog |
 | 2026-11-09 | [Overlay counter and Unity Hub](sessions/2026-11-09-overlay-counter-and-unity-hub.md) | Shared overlay counter, a combat that ends with the fight and the project back in the Hub |
+| 2026-11-13 | [Events and shop](sessions/2026-11-13-events-and-shop.md) | Six event rooms with real costs and shop rooms with a seeded stock: gold is spent at last |

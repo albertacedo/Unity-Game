@@ -17,6 +17,7 @@ and what is still pending.
 | 2026-10-29 | [English documentation](2026-10-29-english-docs.md) | `de90152`, `2e736a4`, this commit | English site, renamed URLs, redirects and merged remote updates |
 | 2026-11-02 | [Dev panel and overlays](2026-11-02-dev-panel-and-overlays.md) | `c57ba95`, `5a3be18`, `4ec943e`, `8901827`, `3ca3345`, this commit | F1 diagnosed, machine rule for commits, darker overlays and a cleaner backlog |
 | 2026-11-09 | [Overlay counter and Unity Hub](2026-11-09-overlay-counter-and-unity-hub.md) | `aacdab8`, this commit | Cleanup of the four open items, Play mode A/B proof and the Hub project list |
+| 2026-11-13 | [Events and shop](2026-11-13-events-and-shop.md) | `66656ac`, `0d321f0`, this commit | Six event rooms and shop rooms: gold gets a cost and a sink |
 
 ## Naming convention
 
