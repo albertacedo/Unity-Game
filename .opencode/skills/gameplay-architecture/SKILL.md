@@ -53,14 +53,25 @@ systems. Placeholder art is fine; feedback (numbers, flashes, timing) is not.
 - New Input System only (`Keyboard.current`, actions), never `Input.GetKey`.
 - No leftover `Debug.Log` in shipped paths.
 
-## Designing a new system (example: shop)
+## Designing a new system (the shop, as built)
 
-1. `ShopState` (plain class): stock list, prices, rerolls, `Buy(card) -> bool`.
-2. `ShopLibrary`/content: what can appear.
-3. `ShopScreen`: renders `ShopState`, forwards clicks, closes with a callback.
-4. `GameManager`: `ScreenKind.Shop`, `ShowShop(node)`, `Advance(node)` on exit.
-5. `DevPanel`: button to open the shop from the map.
-6. Docs: architecture table row + roadmap tick.
+1. `Run/ShopState.cs` (plain class): stock, `PriceOf`, `CanBuy`/`Buy`, `CanHeal`/`Heal`,
+   and a `Create(pool, seed, roomKey)` that is deterministic per run and room.
+2. Content: no new table — the stock is `CardLibrary.RewardPool()`. Add a CSV column
+   only when the numbers stop being one rule (prices are `30 + 15 × cost` today).
+3. `UI/ShopScreen.cs`: renders the state, forwards clicks through callbacks, never
+   mutates the run itself.
+4. `GameManager`: `ScreenKind.Shop`, `ShowShop(node)`, `LeaveShop(node)`; the state lives
+   in a `shop` field so a purchase redraws the **same** stock, and it is cleared on
+   leave and in `StartNewRun`.
+5. `DevPanel`: a button that opens it without a map room (`DebugOpenShop`).
+6. Docs: architecture table row + rule bullet + roadmap tick; balance numbers go to
+   `deckbuilder-balance`.
+
+Events follow the same shape (`Run/EventResolver.cs` + `UI/EventScreen.cs`), and combat
+before them. If a new system needs to survive between rooms, it belongs in `RunState`;
+if it only lasts while a screen is open, it belongs in a `GameManager` field that is
+cleared at the right moment.
 
 ## External skills: what they assume
 
