@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -29,10 +29,10 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.57a0d79d.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.fb2fffe2.min.css">
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -316,6 +316,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#two-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two machines
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#stack" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -406,6 +417,33 @@
   
   
     <li class="md-nav__item">
+      <a href="sync/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Two machines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="roadmap/" class="md-nav__link">
         
   
@@ -446,10 +484,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
             
   
   
@@ -467,8 +505,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -842,6 +880,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="sessions/2026-11-13-events-and-shop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-11-13 · Events and shop
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -891,6 +957,17 @@
     <span class="md-ellipsis">
       
         How to run it
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#two-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two machines
       
     </span>
   </a>
@@ -956,7 +1033,7 @@ with <code>python -m mkdocs gh-deploy</code> at the end of every session.</p>
 <tbody>
 <tr>
 <td>Playable loop</td>
-<td>✅ map → combat → reward → map</td>
+<td>✅ map → combat → reward → map, with rest, shop and event rooms</td>
 </tr>
 <tr>
 <td>Map</td>
@@ -968,7 +1045,7 @@ with <code>python -m mkdocs gh-deploy</code> at the end of every session.</p>
 </tr>
 <tr>
 <td>Content</td>
-<td>10 cards · 2 enemies, 2 packs and 1 boss, and relic/event tables (still inert), all in editable CSV</td>
+<td>10 cards · 2 enemies, 2 packs and 1 boss · 6 events, and a relic table (still inert), all in editable CSV</td>
 </tr>
 <tr>
 <td>Test tools</td>
@@ -980,7 +1057,7 @@ with <code>python -m mkdocs gh-deploy</code> at the end of every session.</p>
 </tr>
 <tr>
 <td>Gold</td>
-<td>⚠️ shown but cannot be spent (shop pending)</td>
+<td>✅ two sinks: event costs and rewards, and a shop room (four cards + one bandage)</td>
 </tr>
 <tr>
 <td>Audio / art</td>
@@ -995,6 +1072,11 @@ with <code>python -m mkdocs gh-deploy</code> at the end of every session.</p>
 <li>Press <strong>Play</strong>.</li>
 <li>In game: <strong>F1</strong> opens the development panel.</li>
 </ol>
+<h2 id="two-machines">Two machines<a class="headerlink" href="#two-machines" title="Permanent link">&para;</a></h2>
+<p>The repo is edited from two computers. Every session starts with
+<code>powershell -File tools/sync-check.ps1</code>: it pulls what the other machine pushed, refuses
+the cases that would corrupt a scene, and runs the check for each kind of change. See
+<a href="sync/">Two machines</a>.</p>
 <h2 id="stack">Stack<a class="headerlink" href="#stack" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Unity</strong> 6000.3.26f1 (Unity 6.3), URP 2D</li>
@@ -1075,6 +1157,11 @@ with <code>python -m mkdocs gh-deploy</code> at the end of every session.</p>
 <td><a href="sessions/2026-11-09-overlay-counter-and-unity-hub/">Overlay counter and Unity Hub</a></td>
 <td>Shared overlay counter, a combat that ends with the fight and the project back in the Hub</td>
 </tr>
+<tr>
+<td>2026-11-13</td>
+<td><a href="sessions/2026-11-13-events-and-shop/">Events and shop</a></td>
+<td>Six event rooms with real costs and shop rooms with a seeded stock: gold is spent at last</td>
+</tr>
 </tbody>
 </table>
 
@@ -1132,10 +1219,10 @@ with <code>python -m mkdocs gh-deploy</code> at the end of every session.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "navigation.top", "navigation.tracking", "content.code.copy"], "search": "assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "navigation.top", "navigation.tracking", "content.code.copy"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.c21346df.min.js"></script>
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

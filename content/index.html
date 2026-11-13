@@ -16,14 +16,14 @@
         <link rel="prev" href="../architecture/">
       
       
-        <link rel="next" href="../roadmap/">
+        <link rel="next" href="../sync/">
       
       
         
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -31,10 +31,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -491,6 +491,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../sync/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Two machines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../roadmap/" class="md-nav__link">
         
   
@@ -531,10 +558,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
             
   
   
@@ -552,8 +579,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -927,6 +954,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sessions/2026-11-13-events-and-shop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-11-13 · Events and shop
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1212,7 +1267,7 @@ attack:11|block:6|attack:7
 <tr>
 <td><code>pool</code></td>
 <td><code>starter</code>, <code>reward</code>, <code>both</code>, <code>none</code></td>
-<td>Where the card shows up</td>
+<td>Where the card shows up: the starting deck, the reward pool, or both. <code>reward</code> cards are also what shops put on the counter</td>
 </tr>
 <tr>
 <td><code>copies</code></td>
@@ -1340,11 +1395,21 @@ old_shrine;Old Shrine;A mossy shrine hums.;10;Pray =&gt; heal:15 | Desecrate =&g
 </code></pre>
 <p>Event effects: <code>nothing</code>, <code>heal</code>, <code>lose_hp</code>, <code>gain_gold</code>, <code>lose_gold</code>, <code>max_hp</code> and
 <code>add_card:card_id</code> (for example <code>add_card:strike</code>).</p>
-<div class="admonition warning">
-<p class="admonition-title">Not used yet</p>
-<p>The event room is still a placeholder. The table and the format are already validated
-so the content is ready when the screen arrives.</p>
-</div>
+<p>How an option resolves, in order and without surprises:</p>
+<ul>
+<li><code>heal</code> never goes above <code>maxhp</code>; at full health the result line says so instead of
+  healing zero and saying nothing.</li>
+<li><code>lose_hp</code> can end the run: the last hit point shows the run-over screen, never
+  negative HP.</li>
+<li><code>lose_gold</code> is a <strong>cost</strong>: an option whose total <code>lose_gold</code> is more than the gold you
+  carry is shown greyed out with "need N gold" and cannot be chosen.</li>
+<li><code>max_hp</code> moves the ceiling and the current HP together: <code>max_hp:5</code> is +5 max and +5
+  current; <code>max_hp:-5</code> drags the current HP down with the ceiling (the maximum never
+  drops below 1).</li>
+<li><code>add_card</code> adds one copy to the deck for the rest of the run.</li>
+</ul>
+<p>One event per room, picked by weight. The pick is seeded per run and room, and an event
+does not repeat inside the same run while others are still unused.</p>
 <h2 id="combat-effect-vocabulary">Combat effect vocabulary<a class="headerlink" href="#combat-effect-vocabulary" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -1476,10 +1541,10 @@ rewrites the files in normalised form (useful after editing them by hand).</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.top", "navigation.tracking", "content.code.copy"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.top", "navigation.tracking", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.c21346df.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

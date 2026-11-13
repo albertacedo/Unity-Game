@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -31,10 +31,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -430,6 +430,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../sync/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Two machines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../roadmap/" class="md-nav__link">
         
   
@@ -470,10 +497,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
             
   
   
@@ -491,8 +518,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -866,6 +893,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sessions/2026-11-13-events-and-shop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026-11-13 · Events and shop
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -993,7 +1048,7 @@ the other hand, is <strong>data</strong>: four CSV tables in <code>Assets/Resour
   ├─ creates DevPanel (F1)
   └─ StartNewRun(seed)
         └─ ShowMap() → MapScreen
-              └─ node click → StartCombat() / ShowRest() / ShowPlaceholder()
+              └─ node click → StartCombat() / ShowRest() / ShowShop() / ShowEvent()
                     └─ CombatScreen → OnCombatFinished()
                           ├─ victory → ShowReward() → Advance() → ShowMap()
                           └─ defeat  → ShowEnd()
@@ -1015,7 +1070,15 @@ The layers that must survive (the <code>DevPanel</code>) hang off the Canvas, no
 </tr>
 <tr>
 <td><code>Scripts/Run/RunState.cs</code></td>
-<td>HP, gold, seed, map and deck (what survives between rooms)</td>
+<td>HP, gold, seed, map, deck and seen events (what survives between rooms)</td>
+</tr>
+<tr>
+<td><code>Scripts/Run/EventResolver.cs</code></td>
+<td>Event rules: weighted pick, affordability, effects on the run</td>
+</tr>
+<tr>
+<td><code>Scripts/Run/ShopState.cs</code></td>
+<td>Shop rules: stock, prices, buying cards and the bandage</td>
 </tr>
 <tr>
 <td><code>Scripts/Mapgen/MapGenerator.cs</code></td>
@@ -1059,7 +1122,7 @@ The layers that must survive (the <code>DevPanel</code>) hang off the Canvas, no
 </tr>
 <tr>
 <td><code>Scripts/Data/EventData.cs</code></td>
-<td>Event and options (catalogue; the screen does not exist yet)</td>
+<td>Event, its options and their effects</td>
 </tr>
 <tr>
 <td><code>Editor/ContentWindow.cs</code></td>
@@ -1082,6 +1145,14 @@ The layers that must survive (the <code>DevPanel</code>) hang off the Canvas, no
 <td>Pick 3 cards</td>
 </tr>
 <tr>
+<td><code>Scripts/UI/EventScreen.cs</code></td>
+<td>Event room: text, options with their numbers, outcome</td>
+</tr>
+<tr>
+<td><code>Scripts/UI/ShopScreen.cs</code></td>
+<td>Shop room: four cards with prices, bandage, leave</td>
+</tr>
+<tr>
 <td><code>Scripts/UI/SimpleScreens.cs</code></td>
 <td>Rest, placeholder and end of run</td>
 </tr>
@@ -1091,7 +1162,7 @@ The layers that must survive (the <code>DevPanel</code>) hang off the Canvas, no
 </tr>
 <tr>
 <td><code>Scripts/UI/OverlayInput.cs</code></td>
-<td>Counts the overlays that must block map input (the deck today)</td>
+<td>Counts the overlays that must block map input (the deck)</td>
 </tr>
 <tr>
 <td><code>Scripts/DevPanel.cs</code></td>
@@ -1113,6 +1184,18 @@ The layers that must survive (the <code>DevPanel</code>) hang off the Canvas, no
   road, touch another node's rectangle or pass within 8 units of its visual edge.</li>
 <li><strong>Room type</strong>: ring 1 is always combat; rings 2-5 roll 50% combat, 15% rest, 10% shop
   and 25% event. Bosses are always bosses, and <code>Elite</code> is not generated yet.</li>
+<li><strong>Events</strong>: one event per event room, picked by weight from <code>events.csv</code> with a roll
+  seeded by the run and the room, and never repeated in the same run while unused ones
+  remain. An option's <code>lose_gold</code> is a real cost (greyed out and unclickable when you
+  cannot pay), healing clamps at max HP, and an option that takes the last HP ends the
+  run. The rules are <code>Run/EventResolver.cs</code>; the screen only renders them.</li>
+<li><strong>Shop</strong>: a shop room puts four rewrite cards on the counter, drawn without duplicates
+  from the reward pool with a roll seeded by the run and the room, so the same visit
+  always shows the same stock. A card costs <code>30 + 15 × cost</code>, and one bandage per visit
+  heals 15 HP for 20 gold. Buying or healing redraws the screen over the same stock:
+  bought cards read <code>SOLD</code>, and cards you cannot pay for are disabled. Gold only comes
+  from events, so a shop visit is a real trade-off. The rules are <code>Run/ShopState.cs</code>; the
+  screen only renders them.</li>
 <li><strong>Connections</strong>: between two neighbouring rings, each room links to the room (or boss)
   closest in angle. The map ends up split into wedges centred on the small ring. Rooms on
   the same ring are joined with straight lines, and the ring just before the bosses is
@@ -1125,9 +1208,8 @@ The layers that must survive (the <code>DevPanel</code>) hang off the Canvas, no
   drag with the right or middle button to move the map. The map is clipped to its area
   (<code>RectMask2D</code>), so it never covers the HUD, and <code>RESET VIEW</code> returns to the initial
   state. Rooms can be clicked at any zoom level. While an overlay is open
-  (<code>OverlayInput.Count &gt; 0</code>: the deck today, the shop and the events later),
-  <code>MapScreen.Update</code> ignores wheel and drag: scrolling the cards must not move the map
-  behind.</li>
+  (<code>OverlayInput.Count &gt; 0</code>, the deck), <code>MapScreen.Update</code> ignores wheel and drag:
+  scrolling the cards must not move the map behind.</li>
 <li><strong>Movement</strong>: every choice moves exactly one node and you can walk in both directions.
   Visited rooms do not repeat content, but you can cross them to get back to a branch.
   Room types only reveal themselves within the configured radius (<code>1-5</code>, <code>1</code> by default);
@@ -1144,7 +1226,8 @@ The layers that must survive (the <code>DevPanel</code>) hang off the Canvas, no
   enemy. <code>DamageAll</code> (Cleave) hits every living enemy.</li>
 <li><strong>Vulnerable</strong>: multiplies incoming damage by 1.5, one counter per enemy (and one for
   the player) that drops by 1 at the end of the round.</li>
-<li><strong>Run</strong>: 72 HP, 99 gold (still unused).</li>
+<li><strong>Run</strong>: 72 HP, 99 gold to start. Gold has two sinks: event costs and rewards, and the
+  shop.</li>
 </ul>
 <h2 id="extension-points">Extension points<a class="headerlink" href="#extension-points" title="Permanent link">&para;</a></h2>
 <table>
@@ -1168,8 +1251,16 @@ The layers that must survive (the <code>DevPanel</code>) hang off the Canvas, no
 <td><code>EffectKind</code> (in <code>CardData</code>) + the <code>switch</code> in <code>CombatSession.ApplyEffects</code> + a field in <code>EnemyInstance</code> if it is a status + the name in <code>ContentCsv</code></td>
 </tr>
 <tr>
-<td>Add a relic or an event</td>
-<td><code>relics.csv</code> / <code>events.csv</code>; the game system still has to be written</td>
+<td>Add an event</td>
+<td><code>Resources/Content/events.csv</code>: one row, options as <code>label =&gt; effects</code></td>
+</tr>
+<tr>
+<td>Change the shop stock or prices</td>
+<td>the pool and <code>ShopState.Create</code> / <code>ShopState.PriceOf</code> in <code>Run/ShopState.cs</code></td>
+</tr>
+<tr>
+<td>Add a relic</td>
+<td><code>relics.csv</code>; the relic system still has to be written</td>
 </tr>
 <tr>
 <td>Add a screen</td>
@@ -1186,6 +1277,10 @@ The layers that must survive (the <code>DevPanel</code>) hang off the Canvas, no
 <li><code>tools/compile-check.ps1</code> compiles <code>Assets/Scripts</code> and <code>Assets/Editor</code> against the
   DLLs in <code>Library/</code> using the .NET SDK, without opening Unity. It is the first
   verification step; after that you still need to check the console and try Play mode.</li>
+<li><code>tools/sync-check.ps1</code> is the start of a session: fetch, pull, and the check that
+  matches what arrived (see <a href="../sync/">Two machines</a>).</li>
+<li><code>tools/skills-check.ps1</code> compares the vendored skills against upstream; <code>-Update</code>
+  refreshes the ones that changed.</li>
 <li><code>tools/content-check/</code> validates the content CSVs without opening Unity: same parser,
   same rules and a round-trip test of every table.</li>
 <li><code>Prototype → Content (CSV)</code> is the content editing window inside the Editor.</li>
@@ -1260,10 +1355,10 @@ The layers that must survive (the <code>DevPanel</code>) hang off the Canvas, no
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.top", "navigation.tracking", "content.code.copy"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.top", "navigation.tracking", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.c21346df.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>
