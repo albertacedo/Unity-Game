@@ -15,6 +15,9 @@ namespace Prototype
         public MapNode Current;
         public List<CardData> Deck = new List<CardData>();
 
+        /// <summary>Event ids already played this run, so a run does not repeat them.</summary>
+        public List<string> SeenEvents = new List<string>();
+
         // Playtest switches. They live with the run so every screen reads the same rules.
         public bool FogOfWar = false;
         public int RevealDistance = 1;

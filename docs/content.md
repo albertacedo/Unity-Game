@@ -119,9 +119,21 @@ old_shrine;Old Shrine;A mossy shrine hums.;10;Pray => heal:15 | Desecrate => gai
 Event effects: `nothing`, `heal`, `lose_hp`, `gain_gold`, `lose_gold`, `max_hp` and
 `add_card:card_id` (for example `add_card:strike`).
 
-!!! warning "Not used yet"
-    The event room is still a placeholder. The table and the format are already validated
-    so the content is ready when the screen arrives.
+How an option resolves, in order and without surprises:
+
+- `heal` never goes above `maxhp`; at full health the result line says so instead of
+  healing zero and saying nothing.
+- `lose_hp` can end the run: the last hit point shows the run-over screen, never
+  negative HP.
+- `lose_gold` is a **cost**: an option whose total `lose_gold` is more than the gold you
+  carry is shown greyed out with "need N gold" and cannot be chosen.
+- `max_hp` moves the ceiling and the current HP together: `max_hp:5` is +5 max and +5
+  current; `max_hp:-5` drags the current HP down with the ceiling (the maximum never
+  drops below 1).
+- `add_card` adds one copy to the deck for the rest of the run.
+
+One event per room, picked by weight. The pick is seeded per run and room, and an event
+does not repeat inside the same run while others are still unused.
 
 ## Combat effect vocabulary
 

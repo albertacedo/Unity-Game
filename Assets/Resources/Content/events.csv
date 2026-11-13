@@ -1,1 +1,7 @@
 id;title;text;weight;options
+old_shrine;Old Shrine;A mossy shrine hums under the roots. Something old still listens.;10;Pray => heal:15 | Desecrate => gain_gold:25+lose_hp:5 | Leave => nothing
+wounded_scout;Wounded Scout;A scout from a broken expedition bleeds against a stone.;10;Bandage the wound => lose_gold:15+max_hp:5 | Take her pack => gain_gold:35+lose_hp:8 | Walk past => nothing
+locked_chest;Locked Chest;An iron chest, still locked, still heavy.;8;Crack it open => gain_gold:40+lose_hp:10 | Pry the lid => gain_gold:15 | Leave it => nothing
+black_pool;Black Pool;The water is warm and does not reflect your face.;8;Drink deep => heal:25+lose_hp:10 | Skim the surface => heal:8 | Leave => nothing
+forgotten_forge;Forgotten Forge;An anvil, a cold fire and a blade nobody finished.;6;Finish the blade => lose_gold:30+add_card:heavy_blade | Scavenge the coal => gain_gold:20 | Leave => nothing
+hollow_gamble;Hollow Gamble;A masked figure offers a wager with no rules at all.;6;Wager 30 gold => lose_gold:30+gain_gold:80 | Wager 10 gold => lose_gold:10+gain_gold:22 | Leave => nothing

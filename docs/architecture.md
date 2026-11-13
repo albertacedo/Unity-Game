@@ -27,7 +27,8 @@ The layers that must survive (the `DevPanel`) hang off the Canvas, not off `Scre
 | File | Responsibility |
 |---|---|
 | `Scripts/GameManager.cs` | Entry point, screen switching, debug helpers |
-| `Scripts/Run/RunState.cs` | HP, gold, seed, map and deck (what survives between rooms) |
+| `Scripts/Run/RunState.cs` | HP, gold, seed, map, deck and seen events (what survives between rooms) |
+| `Scripts/Run/EventResolver.cs` | Event rules: weighted pick, affordability, effects on the run |
 | `Scripts/Mapgen/MapGenerator.cs` | Seeded, deterministic radial map |
 | `Scripts/Mapgen/MapLayout.cs` | Geometry shared by map and screen (radius, angle and ellipse) |
 | `Scripts/Combat/CombatSession.cs` | Combat rules (turns, energy, damage, block, target) |
@@ -38,12 +39,13 @@ The layers that must survive (the `DevPanel`) hang off the Canvas, not off `Scre
 | `Scripts/Data/CardData.cs` | Card, effects and text generated from the effects |
 | `Scripts/Data/EnemyData.cs` | Enemy, role (solo/group/boss) and intent queue |
 | `Scripts/Data/RelicData.cs` | Relic (catalogue; the system does not exist yet) |
-| `Scripts/Data/EventData.cs` | Event and options (catalogue; the screen does not exist yet) |
+| `Scripts/Data/EventData.cs` | Event, its options and their effects |
 | `Editor/ContentWindow.cs` | *Prototype → Content (CSV)* window for editing the tables |
 | `Scripts/UI/UIFactory.cs` | Helpers to build UI from code |
 | `Scripts/UI/MapScreen.cs` | Map, nodes and connections |
 | `Scripts/UI/CombatScreen.cs` | Combat, hand, visual feedback |
 | `Scripts/UI/RewardScreen.cs` | Pick 3 cards |
+| `Scripts/UI/EventScreen.cs` | Event room: text, options with their numbers, outcome |
 | `Scripts/UI/SimpleScreens.cs` | Rest, placeholder and end of run |
 | `Scripts/UI/DeckScreen.cs` | Overlay with the whole deck |
 | `Scripts/UI/OverlayInput.cs` | Counts the overlays that must block map input (the deck today) |
@@ -63,6 +65,11 @@ The layers that must survive (the `DevPanel`) hang off the Canvas, not off `Scre
   road, touch another node's rectangle or pass within 8 units of its visual edge.
 - **Room type**: ring 1 is always combat; rings 2-5 roll 50% combat, 15% rest, 10% shop
   and 25% event. Bosses are always bosses, and `Elite` is not generated yet.
+- **Events**: one event per event room, picked by weight from `events.csv` with a roll
+  seeded by the run and the room, and never repeated in the same run while unused ones
+  remain. An option's `lose_gold` is a real cost (greyed out and unclickable when you
+  cannot pay), healing clamps at max HP, and an option that takes the last HP ends the
+  run. The rules are `Run/EventResolver.cs`; the screen only renders them.
 - **Connections**: between two neighbouring rings, each room links to the room (or boss)
   closest in angle. The map ends up split into wedges centred on the small ring. Rooms on
   the same ring are joined with straight lines, and the ring just before the bosses is
@@ -103,7 +110,8 @@ The layers that must survive (the `DevPanel`) hang off the Canvas, not off `Scre
 | Add a card | `Resources/Content/cards.csv` (or the *Prototype → Content* window): one row |
 | Add an enemy | `Resources/Content/enemies.csv`: one row with its `role` |
 | Add an effect | `EffectKind` (in `CardData`) + the `switch` in `CombatSession.ApplyEffects` + a field in `EnemyInstance` if it is a status + the name in `ContentCsv` |
-| Add a relic or an event | `relics.csv` / `events.csv`; the game system still has to be written |
+| Add an event | `Resources/Content/events.csv`: one row, options as `label => effects` |
+| Add a relic | `relics.csv`; the relic system still has to be written |
 | Add a screen | `GameManager.ScreenKind` + a `ShowX()` + a class in `UI/` |
 | Change how an element looks | `UIFactory` (affects every screen at once) |
 

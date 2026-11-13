@@ -24,7 +24,7 @@ Ordered by value / effort ratio:
 | 6 | Shop | Gives gold a purpose | Mid |
 | 7 | Relics | Identity for each run | Mid |
 | 8 | Rest with a choice (heal vs upgrade) | Real decisions on the map | Low-mid |
-| 9 | Events | Narrative variety | Mid |
+| 9 | Events | Narrative variety | Mid ✅ |
 | 10 | Save/continue + manual seed | Longer sessions and repeatability | Mid |
 | 11 | AI art and sound | Polish (lots of generation time) | High |
 

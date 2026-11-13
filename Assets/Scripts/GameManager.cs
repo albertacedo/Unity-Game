@@ -26,7 +26,7 @@ namespace Prototype
         ScreenKind screen;
 
         /// <summary>Which screen currently owns the root, so debug actions know what to rebuild.</summary>
-        enum ScreenKind { Map, Combat, Reward, Rest, Placeholder, End }
+        enum ScreenKind { Map, Combat, Reward, Rest, Event, Placeholder, End }
 
         /// <summary>Current run. Never null once StartNewRun has run.</summary>
         public RunState Run { get { return run; } }
@@ -170,6 +170,9 @@ namespace Prototype
                 case NodeType.Rest:
                     ShowRest(node);
                     break;
+                case NodeType.Event:
+                    ShowEvent(node);
+                    break;
                 default:
                     ShowPlaceholder(node);
                     break;
@@ -268,6 +271,49 @@ namespace Prototype
                 () => Advance(node));
         }
 
+        void ShowEvent(MapNode node)
+        {
+            int roomKey = node != null ? node.Ring * 1000 + node.Index : System.Environment.TickCount;
+            EventData data = EventResolver.Pick(ContentDatabase.Events, run.Seed, roomKey, run.SeenEvents);
+
+            if (data == null)
+            {
+                if (node != null) ShowPlaceholder(node);
+                else ShowMap();
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(data.Id) && !run.SeenEvents.Contains(data.Id))
+                run.SeenEvents.Add(data.Id);
+
+            Clear();
+            screen = ScreenKind.Event;
+            pendingNode = node;
+            var screenRoot = UIFactory.MakeRect(root, "EventScreen");
+            UIFactory.Stretch(screenRoot);
+            var view = screenRoot.gameObject.AddComponent<EventScreen>();
+            view.Init(data, run, ContentDatabase.Cards,
+                option => OnEventChosen(view, node, option),
+                () => FinishEvent(node));
+        }
+
+        void OnEventChosen(EventScreen view, MapNode node, EventOption option)
+        {
+            EventResolution result = EventResolver.Apply(option, run, ContentDatabase.Cards);
+            view.ShowResult(result.Lines, run, () =>
+            {
+                if (result.Died) ShowEnd(false);
+                else FinishEvent(node);
+            });
+        }
+
+        void FinishEvent(MapNode node)
+        {
+            // A debug event has no room: it just goes back to the map.
+            if (node != null) Advance(node);
+            else ShowMap();
+        }
+
         void ShowPlaceholder(MapNode node)
         {
             Clear();
@@ -354,6 +400,13 @@ namespace Prototype
             run.Deck.Add(pool[rng.Next(pool.Count)]);
 
             if (screen == ScreenKind.Map) ShowMap();
+        }
+
+        /// <summary>Opens a random event without needing a room on the map.</summary>
+        public void DebugOpenEvent()
+        {
+            if (run == null) return;
+            ShowEvent(null);
         }
 
         public void DebugWinCombat()

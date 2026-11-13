@@ -16,10 +16,10 @@ what was learned and which files changed.
 | Playable loop | ✅ map → combat → reward → map |
 | Map | ⚠️ radial: centre, 8 rings, 4-7 bosses, configurable fog, zoom/pan and safe connections; being redesigned (reveal radius and backtracking) |
 | Combat | ✅ turns, energy, block, Vulnerable, multi-enemy with targeting |
-| Content | 10 cards · 2 enemies, 2 packs and 1 boss, and relic/event tables (still inert), all in editable CSV |
+| Content | 10 cards · 2 enemies, 2 packs and 1 boss · 6 events, and a relic table (still inert), all in editable CSV |
 | Test tools | ✅ F1 panel, deck view, combat feedback, `tools/compile-check.ps1` |
 | Content tools | ✅ `Prototype → Content (CSV)` window and `tools/content-check` |
-| Gold | ⚠️ shown but cannot be spent (shop pending) |
+| Gold | ⚠️ spent in events only (the shop is pending) |
 | Audio / art | ❌ placeholder |
 
 ## How to run it
