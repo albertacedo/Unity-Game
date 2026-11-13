@@ -60,7 +60,7 @@ attack:11|block:6|attack:7
 | `text` | text, optional | If empty, it is generated from the effects |
 | `cost` | 0-3 | |
 | `kind` | `attack`, `skill`, `power` | Decides the colour |
-| `pool` | `starter`, `reward`, `both`, `none` | Where the card shows up |
+| `pool` | `starter`, `reward`, `both`, `none` | Where the card shows up: the starting deck, the reward pool, or both. `reward` cards are also what shops put on the counter |
 | `copies` | integer >= 1 | Copies in the starting deck (ignored unless `starter`/`both`) |
 | `effects` | list of effects | |
 

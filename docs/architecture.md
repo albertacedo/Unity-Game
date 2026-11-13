@@ -13,7 +13,7 @@ GameManager.Awake()
   ├─ creates DevPanel (F1)
   └─ StartNewRun(seed)
         └─ ShowMap() → MapScreen
-              └─ node click → StartCombat() / ShowRest() / ShowPlaceholder()
+              └─ node click → StartCombat() / ShowRest() / ShowShop() / ShowEvent()
                     └─ CombatScreen → OnCombatFinished()
                           ├─ victory → ShowReward() → Advance() → ShowMap()
                           └─ defeat  → ShowEnd()
@@ -29,6 +29,7 @@ The layers that must survive (the `DevPanel`) hang off the Canvas, not off `Scre
 | `Scripts/GameManager.cs` | Entry point, screen switching, debug helpers |
 | `Scripts/Run/RunState.cs` | HP, gold, seed, map, deck and seen events (what survives between rooms) |
 | `Scripts/Run/EventResolver.cs` | Event rules: weighted pick, affordability, effects on the run |
+| `Scripts/Run/ShopState.cs` | Shop rules: stock, prices, buying cards and the bandage |
 | `Scripts/Mapgen/MapGenerator.cs` | Seeded, deterministic radial map |
 | `Scripts/Mapgen/MapLayout.cs` | Geometry shared by map and screen (radius, angle and ellipse) |
 | `Scripts/Combat/CombatSession.cs` | Combat rules (turns, energy, damage, block, target) |
@@ -46,9 +47,10 @@ The layers that must survive (the `DevPanel`) hang off the Canvas, not off `Scre
 | `Scripts/UI/CombatScreen.cs` | Combat, hand, visual feedback |
 | `Scripts/UI/RewardScreen.cs` | Pick 3 cards |
 | `Scripts/UI/EventScreen.cs` | Event room: text, options with their numbers, outcome |
+| `Scripts/UI/ShopScreen.cs` | Shop room: four cards with prices, bandage, leave |
 | `Scripts/UI/SimpleScreens.cs` | Rest, placeholder and end of run |
 | `Scripts/UI/DeckScreen.cs` | Overlay with the whole deck |
-| `Scripts/UI/OverlayInput.cs` | Counts the overlays that must block map input (the deck today) |
+| `Scripts/UI/OverlayInput.cs` | Counts the overlays that must block map input (the deck) |
 | `Scripts/DevPanel.cs` | Test panel (F1) |
 
 ## Implemented rules
@@ -70,6 +72,13 @@ The layers that must survive (the `DevPanel`) hang off the Canvas, not off `Scre
   remain. An option's `lose_gold` is a real cost (greyed out and unclickable when you
   cannot pay), healing clamps at max HP, and an option that takes the last HP ends the
   run. The rules are `Run/EventResolver.cs`; the screen only renders them.
+- **Shop**: a shop room puts four rewrite cards on the counter, drawn without duplicates
+  from the reward pool with a roll seeded by the run and the room, so the same visit
+  always shows the same stock. A card costs `30 + 15 × cost`, and one bandage per visit
+  heals 15 HP for 20 gold. Buying or healing redraws the screen over the same stock:
+  bought cards read `SOLD`, and cards you cannot pay for are disabled. Gold only comes
+  from events, so a shop visit is a real trade-off. The rules are `Run/ShopState.cs`; the
+  screen only renders them.
 - **Connections**: between two neighbouring rings, each room links to the room (or boss)
   closest in angle. The map ends up split into wedges centred on the small ring. Rooms on
   the same ring are joined with straight lines, and the ring just before the bosses is
@@ -82,9 +91,8 @@ The layers that must survive (the `DevPanel`) hang off the Canvas, not off `Scre
   drag with the right or middle button to move the map. The map is clipped to its area
   (`RectMask2D`), so it never covers the HUD, and `RESET VIEW` returns to the initial
   state. Rooms can be clicked at any zoom level. While an overlay is open
-  (`OverlayInput.Count > 0`: the deck today, the shop and the events later),
-  `MapScreen.Update` ignores wheel and drag: scrolling the cards must not move the map
-  behind.
+  (`OverlayInput.Count > 0`, the deck), `MapScreen.Update` ignores wheel and drag:
+  scrolling the cards must not move the map behind.
 - **Movement**: every choice moves exactly one node and you can walk in both directions.
   Visited rooms do not repeat content, but you can cross them to get back to a branch.
   Room types only reveal themselves within the configured radius (`1-5`, `1` by default);
@@ -101,7 +109,8 @@ The layers that must survive (the `DevPanel`) hang off the Canvas, not off `Scre
   enemy. `DamageAll` (Cleave) hits every living enemy.
 - **Vulnerable**: multiplies incoming damage by 1.5, one counter per enemy (and one for
   the player) that drops by 1 at the end of the round.
-- **Run**: 72 HP, 99 gold (still unused).
+- **Run**: 72 HP, 99 gold to start. Gold has two sinks: event costs and rewards, and the
+  shop.
 
 ## Extension points
 
@@ -111,6 +120,7 @@ The layers that must survive (the `DevPanel`) hang off the Canvas, not off `Scre
 | Add an enemy | `Resources/Content/enemies.csv`: one row with its `role` |
 | Add an effect | `EffectKind` (in `CardData`) + the `switch` in `CombatSession.ApplyEffects` + a field in `EnemyInstance` if it is a status + the name in `ContentCsv` |
 | Add an event | `Resources/Content/events.csv`: one row, options as `label => effects` |
+| Change the shop stock or prices | the pool and `ShopState.Create` / `ShopState.PriceOf` in `Run/ShopState.cs` |
 | Add a relic | `relics.csv`; the relic system still has to be written |
 | Add a screen | `GameManager.ScreenKind` + a `ShowX()` + a class in `UI/` |
 | Change how an element looks | `UIFactory` (affects every screen at once) |

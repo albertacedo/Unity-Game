@@ -68,6 +68,7 @@ namespace Prototype
             Add("HEAL TO FULL", new Color(0.24f, 0.42f, 0.30f), () => GameManager.Instance.DebugHeal());
             Add("ADD RANDOM CARD", new Color(0.30f, 0.26f, 0.38f), () => GameManager.Instance.DebugAddCard());
             Add("OPEN RANDOM EVENT", new Color(0.24f, 0.36f, 0.34f), () => GameManager.Instance.DebugOpenEvent());
+            Add("OPEN SHOP", new Color(0.38f, 0.32f, 0.16f), () => GameManager.Instance.DebugOpenShop());
             winButton = Add("WIN COMBAT", new Color(0.46f, 0.24f, 0.24f), () => GameManager.Instance.DebugWinCombat());
             killButton = Add("KILL TARGET", new Color(0.42f, 0.22f, 0.30f), () => GameManager.Instance.DebugKillTarget());
             energyButton = Add("+1 ENERGY", new Color(0.36f, 0.32f, 0.18f), () => GameManager.Instance.DebugAddEnergy());

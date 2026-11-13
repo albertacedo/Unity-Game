@@ -20,13 +20,14 @@ namespace Prototype
         RectTransform root;
         RunState run;
         CombatSession combat;
+        ShopState shop;
         System.Random rng;
         DeckScreen deckScreen;
         MapNode pendingNode;
         ScreenKind screen;
 
         /// <summary>Which screen currently owns the root, so debug actions know what to rebuild.</summary>
-        enum ScreenKind { Map, Combat, Reward, Rest, Event, Placeholder, End }
+        enum ScreenKind { Map, Combat, Reward, Rest, Shop, Event, Placeholder, End }
 
         /// <summary>Current run. Never null once StartNewRun has run.</summary>
         public RunState Run { get { return run; } }
@@ -88,6 +89,7 @@ namespace Prototype
             RevealVisibleNodes();
             rng = new System.Random(seed + 7919);
             combat = null;
+            shop = null;
             pendingNode = null;
             ShowMap();
         }
@@ -169,6 +171,9 @@ namespace Prototype
                     break;
                 case NodeType.Rest:
                     ShowRest(node);
+                    break;
+                case NodeType.Shop:
+                    ShowShop(node);
                     break;
                 case NodeType.Event:
                     ShowEvent(node);
@@ -269,6 +274,42 @@ namespace Prototype
                     Advance(node);
                 },
                 () => Advance(node));
+        }
+
+        void ShowShop(MapNode node)
+        {
+            // One stock per visit: buying redraws the screen over the same ShopState.
+            if (shop == null)
+            {
+                int roomKey = node != null ? node.Ring * 1000 + node.Index : System.Environment.TickCount;
+                shop = ShopState.Create(CardLibrary.RewardPool(), run.Seed, roomKey);
+            }
+
+            Clear();
+            screen = ScreenKind.Shop;
+            pendingNode = node;
+            var screenRoot = UIFactory.MakeRect(root, "ShopScreen");
+            UIFactory.Stretch(screenRoot);
+            var view = screenRoot.gameObject.AddComponent<ShopScreen>();
+            view.Init(shop, run,
+                offer =>
+                {
+                    if (!shop.Buy(offer, run)) return;
+                    ShowShop(node);
+                },
+                () =>
+                {
+                    if (!shop.Heal(run)) return;
+                    ShowShop(node);
+                },
+                () => LeaveShop(node));
+        }
+
+        void LeaveShop(MapNode node)
+        {
+            shop = null;
+            if (node != null) Advance(node);
+            else ShowMap();
         }
 
         void ShowEvent(MapNode node)
@@ -407,6 +448,14 @@ namespace Prototype
         {
             if (run == null) return;
             ShowEvent(null);
+        }
+
+        /// <summary>Opens a fresh shop without needing a room on the map.</summary>
+        public void DebugOpenShop()
+        {
+            if (run == null) return;
+            shop = null;
+            ShowShop(null);
         }
 
         public void DebugWinCombat()

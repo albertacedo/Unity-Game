@@ -21,6 +21,11 @@ description: Use when designing or tuning cards, enemies, intents, encounters, r
   fights, ~6 rests, ~4 shops and ~10 events. Movement is free; `LateralChance` (0.5)
   decides how much the ring rooms interconnect: ~11 rooms per random run, ~25% of
   runs end in a dead end.
+- Gold: 99 at the start and **events are the only income** (`gain_gold` 20-80). Sinks:
+  event costs (`lose_gold` 15-40) and the shop. Shop prices are `30 + 15 x cost`, one
+  bandage per visit is 15 HP for 20 gold (`ShopState`). With 99 gold a run buys one
+  2-cost card or two 1-cost ones: that is the intended weight, raise income before
+  raising prices.
 
 ## Benchmarks (use before inventing numbers)
 
@@ -34,6 +39,7 @@ description: Use when designing or tuning cards, enemies, intents, encounters, r
 | Normal fight length | 4-6 turns, ending at 60-80% HP |
 | Boss fight length | 8-12 turns |
 | AoE premium | worth ~1.5x single target when 2+ enemies are alive |
+| Shop card price | 30 (0-cost) / 45 (1-cost) / 60 (2-cost) gold; a 1-cost card ~= half a starting wallet |
 
 ## Encounter design
 

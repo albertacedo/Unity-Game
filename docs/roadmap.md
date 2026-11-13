@@ -2,10 +2,10 @@
 
 ## Current gaps
 
-1. **Gold is useless** — it is displayed and cannot be spent (shop pending).
-2. **There is only one effect** (Vulnerable) and 10 cards: combat still does not have
-   enough decisions per card. The CSV format is ready to grow without touching code.
-3. **The map has to be redesigned.** The current radial one (fog + `LateralChance`) worked,
+1. **Cards run dry**: the reward pool has 7 cards and there is only one status effect
+   (Vulnerable), so both combat and the shop keep offering the same small set. The CSV
+   format is ready to grow without touching code.
+2. **The map has to be redesigned.** The current radial one (fog + `LateralChance`) worked,
    but the shape of the run will be decided with the new map: reveal radius, being able to
    go back and how many rooms a run should last. The 24.9% dead-end and 11.35 rooms-per-run
    figures no longer rule.
@@ -21,7 +21,7 @@ Ordered by value / effort ratio:
 | 3 | Combat feedback | Floating numbers and flashes: changes how it feels | Low-mid ✅ |
 | 4 | Multi-enemy + target selection | The biggest jump in depth | Mid-high ✅ |
 | 5 | 8 new effects + 15-20 cards | Weak, Strength, Dexterity, multi-hit, area… | Mid |
-| 6 | Shop | Gives gold a purpose | Mid |
+| 6 | Shop | Gives gold a purpose | Mid ✅ |
 | 7 | Relics | Identity for each run | Mid |
 | 8 | Rest with a choice (heal vs upgrade) | Real decisions on the map | Low-mid |
 | 9 | Events | Narrative variety | Mid ✅ |
@@ -42,7 +42,7 @@ game starts to have real decisions.
 
 ### Batch 3 — make the run interesting
 
-Shop + relics + rest with a choice. Gold and the map stop being decorative.
+Shop ✅ + relics + rest with a choice. Gold and the map stop being decorative.
 
 ## Batch 2b — information fog on the radial map
 
