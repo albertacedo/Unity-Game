@@ -114,8 +114,9 @@ re-derive every session: engine quirks, balance numbers, verification recipes.
 | `status-effects-pipeline` | adding or changing a combat status or effect |
 
 **External skills** — vendored verbatim from the [skills.sh](https://www.skills.sh/) catalog,
-each with an *Upstream source* footer (repo, path, fetch date, audits). General
-knowledge: they do not know our code, so prefer the project skill when the two disagree.
+each with an *Upstream source* footer (repo, path, fetch date, upstream commit, audits).
+General knowledge: they do not know our code, so prefer the project skill when the two
+disagree. Last full re-check: **2026-11-13** (7 of 12 had changed upstream).
 
 | Skill | Source | Use it when |
 |---|---|---|
@@ -124,7 +125,7 @@ knowledge: they do not know our code, so prefer the project skill when the two d
 | `unity-csharp-scripting` | `gamedev-skills/awesome-gamedev-agent-skills` | MonoBehaviour lifecycle, serialization, coroutines |
 | `unity-input-system` | `gamedev-skills/awesome-gamedev-agent-skills` | Input Actions, action maps, rebinding |
 | `card-game` | `gamedev-skills/awesome-gamedev-agent-skills` | card zones, draw/shuffle, effect resolution |
-| `roguelike` | `gamedev-skills/awesome-gamedev-agent-skills` | run structure, permadeath, procedural levels |
+| `roguelike` | `gamedev-skills/awesome-gamedev-agent-skills` | grid roguelikes: turn order, permadeath, FOV (upstream says it is **not** for deckbuilders; the run side here is `roguelike-game-designer`) |
 | `card-game-design` | `omer-metin/skills-for-antigravity` | card system design: curve, rarity, keywords |
 | `game-balance-economy` | `lvtd-llc/skills` | economy, rewards, risk-reward, dominant strategies |
 | `game-mechanics-design` | `lvtd-llc/skills` | specifying a mechanic's rules, state, failure modes and test cases before coding it |

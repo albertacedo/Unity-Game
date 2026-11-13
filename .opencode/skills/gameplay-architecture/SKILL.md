@@ -12,8 +12,11 @@ description: Use when adding a feature or subsystem to this prototype (shop, rel
   `GameManager` the current screen. Views never mutate state directly.
 - **Events, not polling.** `CombatSession.Changed` and `DamageDealt` tell the view
   when to rebuild. Always unsubscribe in `OnDestroy`.
-- **Content is data.** `CardLibrary` / `EnemyLibrary` build `ScriptableObject`s in
-  code. Add a field to the data type before adding a special case in the rules.
+- **Content is data, and it is CSV.** Cards, enemies, relics and events live in
+  `Assets/Resources/Content/*.csv` and load through `ContentDatabase`; `CardLibrary`
+  only filters those tables (see `docs/content.md`). There is no content
+  `ScriptableObject`: add a column to the CSV and a field to the flat data class
+  before adding a special case in the rules.
 - **Screens are a function of state.** `GameManager.Clear()` then `ShowX()`; overlays
   (deck) hang off the canvas root so they survive screen changes.
 - **Determinism.** All randomness comes from a seeded `System.Random`; keep one rng
@@ -58,3 +61,14 @@ systems. Placeholder art is fine; feedback (numbers, flashes, timing) is not.
 4. `GameManager`: `ScreenKind.Shop`, `ShowShop(node)`, `Advance(node)` on exit.
 5. `DevPanel`: button to open the shop from the map.
 6. Docs: architecture table row + roadmap tick.
+
+## External skills: what they assume
+
+The external skills are general doctrine, refreshed on 2026-11-13, and a few of them
+now assume another stack. When they disagree with this repo, this file wins:
+
+- `card-game` assumes ScriptableObject data and a *trigger stack*. Here the content is
+  CSV and effects resolve in order inside `CombatSession.ApplyEffects`.
+- `roguelike` covers grid roguelikes and says explicitly it is **not** for
+  deckbuilders. For run structure and difficulty use `roguelike-game-designer` and
+  `deckbuilder-balance`, and read `MapGenerator` for what this map really does.

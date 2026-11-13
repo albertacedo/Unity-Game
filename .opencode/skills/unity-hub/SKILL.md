@@ -1,3 +1,8 @@
+---
+name: unity-hub
+description: Use when the Unity Hub does not list the project, or when its project list must be read or changed without the UI. Hub 3.22 keeps the list in hub.db, not projects-v1.json.
+---
+
 # Skill: Unity Hub project list
 
 Use this when the Unity Hub does not list the project, or when you have to inspect or

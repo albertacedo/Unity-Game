@@ -3,6 +3,7 @@ name: ui-ugui
 description: Understands, edits, and generates Unity uGUI Canvas hierarchies, RectTransforms, Layout Groups, and prefab UI. Use for requests involving Canvas, uGUI, RectTransform, or prefab UI files.
 ---
 
+
 Understand existing Unity uGUI, make targeted edits, and generate new Canvas-based hierarchies.
 
 When working with ScrollRect/ScrollView, read the reference file:
@@ -40,7 +41,7 @@ Determine what the user is asking for:
 - Other namespaces in the project can cause ambiguous type errors
 
 **Verify before modifying:**
-- Always check what currently exists before making changes
+- Always check what exists before making changes
 - Confirm parent objects exist before adding children
 - Verify components are present before modifying properties
 - Never assume hierarchy state — query it first
@@ -284,6 +285,7 @@ The content is upstream's (unmodified).
 
 - Source: https://github.com/unity-technologies/skills/blob/main/skills/ui-ugui/SKILL.md
 - Registry: https://www.skills.sh/unity-technologies/skills/ui-ugui
-- Installs when fetched: 6.6K
-- Fetched: 2026-10-27
+- Installs when fetched: 7.7K
+- Fetched: 2026-11-13
+- Upstream commit: 6f95691512 (2026-10-30)
 - Security audits on skills.sh: Gen Agent Trust Hub PASS, Socket PASS, Snyk PASS
